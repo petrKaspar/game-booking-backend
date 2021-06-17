@@ -20,8 +20,15 @@ const x = {
     username: process.env.DB_USER,
     password: process.env.DB_PASS,
     database: process.env.DB_NAME,
+    port: process.env.DB_PORT || 5432,
     host: process.env.DB_HOST,
-    dialect: process.env.DB_DIALECT,
+    dialect: process.env.DB_DIALECT || 'postgres',
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false,
+      },
+    },
   },
 };
 module.exports = x;

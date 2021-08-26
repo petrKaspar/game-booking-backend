@@ -11,6 +11,8 @@ router.get('/allUsers', userController.allUsers);
 
 router.get('/games', gameController.getGamesAdmin);
 
+router.get('/games/:id', gameController.getGameAdmin);
+
 router.patch('/games/:id', gameController.updateGame);
 
 router.delete('/games/:id', gameController.deleteGame);

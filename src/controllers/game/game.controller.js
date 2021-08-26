@@ -33,6 +33,21 @@ export const getGamesAdmin = async (req, res) => {
   }
 };
 
+export const getGameAdmin = async (req, res) => {
+  try {
+    const game = await Game.findOne({
+    where: {
+        id: req.params.id,
+      },
+      include: Tag,
+      order: [['createdAt', 'DESC'], ['name', 'ASC']],
+    });
+    return successResponse(req, res, game );
+  } catch (error) {
+    return errorResponse(req, res, error.message);
+  }
+};
+
 export const deleteGame = async (req, res) => {
   try {
     await Game.destroy({
@@ -49,8 +64,20 @@ export const deleteGame = async (req, res) => {
 
 export const updateGame = async (req, res) => {
   try {
+    delete req.body['id'];
+    delete req.body['Tags'];
+    delete req.body['createdAt'];
+    delete req.body['updatedAt'];
+    delete req.body['rating'];
+    delete req.body['tags'];
+    for (let k in req.body) {
+        if (req.body[k] === '') {
+            req.body[k] = null;
+        }
+    }
+    console.log(req.body);
     await Game.update(
-      { ...req.body },
+      req.body,
       {
         where: {
           id: req.params.id,
@@ -102,7 +129,6 @@ export const reserveGame = async (req, res) => {
 
 export const createGame = async (req, res) => {
   try {
-    console.log('ppppppppppppppppppppppppppppp ', req.body.public);
     const game = await Game.create({
       name: req.body.name,
       status: req.body.status,
@@ -142,6 +168,7 @@ export const createGame = async (req, res) => {
     return errorResponse(req, res, error.message);
   }
 };
+
 //
 // export const allUsers = async (req, res) => {
 //   try {

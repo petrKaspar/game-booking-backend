@@ -7,18 +7,20 @@ const sequelize = new Sequelize(
   process.env.DB_USER || config.username,
   process.env.DB_PASS || config.password,
   {
-    host: process.env.DB_HOST || config.host,
-    port: process.env.DB_PORT || config.port,
+    host: '127.0.0.1',
+    port: 5433,
     dialect: process.env.DB_DIALECT || config.dialect,
+
+  },
+);
+/*
     dialectOptions: {
       ssl: {
         require: true,
         rejectUnauthorized: false,
       },
     },
-  },
-);
-
+*/
 sequelize
   .authenticate()
   .then(() => {

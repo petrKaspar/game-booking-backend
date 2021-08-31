@@ -2,10 +2,62 @@ import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 import axios from 'axios';
 import {
-  User, Game, Tag, TagGame, Changelog
+  User, Game, Tag, TagGame, Borrow, Changelog
 } from '../../models';
 import { successResponse, errorResponse, uniqueId } from '../../helpers';
 
+export const getChangelogs = async (req, res) => {
+  try {
+    const changelogs = await Changelog.findAndCountAll({
+      where: {
+        GameId: req.params.gameId,
+      },
+      order: [['createdAt', 'ASC']],
+    });
+    return successResponse(req, res, { changelogs });
+  } catch (error) {
+    return errorResponse(req, res, error.message);
+  }
+};
+
+export const createChangelog = async (req, res) => {
+  try {
+    const changelog = await Changelog.create({
+      GameId: req.params.gameId,
+      statusOld: req.body.statusOld,
+      statusNew: req.body.statusNew,
+      note: req.body.note,
+      userName: req.body.userName,
+      userEmail: req.body.userEmail,
+    });
+    
+    const createdChangelog = await Changelog.findOne({
+      where: {
+        id: changelog.id,
+      },
+    });
+    return successResponse(req, res, { createdChangelog });
+  } catch (error) {
+    return errorResponse(req, res, error.message);
+  }
+};
+
+export const getChangelog = async (req, res) => {
+  try {
+    const changelogs = await Changelog.findAndCountAll({
+      where: {
+        id: req.params.changelogId,
+        GameId: req.params.gameId,
+      },
+      order: [['createdAt', 'DESC']],
+    });
+    return successResponse(req, res, { changelogs });
+  } catch (error) {
+    return errorResponse(req, res, error.message);
+  }
+};
+
+/*
 export const getGames = async (req, res) => {
   try {
     const games = await Game.findAndCountAll({
@@ -36,12 +88,10 @@ export const getGamesAdmin = async (req, res) => {
 export const getGameAdmin = async (req, res) => {
   try {
     const game = await Game.findOne({
-      where: {
+    where: {
         id: req.params.id,
       },
-      include: [
-        Tag, Changelog
-      ],
+      include: Tag,
       order: [['createdAt', 'DESC'], ['name', 'ASC']],
     });
     return successResponse(req, res, game );
@@ -170,6 +220,11 @@ export const createGame = async (req, res) => {
     return errorResponse(req, res, error.message);
   }
 };
+*/
+
+
+
+//*****************************************************************************************************
 
 //
 // export const allUsers = async (req, res) => {

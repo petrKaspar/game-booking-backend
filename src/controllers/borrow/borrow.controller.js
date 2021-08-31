@@ -2,10 +2,50 @@ import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 import axios from 'axios';
 import {
-  User, Game, Tag, TagGame, Changelog
+  User, Game, Tag, TagGame, Borrow
 } from '../../models';
 import { successResponse, errorResponse, uniqueId } from '../../helpers';
 
+export const getBorrows = async (req, res) => {
+
+  try {
+    const borrows = await Borrow.findAndCountAll({
+      where: {
+        GameId: req.params.gameId,
+      },
+      order: [['createdAt', 'DESC']],
+    });
+    return successResponse(req, res, { borrows });
+  } catch (error) {
+    return errorResponse(req, res, error.message);
+  }
+};
+
+export const createBorrow = async (req, res) => {
+  try {
+    const borrow = await Borrow.create({
+      status: req.body.status,
+      note: req.body.note,
+      userName: req.body.userName,
+      userEmail: req.body.userEmail,
+      reservationDate: req.body.reservationDate,
+      borrowDate: req.body.borrowDate,
+      returnDate: req.body.returnDate,
+    });
+    
+    const createdBorrow = await Borrow.findOne({
+      where: {
+        id: borrow.id,
+      },
+    });
+    return successResponse(req, res, { createdBorrow });
+  } catch (error) {
+    return errorResponse(req, res, error.message);
+  }
+};
+
+
+/*
 export const getGames = async (req, res) => {
   try {
     const games = await Game.findAndCountAll({
@@ -36,12 +76,10 @@ export const getGamesAdmin = async (req, res) => {
 export const getGameAdmin = async (req, res) => {
   try {
     const game = await Game.findOne({
-      where: {
+    where: {
         id: req.params.id,
       },
-      include: [
-        Tag, Changelog
-      ],
+      include: Tag,
       order: [['createdAt', 'DESC'], ['name', 'ASC']],
     });
     return successResponse(req, res, game );
@@ -170,6 +208,11 @@ export const createGame = async (req, res) => {
     return errorResponse(req, res, error.message);
   }
 };
+*/
+
+
+
+//*****************************************************************************************************
 
 //
 // export const allUsers = async (req, res) => {

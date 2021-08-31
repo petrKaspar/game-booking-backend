@@ -57,7 +57,13 @@ db.Tag.belongsToMany(db.Game, {
 db.TagGame.belongsTo(db.Game);
 db.TagGame.belongsTo(db.Tag);
 
-// for automatic call "CREATE TABLE IF NOT EXISTS "TagGame"" and another things ...
-sequelize.sync();
+db.Game.hasMany(db.Borrow);
+db.Borrow.belongsTo(db.Game);
+
+db.Game.hasMany(db.Changelog);
+db.Changelog.belongsTo(db.Game); // automaticky si to najde sloupec s presnym nazvem `GameId`, musi se vsak v migarci vytvorit
+
+// for automatic call "CREATE TABLE IF NOT EXISTS "TagGame"" GameId in relation 1:N and another things ...
+//sequelize.sync();
 
 module.exports = db;

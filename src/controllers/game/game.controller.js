@@ -123,6 +123,15 @@ export const reserveGame = async (req, res) => {
         returning: true,
       },
     );
+    await Changelog.create(
+      {
+        GameId: req.params.id,
+        statusNew: 3,
+        note: 'Hra rezervována uživatelem',
+        userName: req.body.userName,
+        userEmail: req.body.userEmail,
+      },
+    );
     return successResponse(req, res);
   } catch (error) {
     return errorResponse(req, res, error.message);

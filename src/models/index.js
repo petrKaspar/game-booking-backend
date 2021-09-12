@@ -64,6 +64,6 @@ db.Game.hasMany(db.Changelog);
 db.Changelog.belongsTo(db.Game); // automaticky si to najde sloupec s presnym nazvem `GameId`, musi se vsak v migarci vytvorit
 
 // for automatic call "CREATE TABLE IF NOT EXISTS "TagGame"" GameId in relation 1:N and another things ...
-//sequelize.sync();
+sequelize.sync();
 
 module.exports = db;

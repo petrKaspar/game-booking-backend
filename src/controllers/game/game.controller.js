@@ -156,7 +156,11 @@ export const createGame = async (req, res) => {
       image: req.body.image,
       public: req.body.public,
       note: req.body.note,
+      description: req.body.description,
+      userName: req.body.userName,
+      userEmail: req.body.userEmail
     });
+
     if (Array.isArray(req.body.tags)) {
       req.body.tags.forEach((tag) => {
         console.log(tag);

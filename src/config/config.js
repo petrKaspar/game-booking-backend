@@ -8,6 +8,11 @@ const x = {
     host: process.env.DB_HOST || '127.0.0.1',
     port: process.env.DB_PORT || 5433,
     dialect: process.env.DB_DIALECT || 'postgres',
+    emailOptions: {
+      user: process.env.EMAIL_USER || 'petr2kaspar@gmail.com',
+      pass: process.env.EMAIL_PASS,
+      to: process.env.EMAIL_TO || 'pkaspar1@seznam.cz',
+    },
   },
   test: {
     username: process.env.DB_USER,
@@ -28,6 +33,11 @@ const x = {
         require: true,
         rejectUnauthorized: false,
       },
+    },
+    emailOptions: {
+      user: process.env.EMAIL_USER || 'petr2kaspar@gmail.com',
+      pass: process.env.EMAIL_PASS,
+      to: process.env.EMAIL_TO || 'pkaspar1@seznam.cz',
     },
   },
 };

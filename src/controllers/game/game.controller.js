@@ -5,6 +5,11 @@ import {
   User, Game, Tag, TagGame, Changelog
 } from '../../models';
 import { successResponse, errorResponse, uniqueId } from '../../helpers';
+import * as nodemailer from 'nodemailer';
+const env = process.env.NODE_ENV || 'development';
+import * as c from '../../config/config.js';
+const config = c['development'];
+
 
 export const getGames = async (req, res) => {
   try {
@@ -127,11 +132,72 @@ export const reserveGame = async (req, res) => {
       {
         GameId: req.params.id,
         statusNew: 3,
-        note: 'Hra rezervována uživatelem',
+        note: `Hra rezervována uživatelem. ${req.body.message}`,
         userName: req.body.userName,
         userEmail: req.body.userEmail,
       },
     );
+    const htmlBody = `<body><h2>Nová rezervace hry: ${game.name}</h2>
+    <h2>Hráč: ${req.body.userName}</h2>
+    <h2>E-mail: ${req.body.userEmail}</h2>
+    <h2>Zpráva pro zprávce: ${req.body.message}</h2>
+
+    <h3><b>Podrobnosti ke hře</b></h3></br>
+
+                              <table cellpadding="5" cellspacing="0" width="400" align="left" border="1">
+                              <tr>
+                                <td >Databázové ID</td>
+                                <td>${game.id}</td>
+                              </tr>
+                              <tr>
+                                <td>Jméno</td>
+                                <td>${game.name}</td>
+</tr>
+                              <tr>
+                                <td>Inventární číslo</td>
+                                <td>${game.inventaryNumber}</td>
+</tr>
+                              <tr>
+                                <td>Počet</td>
+                                <td>${game.count}</td>
+</tr>
+                              <tr>
+                                <td>Počet dostupných kusů</td>
+                                <td>${game.lendingCount}</td>
+</tr>
+                              <tr>
+                                <td>Status</td>
+                                <td>${game.status + ' ' + getStatusName(game.status)}</td>
+</tr>
+                              <tr>
+                                <td>Link obrázku</td>
+                                <td>${game.image}</td>
+</tr>
+                              <tr>
+                                <td>Odkaz na hru</td>
+                                <td>${game.sourceLink}</td>
+</tr>
+                              <tr>
+                                <td>Jméno aktuálního uživatele</td>
+                                <td>${game.userName}</td>
+</tr>
+                              <tr>
+                                <td>Email aktuálního uživatele</td>
+                                <td>${game.userEmail}</td>
+</tr>
+                              <tr>
+                                <td>Poznámka administrátora</td>
+                                <td>${game.note}</td>
+</tr>
+                              <tr>
+                                <td>Poslední aktualizace</td>
+                                <td>${game.updatedAt}</td>
+</tr>
+                              </table>
+
+                              </body>`
+    await sendEmail(req.body.userName, config.emailOptions.to, `nová rezervace - ${game.name}`, `Byl vystaven požadevek na rezrvaci hry ${game.name}`, htmlBody);
+
     return successResponse(req, res);
   } catch (error) {
     return errorResponse(req, res, error.message);
@@ -321,3 +387,45 @@ export const createGame = async (req, res) => {
 //     return errorResponse(req, res, error.message);
 //   }
 // };
+
+
+export const sendEmail = async (from, to, subject, message, htmlBody) => {
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: config.emailOptions.user,
+      pass: config.emailOptions.pass
+    }
+  });
+
+  const mailOptions = {
+    from: from,
+    to: to,
+    subject: subject,
+    text: message,
+    html: htmlBody
+  };
+
+  transporter.sendMail(mailOptions, function(error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log(`Email send!`);
+    }
+  })
+}
+
+export const getStatusName = (statusNumber) => {
+  switch (statusNumber) {
+       case 1:
+         return 'dostupne';
+       case 2:
+         return 'vypujceno';
+       case 3:
+         return 'rezervovano';
+       case 4:
+         return 'ztraceno';
+       default:
+         return 'dostupne';
+     }
+}

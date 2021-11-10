@@ -137,7 +137,7 @@ export const reserveGame = async (req, res) => {
         userEmail: req.body.userEmail,
       },
     );
-    const htmlBody = `<body><h2>Nová rezervace hry: ${game.name}</h2>
+    const htmlBody = `<body><h2>Nová rezervace hry: <a href="https://game-booking.herokuapp.com/#/games/${game.id}">${game.name}</a></h2>
     <h2>Hráč: ${req.body.userName}</h2>
     <h2>E-mail: ${req.body.userEmail}</h2>
     <h2>Zpráva pro zprávce: ${req.body.message}</h2>

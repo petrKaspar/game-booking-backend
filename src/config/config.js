@@ -10,7 +10,7 @@ const x = {
     dialect: process.env.DB_DIALECT || 'postgres',
     emailOptions: {
       user: process.env.EMAIL_USER || 'petr2kaspar@gmail.com',
-      pass: process.env.EMAIL_PASS,
+      pass: process.env.EMAIL_PASS || 'MimonJePrima',
       to: process.env.EMAIL_TO || 'pkaspar1@seznam.cz',
     },
   },

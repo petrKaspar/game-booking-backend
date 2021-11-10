@@ -390,6 +390,7 @@ export const createGame = async (req, res) => {
 
 
 export const sendEmail = async (from, to, subject, message, htmlBody) => {
+  console.log(config.emailOptions.user);
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {

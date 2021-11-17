@@ -23,7 +23,7 @@ app.use(
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use('/pub', publicRoutes);
+app.use('/public', publicRoutes);
 app.use('/api', apiMiddleware, apiRoutes);
 app.use('/api/admin', apiMiddleware, adminMiddleware, adminRoutes);
 app.use(errorHandler);

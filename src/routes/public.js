@@ -5,6 +5,7 @@ import * as gameController from '../controllers/game/game.controller';
 import * as userController from '../controllers/user/user.controller';
 import * as userValidator from '../controllers/user/user.validator';
 import * as tagController from '../controllers/tag/tag.controller';
+import * as imageController from '../controllers/image/image.controller';
 
 const router = express.Router();
 
@@ -33,6 +34,10 @@ router.get(
 router.patch(
   '/games/:id',
   gameController.reserveGame,
+);
+router.get(
+  '/images/:name',
+  imageController.getImage,
 );
 // todo: move to private
 router.post(

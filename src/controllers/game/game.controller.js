@@ -5,11 +5,11 @@ import {
   User, Game, Tag, TagGame, Changelog
 } from '../../models';
 import { successResponse, errorResponse, uniqueId } from '../../helpers';
-import * as nodemailer from 'nodemailer';
+import { newReservationEmailTemplate, gameItemsArray, gameItemTemplate } from '../../templates/email-newResrevation';
+// import * as nodemailer from 'nodemailer';
 const env = process.env.NODE_ENV || 'development';
 import * as c from '../../config/config.js';
 const config = c['development'];
-
 
 export const getGames = async (req, res) => {
   try {
@@ -137,72 +137,31 @@ export const reserveGame = async (req, res) => {
         userEmail: req.body.userEmail,
       },
     );
-    const htmlBody = `<body><h2>Nová rezervace hry: <a href="https://game-booking.herokuapp.com/#/games/${game.id}">${game.name}</a></h2>
-    <h2>Hráč: ${req.body.userName}</h2>
-    <h2>E-mail: ${req.body.userEmail}</h2>
-    <h2>Zpráva pro zprávce: ${req.body.message}</h2>
 
-    <h3><b>Podrobnosti ke hře</b></h3></br>
+    // obsolite sending emails using Gooooooogle
+    // await sendEmail(req.body.userName, config.emailOptions.to, `nová rezervace - ${game.name}`, `Byl vystaven požadevek na rezrvaci hry ${game.name}`, htmlBody);
+    
+    let gameItemsArray = [];
 
-                              <table cellpadding="5" cellspacing="0" width="400" align="left" border="1">
-                              <tr>
-                                <td >Databázové ID</td>
-                                <td>${game.id}</td>
-                              </tr>
-                              <tr>
-                                <td>Jméno</td>
-                                <td>${game.name}</td>
-</tr>
-                              <tr>
-                                <td>Inventární číslo</td>
-                                <td>${game.inventaryNumber}</td>
-</tr>
-                              <tr>
-                                <td>Počet</td>
-                                <td>${game.count}</td>
-</tr>
-                              <tr>
-                                <td>Počet dostupných kusů</td>
-                                <td>${game.lendingCount}</td>
-</tr>
-                              <tr>
-                                <td>Status</td>
-                                <td>${game.status + ' ' + getStatusName(game.status)}</td>
-</tr>
-                              <tr>
-                                <td>Link obrázku</td>
-                                <td>${game.image}</td>
-</tr>
-                              <tr>
-                                <td>Odkaz na hru</td>
-                                <td>${game.sourceLink}</td>
-</tr>
-                              <tr>
-                                <td>Jméno aktuálního uživatele</td>
-                                <td>${game.userName}</td>
-</tr>
-                              <tr>
-                                <td>Email aktuálního uživatele</td>
-                                <td>${game.userEmail}</td>
-</tr>
-                              <tr>
-                                <td>Poznámka administrátora</td>
-                                <td>${game.note}</td>
-</tr>
-                              <tr>
-                                <td>Poslední aktualizace</td>
-                                <td>${game.updatedAt}</td>
-</tr>
-                              </table>
+    gameItemsArray.push(gameItemTemplate(
+      game.image ? game.image : 'https://game-booking.herokuapp.com/static/media/logo.29f0ed59.png', 
+      game.sourceLink ? game.sourceLink : '',
+      game.name,
+      game.note,
+      `https://game-booking.herokuapp.com/#/games/${game.id}`,
+      game.inventoryNumber
+      ));
 
-                              </body>`
-    await sendEmail(req.body.userName, config.emailOptions.to, `nová rezervace - ${game.name}`, `Byl vystaven požadevek na rezrvaci hry ${game.name}`, htmlBody);
+    let htmlPage = newReservationEmailTemplate(req.body.userName, req.body.userEmail, req.body.message, gameItemsArray.join(''));
+
+    await sendEmailMailjet('pkaspar1@seznam.cz', req.body.userName, config.emailOptions.to, `Nová rezervace - ${game.name}`, htmlPage);
 
     return successResponse(req, res);
   } catch (error) {
     return errorResponse(req, res, error.message);
   }
 };
+
 
 export const createGame = async (req, res) => {
   try {
@@ -388,7 +347,8 @@ export const createGame = async (req, res) => {
 //   }
 // };
 
-
+// obsolite sending emails using Gooooooogle
+/*
 export const sendEmail = async (from, to, subject, message, htmlBody) => {
   console.log(config.emailOptions.user);
   const transporter = nodemailer.createTransport({
@@ -413,6 +373,39 @@ export const sendEmail = async (from, to, subject, message, htmlBody) => {
     } else {
       console.log(`Email send!`);
     }
+  })
+}
+*/
+export const sendEmailMailjet = async (fromEmail, fromName, toEmail, subject, htmlBody) => {
+  const mailjet = require ('node-mailjet')
+  .connect('0400db937b8809b126932f1afc5620a3', '44d069825c14441636611927ce3c42fc')
+  const request = mailjet
+  .post("send", {'version': 'v3.1'})
+  .request({
+    "Messages":[
+      {
+        "From": {
+          "Email": fromEmail,
+          "Name": fromName
+        },
+        "To": [
+          {
+            "Email": toEmail,
+            "Name": "petr"
+          }
+        ],
+        "Subject": subject,
+        "HTMLPart": htmlBody,
+        "CustomID": "AppGettingStartedTest"
+      }
+    ]
+  })
+  request
+    .then((result) => {
+      console.log(result.body)
+    })
+    .catch((err) => {
+      console.log(err.statusCode)
   })
 }
 

@@ -102,7 +102,8 @@ export const updateGame = async (req, res) => {
 export const reserveGame = async (req, res) => {
   try {
       let gameItemsArray = [];
-      for (const gameId of ids) {
+      const ids = req.params.id.split(',');
+        for (const gameId of ids) {
         const game = await Game.findOne({
         where: {
             id: gameId,

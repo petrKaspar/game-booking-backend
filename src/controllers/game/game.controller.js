@@ -101,47 +101,49 @@ export const updateGame = async (req, res) => {
 // function for public usage
 export const reserveGame = async (req, res) => {
   try {
-    const game = await Game.findOne({
-      where: {
-        id: req.params.id,
-      },
-    });
-    if (!game) {
-      throw new Error('Game not found!');
-    }
-    if (game.status !== 1 || !game.public) {
-      throw new Error('Game is not available now!');
-    }
-    if (!req.body.userName || !req.body.userEmail) {
-      throw new Error('Invalid request');
-    }
-    await Game.update(
-      {
-        userName: req.body.userName,
-        userEmail: req.body.userEmail,
-        status: 3,
-      },
-      {
+      let gameItemsArray = [];
+      for (const gameId of ids) {
+        const game = await Game.findOne({
         where: {
-          id: req.params.id,
+            id: gameId,
         },
-        returning: true,
-      },
-    );
-    await Changelog.create(
-      {
-        GameId: req.params.id,
-        statusNew: 3,
-        note: `Hra rezervována uživatelem. ${req.body.message}`,
-        userName: req.body.userName,
-        userEmail: req.body.userEmail,
-      },
-    );
-
+        });
+        if (!game) {
+        throw new Error('Game not found!');
+        }
+        if (game.status !== 1 || !game.public) {
+        throw new Error('Game is not available now!');
+        }
+        if (!req.body.userName || !req.body.userEmail) {
+        throw new Error('Invalid request');
+        }
+        await Game.update(
+        {
+            userName: req.body.userName,
+            userEmail: req.body.userEmail,
+            status: 3,
+        },
+        {
+            where: {
+            id: gameId,
+            },
+            returning: true,
+        },
+        );
+        await Changelog.create(
+        {
+            GameId: gameId,
+            statusNew: 3,
+            note: `Hra rezervována uživatelem. ${req.body.message}`,
+            userName: req.body.userName,
+            userEmail: req.body.userEmail,
+        },
+        );
+    
     // obsolite sending emails using Gooooooogle
     // await sendEmail(req.body.userName, config.emailOptions.to, `nová rezervace - ${game.name}`, `Byl vystaven požadevek na rezrvaci hry ${game.name}`, htmlBody);
     
-    let gameItemsArray = [];
+    
 
     gameItemsArray.push(gameItemTemplate(
       game.image ? game.image : 'https://game-booking.herokuapp.com/static/media/logo.29f0ed59.png', 
@@ -151,10 +153,10 @@ export const reserveGame = async (req, res) => {
       `https://game-booking.herokuapp.com/#/games/${game.id}`,
       game.inventoryNumber
       ));
-
+}
     let htmlPage = newReservationEmailTemplate(req.body.userName, req.body.userEmail, req.body.message, gameItemsArray.join(''));
 
-    await sendEmailMailjet('pkaspar1@seznam.cz', req.body.userName, config.emailOptions.to, `Nová rezervace - ${game.name}`, htmlPage);
+    await sendEmailMailjet('pkaspar1@seznam.cz', req.body.userName, config.emailOptions.to, `Nová rezervace`, htmlPage);
 
     return successResponse(req, res);
   } catch (error) {

@@ -34,6 +34,8 @@ module.exports = (sequelize, DataTypes) => {
     public: Sequelize.BOOLEAN,
     userName: DataTypes.STRING,
     userEmail: DataTypes.STRING,
+    publisher: DataTypes.STRING,
+    extension: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Game',

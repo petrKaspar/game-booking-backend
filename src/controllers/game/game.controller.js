@@ -82,7 +82,11 @@ export const updateGame = async (req, res) => {
             req.body[k] = null;
         }
     }
-    console.log(req.body);
+    const game = await Game.findOne({
+      where: {
+          id: req.params.id,
+      },
+    });    
     await Game.update(
       req.body,
       {
@@ -92,6 +96,32 @@ export const updateGame = async (req, res) => {
         returning: true,
       },
     );
+    console.log(req.body)
+    if (!req.body.statusNew) req.body.statusNew = null;
+    if (!req.body.userName) req.body.userName = null;
+    if (!req.body.userEmail) req.body.userEmail = null;
+    if (!game.status) game.status = null;
+    if (!game.userName) game.userName = null;
+    if (!game.userEmail) game.userEmail = null;
+
+    if (
+      req.body.status !== game.status ||
+      req.body.userName !== game.userName ||
+      req.body.userEmail !== game.userEmail ||
+      req.body.noteChangelog
+    ) { 
+
+      await Changelog.create(
+        {
+            GameId: req.params.id,
+            statusOld: game.status,
+            statusNew: req.body['status'] !== null && req.body['status'] !== undefined ?  req.body['status'] : game.status,
+            note: `Hra změněna adminem. ${req.body['noteChangelog'] || ''}`,
+            userName: req.body['userName'] !== null && req.body['userName'] !== undefined ?  req.body['userName'] : game.userName,
+            userEmail: req.body['userEmail'] !== null && req.body['userEmail'] !== undefined ?  req.body['userEmail'] :  game.userEmail,
+        },
+      );
+    }
     return successResponse(req, res);
   } catch (error) {
     return errorResponse(req, res, error.message);
@@ -116,6 +146,7 @@ export const reserveGame = async (req, res) => {
         throw new Error('Game is not available now!');
         }
         if (!req.body.userName || !req.body.userEmail) {
+        console.error(req.params.id, req.body);  
         throw new Error('Invalid request');
         }
         await Game.update(
@@ -134,6 +165,7 @@ export const reserveGame = async (req, res) => {
         await Changelog.create(
         {
             GameId: gameId,
+            statusOld: game.status,
             statusNew: 3,
             note: `Hra rezervována uživatelem. ${req.body.message}`,
             userName: req.body.userName,

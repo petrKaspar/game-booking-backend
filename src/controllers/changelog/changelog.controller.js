@@ -4,7 +4,7 @@ import axios from 'axios';
 import {
   User, Game, Tag, TagGame, Borrow, Changelog
 } from '../../models';
-import { successResponse, errorResponse, uniqueId } from '../../helpers';
+import { successResponse, noChangeResponse, errorResponse, uniqueId } from '../../helpers';
 
 export const getChangelogs = async (req, res) => {
   try {
@@ -22,21 +22,45 @@ export const getChangelogs = async (req, res) => {
 
 export const createChangelog = async (req, res) => {
   try {
-    const changelog = await Changelog.create({
-      GameId: req.params.gameId,
-      statusOld: req.body.statusOld,
-      statusNew: req.body.statusNew,
-      note: req.body.note,
-      userName: req.body.userName,
-      userEmail: req.body.userEmail,
-    });
-    
-    const createdChangelog = await Changelog.findOne({
+    const game = await Game.findOne({
       where: {
-        id: changelog.id,
+          id: req.params.gameId,
       },
-    });
-    return successResponse(req, res, { createdChangelog });
+    });   
+
+    if (!req.body.statusNew) req.body.statusNew = null;
+    if (!req.body.userName) req.body.userName = null;
+    if (!req.body.userEmail) req.body.userEmail = null;
+    if (!game.status) game.status = null;
+    if (!game.userName) game.userName = null;
+    if (!game.userEmail) game.userEmail = null;
+
+    if (
+      req.body.statusNew !== game.status ||
+      req.body.userName !== game.userName ||
+      req.body.userEmail !== game.userEmail ||
+      req.body.note
+    ) { 
+
+      const changelog = await Changelog.create({
+        GameId: req.params.gameId,
+        statusOld: req.body.statusOld,
+        statusNew: req.body.statusNew,
+        note: `Hra změněna adminem. ${req.body.note || ''}`,
+        userName: req.body.userName,
+        userEmail: req.body.userEmail,
+      });
+      
+      const createdChangelog = await Changelog.findOne({
+        where: {
+          id: changelog.id,
+        },
+      });
+
+      return successResponse(req, res, { createdChangelog });
+  } else {
+      return noChangeResponse(req, res, { });
+  }
   } catch (error) {
     return errorResponse(req, res, error.message);
   }

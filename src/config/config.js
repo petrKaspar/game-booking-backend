@@ -8,6 +8,7 @@ const x = {
     host: process.env.DB_HOST || '127.0.0.1',
     port: process.env.DB_PORT || 5433,
     dialect: process.env.DB_DIALECT || 'postgres',
+    logging: false,
     emailOptions: {
       user: process.env.EMAIL_USER || 'petr2kaspar@gmail.com',
       pass: process.env.EMAIL_PASS,

@@ -18,7 +18,7 @@ export const getGames = async (req, res) => {
       where: {
         public: true,
       },
-      order: [['createdAt', 'DESC'], ['name', 'ASC']],
+      order: [['name', 'ASC'], ['createdAt', 'DESC']],
     });
     return successResponse(req, res, { games });
   } catch (error) {
@@ -30,7 +30,7 @@ export const getGamesAdmin = async (req, res) => {
   try {
     const games = await Game.findAndCountAll({
       include: Tag,
-      order: [['createdAt', 'DESC'], ['name', 'ASC']],
+      order: [['updatedAt', 'DESC'], ['name', 'ASC']],
     });
     return successResponse(req, res, { games });
   } catch (error) {

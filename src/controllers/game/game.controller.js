@@ -128,6 +128,52 @@ export const updateGame = async (req, res) => {
   }
 };
 
+// function for admin usage (get array of games and update status, users,...)
+export const bulkUpdateGames = async (req, res) => {
+  try {
+      let gameItemsArray = [];
+      const ids = req.params.id.split(',');
+        for (const gameId of ids) {
+        const game = await Game.findOne({
+        where: {
+            id: gameId,
+        },
+        });
+        if (!game) {
+        throw new Error('Game not found!');
+        }
+        
+        await Game.update(
+        {
+            userName: req.body.userName,
+            userEmail: req.body.userEmail,
+            status: req.body.status,
+        },
+        {
+            where: {
+            id: gameId,
+            },
+            returning: true,
+        },
+        );
+        await Changelog.create(
+        {
+            GameId: gameId,
+            statusOld: game.status,
+            statusNew: req.body.status,
+            note: `Stav hry změněn adminem. ${req.body.message}`,
+            userName: req.body.userName,
+            userEmail: req.body.userEmail,
+        },
+        );
+
+      }
+    return successResponse(req, res);
+  } catch (error) {
+    return errorResponse(req, res, error.message);
+  }
+};
+
 // function for public usage
 export const reserveGame = async (req, res) => {
   try {

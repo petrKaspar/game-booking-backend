@@ -17,6 +17,8 @@ router.get('/games/:id', gameController.getGameAdmin);
 
 router.patch('/games/:id', gameController.updateGame);
 
+router.patch('/games/bulk/:id', gameController.bulkUpdateGames);
+
 router.delete('/games/:id', gameController.deleteGame);
 
 router.post('/games', gameController.createGame);

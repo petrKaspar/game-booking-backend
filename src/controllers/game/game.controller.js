@@ -266,7 +266,8 @@ export const createGame = async (req, res) => {
       userName: req.body.userName,
       userEmail: req.body.userEmail,
       publisher: req.body.publisher,
-      extension: req.body.extension
+      extension: req.body.extension,
+      price: req.body.price
     });
 
     if (Array.isArray(req.body.tags)) {

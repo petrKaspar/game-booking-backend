@@ -35,7 +35,8 @@ module.exports = (sequelize, DataTypes) => {
     userName: DataTypes.STRING,
     userEmail: DataTypes.STRING,
     publisher: DataTypes.STRING,
-    extension: DataTypes.STRING
+    extension: DataTypes.STRING,
+    price: Sequelize.NUMBER,
   }, {
     sequelize,
     modelName: 'Game',

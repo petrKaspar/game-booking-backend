@@ -9,6 +9,8 @@ const x = {
     port: process.env.DB_PORT || 5433,
     dialect: process.env.DB_DIALECT || 'postgres',
     logging: false,
+    secretJwtKey: process.env.SECRET_JWT || 'my-dev-jwt-secret',
+    someAdminEmail: process.env.ADMIN_EMAIL || 'devAdmin@email.cz',
     emailOptions: {
       user: process.env.EMAIL_USER || 'petr2kaspar@gmail.com',
       pass: process.env.EMAIL_PASS,
@@ -29,6 +31,8 @@ const x = {
     port: process.env.DB_PORT || 5432,
     host: process.env.DB_HOST,
     dialect: process.env.DB_DIALECT || 'postgres',
+    secretJwtKey: process.env.SECRET_JWT,
+    someAdminEmail: process.env.ADMIN_EMAIL,
     dialectOptions: {
       ssl: {
         require: true,

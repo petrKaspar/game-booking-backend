@@ -293,6 +293,31 @@ export const createGame = async (req, res) => {
   }
 };
 
+export const getStatisticsAdmin = async (req, res) => {
+  try {
+    const games = await Game.findAndCountAll({
+      include: Tag,
+      order: [['updatedAt', 'DESC'], ['name', 'ASC']],
+    });
+
+    let statusCount = [] 
+
+    if (Array.isArray(games.rows)) {
+      games.rows.forEach((game) => {
+        statusCount[game.status] = !statusCount[game.status] ? 1 : statusCount[game.status]+1;
+      });
+    }
+
+    const result = {
+      gamesTotalCount: games.rows.length,
+      gamesStatusCount: statusCount
+    }
+    return successResponse(req, res, result);
+  } catch (error) {
+    return errorResponse(req, res, error.message);
+  }
+};
+
 //
 // export const allUsers = async (req, res) => {
 //   try {

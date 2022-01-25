@@ -23,6 +23,8 @@ router.delete('/games/:id', gameController.deleteGame);
 
 router.post('/games', gameController.createGame);
 
+// Admin routes for statistics
+router.get('/statistics', gameController.getStatisticsAdmin);
 
 // Admin routes for borrowing 
 router.get('/games/:gameId/borrows', borrowController.getBorrows);

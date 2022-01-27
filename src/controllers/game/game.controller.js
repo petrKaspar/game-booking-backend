@@ -296,21 +296,61 @@ export const createGame = async (req, res) => {
 export const getStatisticsAdmin = async (req, res) => {
   try {
     const games = await Game.findAndCountAll({
-      include: Tag,
+      include: [Tag, Changelog],
       order: [['updatedAt', 'DESC'], ['name', 'ASC']],
     });
 
     let statusCount = [] 
+    let borrowedGames = []
+    const borrowThreshold = 14; // hodnota pro oddeleni hrisniku od kratkych vypujcek
+    let d = new Date();
+    d.setDate(d.getDate() - borrowThreshold);
 
     if (Array.isArray(games.rows)) {
       games.rows.forEach((game) => {
         statusCount[game.status] = !statusCount[game.status] ? 1 : statusCount[game.status]+1;
+        if (game.status === 2) {
+
+          // pokud ma zaznam v changelogu o te vypujcce
+          if (game.Changelogs && Array.isArray(game.Changelogs) && game.Changelogs.length > 0) {
+            let mostRecentChangelog = game.Changelogs.reduce((mostRecent, item) =>
+               new Date(item.createdAt) > new Date(mostRecent.createdAt) && item.statusNew === 2
+               ? item
+               : mostRecent
+            );
+            
+            if (new Date(mostRecentChangelog.createdAt) < d) {
+              borrowedGames.push({
+                id: game.id,
+                name: game.name,
+                status: game.status,
+                borrowedAt: mostRecentChangelog.createdAt,
+                userName: mostRecentChangelog.userName,
+                userEmail: mostRecentChangelog.userEmail,
+                note: mostRecentChangelog.note,
+              });              
+            }
+          // muze se stat, ze neni zaznam v changelogu, ale presto ma status 2 a posledni updaty byl pred thresholdem
+          } else if (new Date(game.createdAt) < d) {
+            borrowedGames.push({
+              id: game.id,
+              name: game.name,
+              status: game.status,
+              borrowedAt: game.updatedAt,
+              userName: game.userName,
+              userEmail: game.userEmail,
+              note: game.note,
+            });
+          }
+        }
       });
     }
-
+// TODO: vypujcky delsi nez 2 tydny
     const result = {
       gamesTotalCount: games.rows.length,
-      gamesStatusCount: statusCount
+      gamesStatusCount: statusCount,
+      borrowedGamesThreshold: borrowThreshold,
+      borrowedGames: borrowedGames,
     }
     return successResponse(req, res, result);
   } catch (error) {

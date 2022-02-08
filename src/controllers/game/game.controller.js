@@ -96,7 +96,7 @@ export const updateGame = async (req, res) => {
         returning: true,
       },
     );
-    console.log(req.body)
+
     if (!req.body.statusNew) req.body.statusNew = null;
     if (!req.body.userName) req.body.userName = null;
     if (!req.body.userEmail) req.body.userEmail = null;
@@ -110,7 +110,6 @@ export const updateGame = async (req, res) => {
       req.body.userEmail !== game.userEmail ||
       req.body.noteChangelog
     ) { 
-
       await Changelog.create(
         {
             GameId: req.params.id,
@@ -188,7 +187,7 @@ export const reserveGame = async (req, res) => {
         if (!game) {
         throw new Error('Game not found!');
         }
-        if (game.status !== 1 || !game.public) {
+        if (game.status !== 1 && game.status !== 5 || !game.public) {
         throw new Error('Game is not available now!');
         }
         if (!req.body.userName || !req.body.userEmail) {
@@ -568,6 +567,8 @@ export const getStatusName = (statusNumber) => {
          return 'rezervovano';
        case 4:
          return 'ztraceno';
+       case 5:
+         return 'naDotaz';
        default:
          return 'dostupne';
      }

@@ -10,7 +10,7 @@ export const gameItemTemplate = (imageUrl, gameSource, gameName, gameNote, gameA
 	'<table border="0" cellpadding="0" cellspacing="0" class="image_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">' + 
 	'<tr>' + 
 	'<td style="padding-bottom:25px;padding-left:20px;padding-right:20px;padding-top:25px;width:100%;">' + 
-	`<div align="center" style="line-height:10px"><a href="${gameSource}" style="outline:none" tabindex="-1" target="_blank"><img alt="Gamge logo" class="fullMobileWidth big" src="${imageUrl}" style="display: block; height: auto; border: 0; width: 120px; max-width: 100%;" title="${gameName}" width="120"/></a></div>` + 
+	`<div align="center" style="line-height:10px"><a href="${gameAppLink}" style="outline:none" tabindex="-1" target="_blank"><img alt="Gamge logo" class="fullMobileWidth big" src="${imageUrl}" style="display: block; height: auto; border: 0; width: 120px; max-width: 100%;" title="${gameName}" width="120"/></a></div>` + 
 	'</td>' + 
 	'</tr>' + 
 	'</table>' + 
@@ -21,7 +21,7 @@ export const gameItemTemplate = (imageUrl, gameSource, gameName, gameNote, gameA
 	'<td style="padding-bottom:10px;padding-left:30px;padding-right:10px;padding-top:40px;">' + 
 	'<div style="font-family: sans-serif">' + 
 	'<div style="font-size: 12px; mso-line-height-alt: 14.399999999999999px; color: #232323; line-height: 1.2; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;">' + 
-	`<p style="margin: 0; font-size: 14px;"><span style="font-size:17px;"><b><a href="${gameAppLink}" style="outline:none" tabindex="-1" target="_blank">${gameName}</a></b></span></p>` + 
+	`<p style="margin: 0; font-size: 14px;"><span style="font-size:17px;"><b><a href="${gameSource}" style="outline:none" tabindex="-1" target="_blank">${gameName}</a></b></span></p>` + 
 	'</div>' + 
 	'</div>' + 
 	'</td>' + 
@@ -62,7 +62,7 @@ export const gameItemTemplate = (imageUrl, gameSource, gameName, gameNote, gameA
 	'</tbody>';
 
 
-export const newReservationEmailTemplate = (userName, userEmail, message, gameItemsArray) =>  '' + 
+export const newReservationEmailTemplate = (userName, userEmail, message, priceTotal, gameItemsArray) =>  '' + 
 '<!DOCTYPE html>' + 
 '' + 
 '<html lang="en" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:v="urn:schemas-microsoft-com:vml">' + 
@@ -155,7 +155,7 @@ export const newReservationEmailTemplate = (userName, userEmail, message, gameIt
 '<table border="0" cellpadding="0" cellspacing="0" class="image_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">' + 
 '<tr>' + 
 '<td style="width:100%;padding-right:0px;padding-left:0px;padding-top:25px;">' + 
-'<div align="center" style="line-height:10px"><a href="https://game-booking.herokuapp.com/#/games/admin2" style="outline:none" tabindex="-1" target="_blank"><img alt="Cool cart Logo" src="https://game-booking-backend.herokuapp.com/public/images/cart.png" style="display: block; height: auto; border: 0; width: 306px; max-width: 100%;" title="Cool Burger Walking" width="306"/></a></div>' + 
+'<div align="center" style="line-height:10px"><a href="https://udkh.cz/#/games/admin2" style="outline:none" tabindex="-1" target="_blank"><img alt="Cool cart Logo" src="https://game-booking-backend.herokuapp.com/public/images/cart.png" style="display: block; height: auto; border: 0; width: 210px; max-width: 100%;" title="Cool Burger Walking" width="210"/></a></div>' + 
 '</td>' + 
 '</tr>' + 
 '</table>' + 
@@ -170,22 +170,11 @@ export const newReservationEmailTemplate = (userName, userEmail, message, gameIt
 '</td>' + 
 '</tr>' + 
 '</table>' + 
-'<table border="0" cellpadding="0" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">' + 
-'<tr>' + 
-'<td style="padding-bottom:20px;padding-left:60px;padding-right:60px;padding-top:10px;">' + 
-'<div style="font-family: sans-serif">' + 
-'<div style="font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21.6px; color: #33563c; line-height: 1.8;">' + 
-'<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 32.4px;"><span style="font-size:18px;">Lorem Ipsum dolor et amet</span></p>' + 
-'</div>' + 
-'</div>' + 
-'</td>' + 
-'</tr>' + 
-'</table>' + 
 '<table border="0" cellpadding="10" cellspacing="0" class="button_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">' + 
 '<tr>' + 
 '<td>' + 
 '<div align="center">' + 
-'<!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://game-booking.herokuapp.com/#/games/admin2" style="height:43px;width:220px;v-text-anchor:middle;" arcsize="10%" stroke="false" fillcolor="#ffffff"><w:anchorlock/><v:textbox inset="0px,0px,0px,0px"><center style="color:#33563c; font-family:Tahoma, sans-serif; font-size:16px"><![endif]--><a href="https://game-booking.herokuapp.com/#/games/admin2" style="text-decoration:none;display:inline-block;color:#33563c;background-color:#ffffff;border-radius:4px;width:auto;border-top:0px solid #8a3b8f;border-right:0px solid #8a3b8f;border-bottom:0px solid #8a3b8f;border-left:0px solid #8a3b8f;padding-top:5px;padding-bottom:5px;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;text-align:center;mso-border-alt:none;word-break:keep-all;" target="_blank"><span style="padding-left:40px;padding-right:40px;font-size:16px;display:inline-block;letter-spacing:normal;"><span style="font-size: 16px; line-height: 2; word-break: break-word; mso-line-height-alt: 32px;"><strong>Vstup do aplikace<br/></strong></span></span></a>' + 
+'<!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://udkh.cz/#/games/admin2" style="height:43px;width:220px;v-text-anchor:middle;" arcsize="10%" stroke="false" fillcolor="#ffffff"><w:anchorlock/><v:textbox inset="0px,0px,0px,0px"><center style="color:#33563c; font-family:Tahoma, sans-serif; font-size:16px"><![endif]--><a href="https://udkh.cz/#/games/admin2" style="text-decoration:none;display:inline-block;color:#33563c;background-color:#ffffff;border-radius:4px;width:auto;border-top:0px solid #8a3b8f;border-right:0px solid #8a3b8f;border-bottom:0px solid #8a3b8f;border-left:0px solid #8a3b8f;padding-top:5px;padding-bottom:5px;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;text-align:center;mso-border-alt:none;word-break:keep-all;" target="_blank"><span style="padding-left:40px;padding-right:40px;font-size:16px;display:inline-block;letter-spacing:normal;"><span style="font-size: 16px; line-height: 2; word-break: break-word; mso-line-height-alt: 32px;"><strong>Vstup do aplikace<br/></strong></span></span></a>' + 
 '<!--[if mso]></center></v:textbox></v:roundrect><![endif]-->' + 
 '</div>' + 
 '</td>' + 
@@ -365,6 +354,43 @@ export const newReservationEmailTemplate = (userName, userEmail, message, gameIt
 '</tr>' + 
 '</tbody>' + 
 '</table>' + 
+
+
+
+
+
+'<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-2" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">' + 
+'<tbody>' + 
+'<tr>' + 
+'<td>' + 
+'<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #000000;" width="680">' + 
+'<tbody>' + 
+'<tr>' + 
+'<td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="50%">' + 
+'<table border="0" cellpadding="0" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">' + 
+'<tr>' + 
+'<td style="padding-bottom:10px;padding-left:30px;padding-right:30px;padding-top:10px;">' + 
+'<div style="font-family: sans-serif">' + 
+'<div style="font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21.6px; color: #33563c; line-height: 1.8;">' + 
+`<p style="margin: 0; font-size: 14px; text-align: left;"><strong><span style="font-size:16px;">Doporučená výše dobrovolného daru za toto vypůjčení činí ${priceTotal} Kč. Děkujeme :-) </span></strong></p>` + 
+'</div>' + 
+'</div>' + 
+'</td>' + 
+'</tr>' + 
+'</table>' + 
+'</td>' + 
+'</tr>' + 
+'</tbody>' + 
+'</table>' + 
+'</td>' + 
+'</tr>' + 
+'</tbody>' + 
+'</table>' + 
+
+
+
+
+
 '</td>' + 
 '</tr>' + 
 '</tbody>' + 

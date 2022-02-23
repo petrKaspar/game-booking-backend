@@ -178,6 +178,7 @@ export const reserveGame = async (req, res) => {
   try {
       let gameItemsArray = [];
       const ids = req.params.id.split(',');
+      let priceTotal = 0;
         for (const gameId of ids) {
         const game = await Game.findOne({
         where: {
@@ -222,20 +223,25 @@ export const reserveGame = async (req, res) => {
     // await sendEmail(req.body.userName, config.emailOptions.to, `nová rezervace - ${game.name}`, `Byl vystaven požadevek na rezrvaci hry ${game.name}`, htmlBody);
     
     
-
+    if (game.price) {
+      priceTotal = priceTotal + Math.ceil(game.price * 2 / 100);
+    }
     gameItemsArray.push(gameItemTemplate(
-      game.image ? game.image : 'https://game-booking.herokuapp.com/static/media/logo.29f0ed59.png', 
+      game.image ? game.image : 'https://udkh.cz/static/media/logo.29f0ed59.png', 
       game.sourceLink ? game.sourceLink : '',
       game.name,
       game.note,
-      `https://game-booking.herokuapp.com/#/games/${game.id}`,
-      game.inventoryNumber
+      `https://udkh.cz/#/games/${game.id}`,
+      Math.ceil(game.price) + ' Kč'
       ));
 }
-    let htmlPage = newReservationEmailTemplate(req.body.userName, req.body.userEmail, req.body.message, gameItemsArray.join(''));
+    let htmlPage = newReservationEmailTemplate(req.body.userName, req.body.userEmail, req.body.message, priceTotal, gameItemsArray.join(''));
 
     await sendEmailMailjet('pkaspar1@seznam.cz', req.body.userName, config.emailOptions.to, `Nová rezervace`, htmlPage);
-
+    const emailRegexp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+    if (emailRegexp.test(req.body.userEmail)) {
+      await sendEmailMailjet('pkaspar1@seznam.cz', req.body.userName, req.body.userEmail, `Nová rezervace`, htmlPage);
+    }
     return successResponse(req, res);
   } catch (error) {
     return errorResponse(req, res, error.message);

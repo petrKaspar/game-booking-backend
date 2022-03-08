@@ -163,7 +163,7 @@ export const newReservationEmailTemplate = (mainTitle, subtitle, userName, userE
 '<tr>' + 
 '<td style="padding-bottom:15px;padding-left:10px;padding-right:10px;padding-top:30px;">' + 
 '<div style="font-family: sans-serif">' + 
-'<div style="font-size: 14px; mso-line-height-alt: 16.8px; color: #33563c; line-height: 1.2; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;">' + 
+'<div style="font-size: 14px; mso-line-height-alt: 16.8px; color: #0e1309; line-height: 1.2; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;">' + 
 `<p style="margin: 0; font-size: 14px; text-align: center;"><strong><span style="font-size:38px;">${mainTitle}<br/></span></strong></p>` + 
 '</div>' + 
 '</div>' + 
@@ -175,7 +175,7 @@ export const newReservationEmailTemplate = (mainTitle, subtitle, userName, userE
 '<tr>'+
 '<td style="padding-bottom:20px;padding-left:60px;padding-right:60px;padding-top:10px">'+
 '<div style="font-family:sans-serif">'+
-'<div style="font-size:12px;font-family:Montserrat,Trebuchet MS,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Tahoma,sans-serif;mso-line-height-alt:21.6px;color:#33563c;line-height:1.8">'+
+'<div style="font-size:12px;font-family:Montserrat,Trebuchet MS,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Tahoma,sans-serif;mso-line-height-alt:21.6px;color:#0e1309;line-height:1.8">'+
 `<p style="margin:0;font-size:14px;text-align:center;mso-line-height-alt:32.4px"><span style="font-size:18px">${subtitle}</span></p>`+
 '</div>'+
 '</div>'+

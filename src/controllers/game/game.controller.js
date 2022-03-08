@@ -423,7 +423,7 @@ export const sendEmailCronAdmin = async (req, res) => {
     }
 
     let uniqueEmails = borrowedGames.map(item => item.userEmail).filter((value, index, self) => self.indexOf(value) === index);
-    uniqueEmails = ['pkaspar1@seznam.cz'];
+    uniqueEmails = ['p.kovar92@gmail.com'];
     uniqueEmails.forEach((uniqueEmail) => {
       const borrowedGamesByEmail = borrowedGames.filter((self) => self.userEmail === uniqueEmail);
       let gameItemsArray = [];

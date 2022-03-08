@@ -26,6 +26,8 @@ router.post('/games', gameController.createGame);
 // Admin routes for statistics
 router.get('/statistics', gameController.getStatisticsAdmin);
 
+router.get('/cronSendEmails', gameController.sendEmailCronAdmin);
+
 // Admin routes for borrowing 
 router.get('/games/:gameId/borrows', borrowController.getBorrows);
 

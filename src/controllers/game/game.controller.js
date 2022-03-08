@@ -11,6 +11,8 @@ const env = process.env.NODE_ENV || 'development';
 import * as c from '../../config/config.js';
 const config = c['development'];
 
+const emailRegexp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+
 export const getGames = async (req, res) => {
   try {
     const games = await Game.findAndCountAll({
@@ -232,13 +234,12 @@ export const reserveGame = async (req, res) => {
       game.name,
       game.note,
       `https://udkh.cz/#/games/${game.id}`,
-      Math.ceil(game.price) + ' Kč'
+      game.price ? Math.ceil(game.price * 2 / 100) + ' Kč' : ''
       ));
 }
-    let htmlPage = newReservationEmailTemplate(req.body.userName, req.body.userEmail, req.body.message, priceTotal, gameItemsArray.join(''));
+    let htmlPage = newReservationEmailTemplate('Nová rezervace!', '', req.body.userName, req.body.userEmail, req.body.message, gameItemsArray.join(''), `Doporučená výše dobrovolného daru za toto vypůjčení činí ${priceTotal} Kč. Děkujeme :-)`);
 
     await sendEmailMailjet('pkaspar1@seznam.cz', req.body.userName, config.emailOptions.to, `Nová rezervace`, htmlPage);
-    const emailRegexp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
     if (emailRegexp.test(req.body.userEmail)) {
       await sendEmailMailjet('pkaspar1@seznam.cz', req.body.userName, req.body.userEmail, `Nová rezervace`, htmlPage);
     }
@@ -247,7 +248,6 @@ export const reserveGame = async (req, res) => {
     return errorResponse(req, res, error.message);
   }
 };
-
 
 export const createGame = async (req, res) => {
   try {
@@ -307,7 +307,7 @@ export const getStatisticsAdmin = async (req, res) => {
 
     let statusCount = [] 
     let borrowedGames = []
-    const borrowThreshold = 14; // hodnota pro oddeleni hrisniku od kratkych vypujcek
+    const borrowThreshold = 1; // hodnota pro oddeleni hrisniku od kratkych vypujcek
     let d = new Date();
     d.setDate(d.getDate() - borrowThreshold);
 
@@ -315,37 +315,9 @@ export const getStatisticsAdmin = async (req, res) => {
       games.rows.forEach((game) => {
         statusCount[game.status] = !statusCount[game.status] ? 1 : statusCount[game.status]+1;
         if (game.status === 2) {
-
-          // pokud ma zaznam v changelogu o te vypujcce
-          if (game.Changelogs && Array.isArray(game.Changelogs) && game.Changelogs.length > 0) {
-            let mostRecentChangelog = game.Changelogs.reduce((mostRecent, item) =>
-               new Date(item.createdAt) > new Date(mostRecent.createdAt) && item.statusNew === 2
-               ? item
-               : mostRecent
-            );
-            
-            if (new Date(mostRecentChangelog.createdAt) < d) {
-              borrowedGames.push({
-                id: game.id,
-                name: game.name,
-                status: game.status,
-                borrowedAt: mostRecentChangelog.createdAt,
-                userName: mostRecentChangelog.userName,
-                userEmail: mostRecentChangelog.userEmail,
-                note: mostRecentChangelog.note,
-              });              
-            }
-          // muze se stat, ze neni zaznam v changelogu, ale presto ma status 2 a posledni updaty byl pred thresholdem
-          } else if (new Date(game.createdAt) < d) {
-            borrowedGames.push({
-              id: game.id,
-              name: game.name,
-              status: game.status,
-              borrowedAt: game.updatedAt,
-              userName: game.userName,
-              userEmail: game.userEmail,
-              note: game.note,
-            });
+          const oldBorrow = returnOldBorrow(game);
+          if (oldBorrow) {
+            borrowedGames.push(oldBorrow);
           }
         }
       });
@@ -363,7 +335,125 @@ export const getStatisticsAdmin = async (req, res) => {
   }
 };
 
-//
+const returnOldBorrow = (game) => {
+  const borrowThreshold = 14; // hodnota pro oddeleni hrisniku od kratkych vypujcek
+  let d = new Date();
+  d.setDate(d.getDate() - borrowThreshold);
+  // pokud je zaznam v changelogu o te vypujcce
+  if (game.Changelogs && Array.isArray(game.Changelogs) && game.Changelogs.length > 0) {
+    // filtrovani zmeny stavy na status==2
+    let allBorrow = game.Changelogs.filter((item) =>
+       item.statusNew === 2 && item.statusOld !== item.statusNew
+    );
+
+    // pokud se nasly zmeny stavu, vybere se ta nejnovejsi
+    if (allBorrow.length) {
+      let mostRecentChangelog = allBorrow.reduce((mostRecent, item) =>
+         new Date(item.createdAt) > new Date(mostRecent.createdAt)
+         ? item
+         : mostRecent
+      );
+
+    // kontola data nejnovejsi zmeny stavu na status 2
+    if (new Date(mostRecentChangelog.createdAt) < d) {
+      return {
+        id: game.id,
+        name: game.name,
+        status: game.status,
+        borrowedAt: mostRecentChangelog.createdAt,
+        userName: game.userName,
+        userEmail: game.userEmail,
+        note: mostRecentChangelog.note,
+      };              
+    }
+
+    // pokud neni v changelogu zmena stavu na 2, ale je stav old a new stejny, tak se vybere posledni
+    } else {
+      let mostRecentChangelog = game.Changelogs.reduce((mostRecent, item) =>
+         new Date(item.createdAt) > new Date(mostRecent.createdAt) && item.statusNew === 2
+         ? item
+         : mostRecent
+      );
+      return {
+        id: game.id,
+        name: game.name,
+        status: game.status,
+        borrowedAt: mostRecentChangelog.createdAt,
+        userName: game.userName,
+        userEmail: game.userEmail,
+        note: mostRecentChangelog.note,
+      };
+    }
+
+  // muze se stat, ze neni zaznam v changelogu, ale presto ma status 2 a posledni updaty byl pred thresholdem
+  } else if (new Date(game.createdAt) < d) {
+    return {
+      id: game.id,
+      name: game.name,
+      status: game.status,
+      borrowedAt: game.updatedAt,
+      userName: game.userName,
+      userEmail: game.userEmail,
+      note: game.note,
+    };
+  }
+  return null;
+}
+
+export const sendEmailCronAdmin = async (req, res) => {
+  try {
+    const games = await Game.findAndCountAll({
+      include: [Tag, Changelog],
+      order: [['updatedAt', 'DESC'], ['name', 'ASC']],
+    });
+
+    let statusCount = [] 
+    let borrowedGames = []
+
+    if (Array.isArray(games.rows)) {
+      games.rows.forEach((game) => {
+        statusCount[game.status] = !statusCount[game.status] ? 1 : statusCount[game.status]+1;
+        if (game.status === 2 && emailRegexp.test(game.userEmail)) {
+          const oldBorrow = returnOldBorrow(game);
+          if (oldBorrow) {
+            borrowedGames.push(oldBorrow);
+          }
+        }
+      });
+    }
+
+    let uniqueEmails = borrowedGames.map(item => item.userEmail).filter((value, index, self) => self.indexOf(value) === index);
+    uniqueEmails = ['p.kovar92@gmail.com'];
+    uniqueEmails.forEach((uniqueEmail) => {
+      const borrowedGamesByEmail = borrowedGames.filter((self) => self.userEmail === uniqueEmail);
+      let gameItemsArray = [];
+      let priceTotal = 0;
+      borrowedGamesByEmail.forEach((game) => {
+      if (game.price) {
+        priceTotal = priceTotal + Math.ceil(game.price * 2 / 100);
+      }
+      gameItemsArray.push(gameItemTemplate(
+        game.image ? game.image : 'https://udkh.cz/static/media/logo.29f0ed59.png', 
+        game.sourceLink ? game.sourceLink : '',
+        game.name,
+        game.note,
+        `https://udkh.cz/#/games/${game.id}`,
+        game.price ? Math.ceil(game.price * 2 / 100) + ' Kč' : ''
+        ));
+      });
+
+    let htmlPage = newReservationEmailTemplate('Výpůjční doba je u konce!', 'Dovolujeme si Vás upozornit, že výpůjční doba her uvedených níže již dosáhla dvoutýdenní lhůty. Prosíme Vás tedy o jejich navrácení v následujících dnech během provozní doby půjčovny. Případně napište na udkh.vscht@gmail.com žádost o prodloužení výpůjční doby (žádosti nemusí být kvůli potřebám ÚDKH vyhověno).', borrowedGamesByEmail[0].userName, borrowedGamesByEmail[0].userEmail, '', gameItemsArray.join(''), `Doporučená výše dobrovolného daru za toto vypůjčení činí ${priceTotal} Kč. Děkujeme :-)`);
+      sendEmailMailjet('pkaspar1@seznam.cz', 'ÚDKH', borrowedGamesByEmail[0].userEmail, `Upomínka`, htmlPage);
+    });
+
+    return successResponse(req, res, uniqueEmails);
+  } catch (error) {
+    console.log(error.message);
+    return errorResponse(req, res, error.message);
+  }
+};
+
+
 // export const allUsers = async (req, res) => {
 //   try {
 //     const page = req.params.page || 1;
@@ -546,6 +636,10 @@ export const sendEmailMailjet = async (fromEmail, fromName, toEmail, subject, ht
           {
             "Email": toEmail,
             "Name": "petr"
+          },
+          {
+            "Email": 'dlouhanfrankie@seznam.cz',
+            "Name": "dlouhan"
           }
         ],
         "Subject": subject,

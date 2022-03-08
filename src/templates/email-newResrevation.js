@@ -62,7 +62,7 @@ export const gameItemTemplate = (imageUrl, gameSource, gameName, gameNote, gameA
 	'</tbody>';
 
 
-export const newReservationEmailTemplate = (userName, userEmail, message, priceTotal, gameItemsArray) =>  '' + 
+export const newReservationEmailTemplate = (mainTitle, subtitle, userName, userEmail, message, gameItemsArray, footerMessage) =>  '' + 
 '<!DOCTYPE html>' + 
 '' + 
 '<html lang="en" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:v="urn:schemas-microsoft-com:vml">' + 
@@ -148,14 +148,14 @@ export const newReservationEmailTemplate = (userName, userEmail, message, priceT
 '<tbody>' + 
 '<tr>' + 
 '<td>' + 
-'<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #000000;" width="680">' + 
+'<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #000000;" width="900">' + 
 '<tbody>' + 
 '<tr>' + 
 '<td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; padding-top: 5px; padding-bottom: 5px; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">' + 
 '<table border="0" cellpadding="0" cellspacing="0" class="image_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">' + 
 '<tr>' + 
 '<td style="width:100%;padding-right:0px;padding-left:0px;padding-top:25px;">' + 
-'<div align="center" style="line-height:10px"><a href="https://udkh.cz/#/games/admin2" style="outline:none" tabindex="-1" target="_blank"><img alt="Cool cart Logo" src="https://game-booking-backend.herokuapp.com/public/images/cart.png" style="display: block; height: auto; border: 0; width: 210px; max-width: 100%;" title="Cool Burger Walking" width="210"/></a></div>' + 
+'<div align="center" style="line-height:10px"><a href="https://udkh.cz/#/games/admin2" style="outline:none" tabindex="-1" target="_blank"><img alt="ÚDKH při VŠCHT Praha" src="https://game-booking-backend.herokuapp.com/public/images/cart.png" style="display: block; height: auto; border: 0; width: 210px; max-width: 100%;" title="Cool Burger Walking" width="210"/></a></div>' + 
 '</td>' + 
 '</tr>' + 
 '</table>' + 
@@ -164,12 +164,25 @@ export const newReservationEmailTemplate = (userName, userEmail, message, priceT
 '<td style="padding-bottom:15px;padding-left:10px;padding-right:10px;padding-top:30px;">' + 
 '<div style="font-family: sans-serif">' + 
 '<div style="font-size: 14px; mso-line-height-alt: 16.8px; color: #33563c; line-height: 1.2; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;">' + 
-'<p style="margin: 0; font-size: 14px; text-align: center;"><strong><span style="font-size:38px;">Nová rezervace!<br/></span></strong></p>' + 
+`<p style="margin: 0; font-size: 14px; text-align: center;"><strong><span style="font-size:38px;">${mainTitle}<br/></span></strong></p>` + 
 '</div>' + 
 '</div>' + 
 '</td>' + 
 '</tr>' + 
 '</table>' + 
+'<table class="-wm-text_block" style="mso-table-lspace:0pt;mso-table-rspace:0pt;word-break:break-word" width="100%" cellspacing="0" cellpadding="0" border="0">'+
+'<tbody>'+
+'<tr>'+
+'<td style="padding-bottom:20px;padding-left:60px;padding-right:60px;padding-top:10px">'+
+'<div style="font-family:sans-serif">'+
+'<div style="font-size:12px;font-family:Montserrat,Trebuchet MS,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Tahoma,sans-serif;mso-line-height-alt:21.6px;color:#33563c;line-height:1.8">'+
+`<p style="margin:0;font-size:14px;text-align:center;mso-line-height-alt:32.4px"><span style="font-size:18px">${subtitle}</span></p>`+
+'</div>'+
+'</div>'+
+'</td>'+
+'</tr>'+
+'</tbody>'+
+'</table>'+
 '<table border="0" cellpadding="10" cellspacing="0" class="button_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">' + 
 '<tr>' + 
 '<td>' + 
@@ -372,7 +385,7 @@ export const newReservationEmailTemplate = (userName, userEmail, message, priceT
 '<td style="padding-bottom:10px;padding-left:30px;padding-right:30px;padding-top:10px;">' + 
 '<div style="font-family: sans-serif">' + 
 '<div style="font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21.6px; color: #33563c; line-height: 1.8;">' + 
-`<p style="margin: 0; font-size: 14px; text-align: left;"><strong><span style="font-size:16px;">Doporučená výše dobrovolného daru za toto vypůjčení činí ${priceTotal} Kč. Děkujeme :-) </span></strong></p>` + 
+`<p style="margin: 0; font-size: 14px; text-align: left;"><strong><span style="font-size:16px;">${footerMessage}</span></strong></p>` + 
 '</div>' + 
 '</div>' + 
 '</td>' + 

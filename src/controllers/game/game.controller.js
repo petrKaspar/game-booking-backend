@@ -73,12 +73,12 @@ export const deleteGame = async (req, res) => {
 
 export const updateGame = async (req, res) => {
   try {
+
+    
     delete req.body['id'];
-    delete req.body['Tags'];
     delete req.body['createdAt'];
     delete req.body['updatedAt'];
     delete req.body['rating'];
-    delete req.body['tags'];
     for (let k in req.body) {
         if (req.body[k] === '') {
             req.body[k] = null;
@@ -88,7 +88,28 @@ export const updateGame = async (req, res) => {
       where: {
           id: req.params.id,
       },
-    });    
+    });
+
+    if (game) {
+      if (Array.isArray(req.body.tags)) {
+        await TagGame.destroy({
+          where: {
+            GameId: game.id,
+          },
+          force: true,
+        });
+        req.body.tags.forEach((tag) => {
+          //console.log(tag);
+          const tagGame = TagGame.create({
+            GameId: game.id,
+            TagId: tag.id,
+          });
+        });
+      }
+      delete req.body['Tags'];
+      delete req.body['tags'];
+    }
+
     await Game.update(
       req.body,
       {
@@ -423,7 +444,7 @@ export const sendEmailCronAdmin = async (req, res) => {
     }
 
     let uniqueEmails = borrowedGames.map(item => item.userEmail).filter((value, index, self) => self.indexOf(value) === index);
-    uniqueEmails = ['p.kovar92@gmail.com'];
+    //uniqueEmails = ['p.kovar92@gmail.com'];
     uniqueEmails.forEach((uniqueEmail) => {
       const borrowedGamesByEmail = borrowedGames.filter((self) => self.userEmail === uniqueEmail);
       let gameItemsArray = [];
@@ -443,7 +464,7 @@ export const sendEmailCronAdmin = async (req, res) => {
       });
 
     let htmlPage = newReservationEmailTemplate('Výpůjční doba je u konce!', 'Dovolujeme si Vás upozornit, že výpůjční doba her uvedených níže již dosáhla dvoutýdenní lhůty. Prosíme Vás tedy o jejich navrácení v následujících dnech během provozní doby půjčovny. Případně napište na udkh.vscht@gmail.com žádost o prodloužení výpůjční doby (žádosti nemusí být kvůli potřebám ÚDKH vyhověno).', borrowedGamesByEmail[0].userName, borrowedGamesByEmail[0].userEmail, '', gameItemsArray.join(''), `Doporučená výše dobrovolného daru za toto vypůjčení činí ${priceTotal} Kč. Děkujeme :-)`);
-      sendEmailMailjet('pkaspar1@seznam.cz', 'ÚDKH', borrowedGamesByEmail[0].userEmail, `Upomínka`, htmlPage);
+      sendEmailMailjet('udkh.vscht@gmail.com', 'ÚDKH', borrowedGamesByEmail[0].userEmail, `Upomínka`, htmlPage);
     });
 
     return successResponse(req, res, uniqueEmails);
@@ -635,11 +656,7 @@ export const sendEmailMailjet = async (fromEmail, fromName, toEmail, subject, ht
         "To": [
           {
             "Email": toEmail,
-            "Name": "petr"
-          },
-          {
-            "Email": 'dlouhanfrankie@seznam.cz',
-            "Name": "dlouhan"
+            "Name": toEmail
           }
         ],
         "Subject": subject,

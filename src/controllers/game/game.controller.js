@@ -328,7 +328,7 @@ export const getStatisticsAdmin = async (req, res) => {
 
     let statusCount = [] 
     let borrowedGames = []
-    const borrowThreshold = 1; // hodnota pro oddeleni hrisniku od kratkych vypujcek
+    const borrowThreshold = 14; // hodnota pro oddeleni hrisniku od kratkych vypujcek
     let d = new Date();
     d.setDate(d.getDate() - borrowThreshold);
 

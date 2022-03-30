@@ -464,7 +464,7 @@ export const sendEmailCronAdmin = async (req, res) => {
       });
 
     let htmlPage = newReservationEmailTemplate('Výpůjční doba je u konce!', 'Dovolujeme si Vás upozornit, že výpůjční doba her uvedených níže již dosáhla dvoutýdenní lhůty. Prosíme Vás tedy o jejich navrácení v následujících dnech během provozní doby půjčovny. Případně napište na udkh.vscht@gmail.com žádost o prodloužení výpůjční doby (žádosti nemusí být kvůli potřebám ÚDKH vyhověno).', borrowedGamesByEmail[0].userName, borrowedGamesByEmail[0].userEmail, '', gameItemsArray.join(''), `Doporučená výše dobrovolného daru za toto vypůjčení činí ${priceTotal} Kč. Děkujeme :-)`);
-      sendEmailMailjet('udkh.vscht@gmail.com', 'ÚDKH', 'pkaspar1@seznam.cz, `Upomínka`, htmlPage);
+      sendEmailMailjet('pkaspar1@seznam.cz', 'ÚDKH', 'pkaspar1@seznam.cz, `Upomínka`, htmlPage);
     });
 // borrowedGamesByEmail[0].userEmail
     return successResponse(req, res, uniqueEmails);

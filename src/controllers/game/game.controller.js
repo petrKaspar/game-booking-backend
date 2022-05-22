@@ -356,6 +356,36 @@ export const getStatisticsAdmin = async (req, res) => {
   }
 };
 
+export const getTotalBorrowsAdmin = async (req, res) => {
+  try {
+    const games = await Game.findAndCountAll({
+      include: [Tag, Changelog],
+      order: [['updatedAt', 'DESC'], ['name', 'ASC']],
+    });
+
+    let result = [];
+    //let allBorrows = [];
+    let statusCount = []; 
+    let borrowedGames = [];
+
+    if (Array.isArray(games.rows)) {
+      games.rows.forEach((game) => {
+
+        let allBorrows = game.Changelogs.filter((item) =>
+           item.statusNew === 2 && item.statusOld !== item.statusNew
+        );
+        
+        result.push({...game.dataValues, allBorrows: allBorrows})
+
+      });
+    }
+
+    return successResponse(req, res, result);
+  } catch (error) {
+    return errorResponse(req, res, error.message);
+  }
+};
+
 const returnOldBorrow = (game) => {
   const borrowThreshold = 14; // hodnota pro oddeleni hrisniku od kratkych vypujcek
   let d = new Date();

@@ -24,7 +24,9 @@ router.delete('/games/:id', gameController.deleteGame);
 router.post('/games', gameController.createGame);
 
 // Admin routes for statistics
-router.get('/statistics', gameController.getStatisticsAdmin);
+router.get('/statistics/overview', gameController.getStatisticsAdmin);
+
+router.get('/statistics/totalBorrows', gameController.getTotalBorrowsAdmin);
 
 router.get('/cronSendEmails', gameController.sendEmailCronAdmin);
 

@@ -247,7 +247,7 @@ export const reserveGame = async (req, res) => {
     
     
     if (game.price) {
-      priceTotal = priceTotal + Math.ceil(game.price * 2 / 100);
+      priceTotal = priceTotal + Math.ceil(game.price * 4 / 100);
     }
     gameItemsArray.push(gameItemTemplate(
       game.image ? game.image : 'https://udkh.cz/static/media/logo.29f0ed59.png', 
@@ -255,7 +255,7 @@ export const reserveGame = async (req, res) => {
       game.name,
       game.note,
       `https://udkh.cz/#/games/${game.id}`,
-      game.price ? Math.ceil(game.price * 2 / 100) + ' Kč' : ''
+      game.price ? Math.ceil(game.price * 4 / 100) + ' Kč' : ''
       ));
 }
     let htmlPage = newReservationEmailTemplate('Nová rezervace!', '', req.body.userName, req.body.userEmail, req.body.message, gameItemsArray.join(''), `Doporučená výše dobrovolného daru za toto vypůjčení činí ${priceTotal} Kč. Děkujeme :-)`);
@@ -481,7 +481,7 @@ export const sendEmailCronAdmin = async (req, res) => {
       let priceTotal = 0;
       borrowedGamesByEmail.forEach((game) => {
       if (game.price) {
-        priceTotal = priceTotal + Math.ceil(game.price * 2 / 100);
+        priceTotal = priceTotal + Math.ceil(game.price * 4 / 100);
       }
       gameItemsArray.push(gameItemTemplate(
         game.image ? game.image : 'https://udkh.cz/static/media/logo.29f0ed59.png', 
@@ -489,7 +489,7 @@ export const sendEmailCronAdmin = async (req, res) => {
         game.name,
         game.note,
         `https://udkh.cz/#/games/${game.id}`,
-        game.price ? Math.ceil(game.price * 2 / 100) + ' Kč' : ''
+        game.price ? Math.ceil(game.price * 4 / 100) + ' Kč' : ''
         ));
       });
 

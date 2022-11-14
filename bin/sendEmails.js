@@ -1,7 +1,7 @@
 const axios = require("axios");
 console.log(new Date()); // Helps in checking the proper working
 
-if (new Date().getDay() === 3) {
+if (new Date().getDay() === 1) {
 axios({
         method: 'get',
         url: `${process.env.REACT_APP_GAME_BACKEND}/api/admin/cronSendEmails`,

@@ -298,12 +298,12 @@ export const createGame = async (req, res) => {
 
     if (Array.isArray(req.body.tags)) {
       req.body.tags.forEach((tag) => {
-        console.log(tag);
+        // console.log(tag);
         const tagGame = TagGame.create({
           GameId: game.id,
           TagId: tag.id,
         });
-        console.log(tagGame);
+        // console.log(tagGame);
       });
     }
 

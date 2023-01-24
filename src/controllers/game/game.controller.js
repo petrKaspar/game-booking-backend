@@ -153,8 +153,7 @@ export const updateGame = async (req, res) => {
 // function for admin usage (get array of games and update status, users,...)
 export const bulkUpdateGames = async (req, res) => {
   try {
-      let gameItemsArray = [];
-      const ids = req.params.id.split(',');
+      const ids = req.params.ids.split(',');
         for (const gameId of ids) {
         const game = await Game.findOne({
         where: {
@@ -162,14 +161,24 @@ export const bulkUpdateGames = async (req, res) => {
         },
         });
         if (!game) {
-        throw new Error('Game not found!');
+        throw new Error('Game not found! id=' + gameId);
         }
         
+        let newStatus = req.body.status;
+
+        if (newStatus === 1) {
+          switch (game.inventoryNumber) {
+            case 'k':
+            case 'n':
+            case 'c':
+              newStatus = 5;
+          }
+        }
         await Game.update(
         {
             userName: req.body.userName,
             userEmail: req.body.userEmail,
-            status: req.body.status,
+            status: newStatus,
         },
         {
             where: {
@@ -182,7 +191,7 @@ export const bulkUpdateGames = async (req, res) => {
         {
             GameId: gameId,
             statusOld: game.status,
-            statusNew: req.body.status,
+            statusNew: newStatus,
             note: `Stav hry změněn adminem. ${req.body.message}`,
             userName: req.body.userName,
             userEmail: req.body.userEmail,
@@ -387,7 +396,7 @@ export const getTotalBorrowsAdmin = async (req, res) => {
 };
 
 const returnOldBorrow = (game) => {
-  const borrowThreshold = 14; // hodnota pro oddeleni hrisniku od kratkych vypujcek
+  const borrowThreshold = 0; // hodnota pro oddeleni hrisniku od kratkych vypujcek
   let d = new Date();
   d.setDate(d.getDate() - borrowThreshold);
   // pokud je zaznam v changelogu o te vypujcce
@@ -405,7 +414,7 @@ const returnOldBorrow = (game) => {
          : mostRecent
       );
 
-    // kontola data nejnovejsi zmeny stavu na status 2
+      // kontola data nejnovejsi zmeny stavu na status 2
     if (new Date(mostRecentChangelog.createdAt) < d) {
       return {
         id: game.id,
@@ -415,6 +424,7 @@ const returnOldBorrow = (game) => {
         userName: game.userName,
         userEmail: game.userEmail,
         note: mostRecentChangelog.note,
+        image: game.image,
       };              
     }
 
@@ -433,6 +443,7 @@ const returnOldBorrow = (game) => {
         userName: game.userName,
         userEmail: game.userEmail,
         note: mostRecentChangelog.note,
+        image: game.image,
       };
     }
 
@@ -446,6 +457,7 @@ const returnOldBorrow = (game) => {
       userName: game.userName,
       userEmail: game.userEmail,
       note: game.note,
+      image: game.image,
     };
   }
   return null;

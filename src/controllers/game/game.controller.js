@@ -396,7 +396,7 @@ export const getTotalBorrowsAdmin = async (req, res) => {
 };
 
 const returnOldBorrow = (game) => {
-  const borrowThreshold = 0; // hodnota pro oddeleni hrisniku od kratkych vypujcek
+  const borrowThreshold = 14; // hodnota pro oddeleni hrisniku od kratkych vypujcek
   let d = new Date();
   d.setDate(d.getDate() - borrowThreshold);
   // pokud je zaznam v changelogu o te vypujcce

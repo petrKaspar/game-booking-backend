@@ -15,6 +15,45 @@ const emailRegexp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-
 
 export const getGames = async (req, res) => {
   try {
+    const gtu = await Game.findAll({
+      where: {
+        purchasePrice: null,
+      },
+      order: [['createdAt', 'DESC']],
+    }
+  );
+
+  gtu.forEach(async asdf => {
+    if (asdf.dataValues.price != null && asdf.dataValues.price > 0) {
+      if (asdf.publisher == 'MINDOK' || asdf.publisher == 'Blackfire') {
+        await Game.update(
+          {
+              purchasePrice: Math.round(asdf.price * 60 / 100)
+          },
+          {
+              where: {
+                id: asdf.id,
+              }
+          }
+        );
+      }
+
+      else {
+        await Game.update(
+          {
+              purchasePrice: Math.round(asdf.price * 70 / 100)
+          },
+          {
+              where: {
+                id: asdf.id,
+              }
+          }
+        );
+      }
+    }
+  });
+  
+
     const games = await Game.findAndCountAll({
       include: Tag,
       where: {
@@ -72,9 +111,7 @@ export const deleteGame = async (req, res) => {
 };
 
 export const updateGame = async (req, res) => {
-  try {
-
-    
+  try {    
     delete req.body['id'];
     delete req.body['createdAt'];
     delete req.body['updatedAt'];
@@ -171,6 +208,7 @@ export const bulkUpdateGames = async (req, res) => {
             case 'k':
             case 'n':
             case 'c':
+            case 'a':
               newStatus = 5;
           }
         }
@@ -302,7 +340,8 @@ export const createGame = async (req, res) => {
       userEmail: req.body.userEmail,
       publisher: req.body.publisher,
       extension: req.body.extension,
-      price: req.body.price
+      price: req.body.price,
+      purchasePrice: req.body.purchasePrice
     });
 
     if (Array.isArray(req.body.tags)) {

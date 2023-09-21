@@ -1,411 +1,831 @@
-export const gameItemTemplate = (imageUrl, gameSource, gameName, gameNote, gameAppLink, thirdColumn) => '</table>' + 
-	'<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-5" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">' + 
-	'<tbody>' + 
-	'<tr>' + 
-	'<td>' + 
-	'<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #ffffff; color: #000000;" width="680">' + 
-	'<tbody>' + 
-	'<tr>' + 
-	'<td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; padding-left: 10px; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="25%">' + 
-	'<table border="0" cellpadding="0" cellspacing="0" class="image_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">' + 
-	'<tr>' + 
-	'<td style="padding-bottom:25px;padding-left:20px;padding-right:20px;padding-top:25px;width:100%;">' + 
-	`<div align="center" style="line-height:10px"><a href="${gameAppLink}" style="outline:none" tabindex="-1" target="_blank"><img alt="Gamge logo" class="fullMobileWidth big" src="${imageUrl}" style="display: block; height: auto; border: 0; width: 120px; max-width: 100%;" title="${gameName}" width="120"/></a></div>` + 
-	'</td>' + 
-	'</tr>' + 
-	'</table>' + 
-	'</td>' + 
-	'<td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="50%">' + 
-	'<table border="0" cellpadding="0" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">' + 
-	'<tr>' + 
-	'<td style="padding-bottom:10px;padding-left:30px;padding-right:10px;padding-top:40px;">' + 
-	'<div style="font-family: sans-serif">' + 
-	'<div style="font-size: 12px; mso-line-height-alt: 14.399999999999999px; color: #232323; line-height: 1.2; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;">' + 
-	`<p style="margin: 0; font-size: 14px;"><span style="font-size:17px;"><b><a href="${gameSource}" style="outline:none" tabindex="-1" target="_blank">${gameName}</a></b></span></p>` + 
-	'</div>' + 
-	'</div>' + 
-	'</td>' + 
-	'</tr>' + 
-	'</table>' + 
-	'<table border="0" cellpadding="0" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">' + 
-	'<tr>' + 
-	'<td style="padding-left:30px;padding-right:10px;padding-top:10px;padding-bottom:5px;">' + 
-	'<div style="font-family: sans-serif">' + 
-	'<div style="font-size: 12px; mso-line-height-alt: 18px; color: #848484; line-height: 1.5; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;">' + 
-	`<p style="margin: 0; font-size: 14px; mso-line-height-alt: 21px;"><span style="font-size:14px;">${gameNote}</span></p>` + 
-	'</div>' + 
-	'</div>' + 
-	'</td>' + 
-	'</tr>' + 
-	'</table>' + 
-	'</td>' + 
-	'<td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="25%">' + 
-	'<div class="spacer_block" style="height:5px;line-height:5px;font-size:1px;"> </div>' + 
-	'<div class="spacer_block mobile_hide" style="height:30px;line-height:30px;font-size:1px;"> </div>' + 
-	'<table border="0" cellpadding="0" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">' + 
-	'<tr>' + 
-	'<td style="padding-bottom:15px;padding-left:30px;padding-right:10px;padding-top:10px;">' + 
-	'<div style="font-family: sans-serif">' + 
-	'<div style="font-size: 12px; mso-line-height-alt: 14.399999999999999px; color: #555555; line-height: 1.2; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;">' + 
-	`<p style="margin: 0; font-size: 14px;">${thirdColumn}</p>` + 
-	'</div>' + 
-	'</div>' + 
-	'</td>' + 
-	'</tr>' + 
-	'</table>' + 
-	'</td>' + 
-	'</tr>' + 
-	'</tbody>' + 
-	'</table>' + 
-	'</td>' + 
-	'</tr>' + 
-	'</tbody>';
+
+export const gameItemTemplate2 = gameName => '<table id="u_content_text_2" style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">'
+	+ '  <tbody>'
+	+ '    <tr>'
+	+ '      <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:0px 65px 0px 30px;font-family:arial,helvetica,sans-serif;" align="left">'
+	+ '  <div class="v-text-align v-font-size" style="font-size: 13px; line-height: 140%; text-align: left; word-wrap: break-word;">'
+	+ `    <p style="line-height: 140%;"><span style="line-height: 18.2px;"><b>â€¢ ${gameName}</b></span>Â </p>`
+	+ '  </div>'
+	+ '      </td>'
+	+ '    </tr>'
+	+ '  </tbody>'
+	+ '</table>';
+
+export const newReservationEmailTemplate2 = (mainTitle, subtitle, message, userName, userEmail, userMessage, gameItemsArray) => '<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">'
++ '<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">'
++ '<head>'
++ '<!--[if gte mso 9]>'
++ '<xml>'
++ '  <o:OfficeDocumentSettings>'
++ '    <o:AllowPNG/>'
++ '    <o:PixelsPerInch>96</o:PixelsPerInch>'
++ '  </o:OfficeDocumentSettings>'
++ '</xml>'
++ '<![endif]-->'
++ '  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">'
++ '  <meta name="viewport" content="width=device-width, initial-scale=1.0">'
++ '  <meta name="x-apple-disable-message-reformatting">'
++ '  <!--[if !mso]><!--><meta http-equiv="X-UA-Compatible" content="IE=edge"><!--<![endif]-->'
++ '  <title></title>'
++ '  '
++ '    <style type="text/css">'
++ '      @media only screen and (min-width: 620px) {'
++ '  .u-row {'
++ '    width: 600px !important;'
++ '  }'
++ '  .u-row .u-col {'
++ '    vertical-align: top;'
++ '  }'
++ ''
++ '  .u-row .u-col-100 {'
++ '    width: 600px !important;'
++ '  }'
++ ''
++ '}'
++ ''
++ '@media (max-width: 620px) {'
++ '  .u-row-container {'
++ '    max-width: 100% !important;'
++ '    padding-left: 0px !important;'
++ '    padding-right: 0px !important;'
++ '  }'
++ '  .u-row .u-col {'
++ '    min-width: 320px !important;'
++ '    max-width: 100% !important;'
++ '    display: block !important;'
++ '  }'
++ '  .u-row {'
++ '    width: 100% !important;'
++ '  }'
++ '  .u-col {'
++ '    width: 100% !important;'
++ '  }'
++ '  .u-col > div {'
++ '    margin: 0 auto;'
++ '  }'
++ '}'
++ 'body {'
++ '  margin: 0;'
++ '  padding: 0;'
++ '}'
++ ''
++ 'table,'
++ 'tr,'
++ 'td {'
++ '  vertical-align: top;'
++ '  border-collapse: collapse;'
++ '}'
++ ''
++ 'p {'
++ '  margin: 0;'
++ '}'
++ ''
++ '.ie-container table,'
++ '.mso-container table {'
++ '  table-layout: fixed;'
++ '}'
++ ''
++ '* {'
++ '  line-height: inherit;'
++ '}'
++ ''
++ 'a[x-apple-data-detectors=\'true\'] {'
++ '  color: inherit !important;'
++ '  text-decoration: none !important;'
++ '}'
++ ''
++ 'table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: underline; } @media (max-width: 480px) { #u_column_2 .v-col-border { border-top: 0px solid transparent !important;border-left: 0px solid transparent !important;border-right: 0px solid transparent !important;border-bottom: 0px solid transparent !important; } #u_content_text_11 .v-container-padding-padding { padding: 30px 20px !important; } #u_column_4 .v-col-border { border-top: 0px solid transparent !important;border-left: 0px solid transparent !important;border-right: 0px solid transparent !important;border-bottom: 0px solid transparent !important; } #u_content_text_3 .v-container-padding-padding { padding: 30px 65px 10px 20px !important; } #u_content_divider_2 .v-container-padding-padding { padding: 0px 0px 30px !important; } #u_content_text_4 .v-container-padding-padding { padding: 0px 65px 0px 20px !important; } #u_content_divider_3 .v-container-padding-padding { padding: 10px 0px !important; } #u_content_text_2 .v-container-padding-padding { padding: 0px 65px 0px 20px !important; } #u_content_divider_1 .v-container-padding-padding { padding: 10px 0px !important; } #u_content_text_5 .v-container-padding-padding { padding: 30px 10px 30px 20px !important; } #u_content_heading_4 .v-container-padding-padding { padding: 40px 10px 10px !important; } #u_content_heading_4 .v-text-align { text-align: center !important; } #u_content_social_1 .v-container-padding-padding { padding: 30px 0px 20px 75px !important; } #u_content_divider_8 .v-container-padding-padding { padding: 10px !important; } #u_content_text_15 .v-container-padding-padding { padding: 10px 0px !important; } #u_content_text_15 .v-font-size { font-size: 13px !important; } #u_content_text_15 .v-text-align { text-align: center !important; } }'
++ '    </style>'
++ '  '
++ '  '
++ ''
++ '</head>'
++ ''
++ '<body class="clean-body u_body" style="margin: 0;padding: 0;-webkit-text-size-adjust: 100%;background-color: #e7e7e7;color: #000000">'
++ '  <!--[if IE]><div class="ie-container"><![endif]-->'
++ '  <!--[if mso]><div class="mso-container"><![endif]-->'
++ '  <table id="u_body" style="border-collapse: collapse;table-layout: fixed;border-spacing: 0;mso-table-lspace: 0pt;mso-table-rspace: 0pt;vertical-align: top;min-width: 320px;Margin: 0 auto;background-color: #e7e7e7;width:100%" cellpadding="0" cellspacing="0">'
++ '  <tbody>'
++ '  <tr style="vertical-align: top">'
++ '    <td style="word-break: break-word;border-collapse: collapse !important;vertical-align: top">'
++ '    <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td align="center" style="background-color: #e7e7e7;"><![endif]-->'
++ '    '
++ '  '
++ '  '
++ '    <!--[if gte mso 9]>'
++ '      <table cellpadding="0" cellspacing="0" border="0" style="margin: 0 auto;min-width: 320px;max-width: 600px;">'
++ '        <tr>'
++ '          <td background="https://cdn.templates.unlayer.com/assets/1689920371348-blend-layer-blue-abstract-geometric-wide-banner-design-background%201.png" valign="top" width="100%">'
++ '      <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width: 600px;">'
++ '        <v:fill type="frame" src="https://cdn.templates.unlayer.com/assets/1689920371348-blend-layer-blue-abstract-geometric-wide-banner-design-background%201.png" /><v:textbox style="mso-fit-shape-to-text:true" inset="0,0,0,0">'
++ '      <![endif]-->'
++ '  '
++ '<div class="u-row-container" style="padding: 0px;background-image: url(\'images/image-3.png\');background-repeat: no-repeat;background-position: center top;background-color: transparent">'
++ '  <div class="u-row" style="margin: 0 auto;min-width: 320px;max-width: 600px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: transparent;">'
++ '    <div style="border-collapse: collapse;display: table;width: 100%;height: 100%;background-color: transparent;">'
++ '      <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding: 0px;background-image: url(\'images/image-3.png\');background-repeat: no-repeat;background-position: center top;background-color: transparent;" align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:600px;"><tr style="background-color: transparent;"><![endif]-->'
++ '      '
++ '<!--[if (mso)|(IE)]><td align="center" width="480" class="v-col-border" style="background-color: #169179;width: 480px;padding: 0px;border-top: 0px solid transparent;border-left: 60px solid #ffffff;border-right: 60px solid #ffffff;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;" valign="top"><![endif]-->'
++ '<div id="u_column_2" class="u-col u-col-100" style="max-width: 320px;min-width: 600px;display: table-cell;vertical-align: top;">'
++ '  <div style="background-color: #169179;height: 100%;width: 100% !important;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;">'
++ '  <!--[if (!mso)&(!IE)]><!--><div class="v-col-border" style="box-sizing: border-box; height: 100%; padding: 0px;border-top: 0px solid transparent;border-left: 60px solid #ffffff;border-right: 60px solid #ffffff;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;"><!--<![endif]-->'
++ '  '
++ '<table style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">'
++ '  <tbody>'
++ '    <tr>'
++ '      <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:35px 10px;font-family:arial,helvetica,sans-serif;" align="left">'
++ '        '
++ `  <h1 class="v-text-align v-font-size" style="margin: 0px; color: #ffffff; line-height: 140%; text-align: center; word-wrap: break-word; font-size: 18px; font-weight: 2000;"><span data-metadata="<!--(figmeta)eyJmaWxlS2V5IjoialozYzlVTnFJVjFOaDJvYXYxcXFUQyIsInBhc3RlSUQiOjIwNjE4ODI5MjgsImRhdGFUeXBlIjoic2NlbmUifQo=(/figmeta)-->"></span><span>${mainTitle}</span></h1>`
++ ''
++ '      </td>'
++ '    </tr>'
++ '  </tbody>'
++ '</table>'
++ ''
++ '  <!--[if (!mso)&(!IE)]><!--></div><!--<![endif]-->'
++ '  </div>'
++ '</div>'
++ '<!--[if (mso)|(IE)]></td><![endif]-->'
++ '      <!--[if (mso)|(IE)]></tr></table></td></tr></table><![endif]-->'
++ '    </div>'
++ '  </div>'
++ '  </div>'
++ '  '
++ '    <!--[if gte mso 9]>'
++ '      </v:textbox></v:rect>'
++ '    </td>'
++ '    </tr>'
++ '    </table>'
++ '    <![endif]-->'
++ '    '
++ ''
++ '  '
++ '<div class="u-row-container" style="padding: 0px;background-color: transparent">'
++ '  <div class="u-row" style="margin: 0 auto;min-width: 320px;max-width: 600px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: transparent;">'
++ '    <div style="border-collapse: collapse;display: table;width: 100%;height: 100%;background-color: transparent;">'
++ '      <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding: 0px;background-color: transparent;" align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:600px;"><tr style="background-color: transparent;"><![endif]-->'
++ '      '
++ '<!--[if (mso)|(IE)]><td align="center" width="600" class="v-col-border" style="background-color: #ffffff;width: 600px;padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;" valign="top"><![endif]-->'
++ '<div class="u-col u-col-100" style="max-width: 320px;min-width: 600px;display: table-cell;vertical-align: top;">'
++ '  <div style="background-color: #ffffff;height: 100%;width: 100% !important;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;">'
++ '  <!--[if (!mso)&(!IE)]><!--><div class="v-col-border" style="box-sizing: border-box; height: 100%; padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;"><!--<![endif]-->'
++ '  '
++ '<table id="u_content_text_11" style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">'
++ '  <tbody>'
++ '    <tr>'
++ '      <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:30px 65px;font-family:arial,helvetica,sans-serif;" align="left">'
++ '        '
++ '  <div class="v-text-align v-font-size" style="font-size: 14px; line-height: 140%; text-align: left; word-wrap: break-word;">'
++ '    <p style="line-height: 140%;"><span data-metadata="<!--(figmeta)eyJmaWxlS2V5IjoialozYzlVTnFJVjFOaDJvYXYxcXFUQyIsInBhc3RlSUQiOjExMTM0NTIxNDUsImRhdGFUeXBlIjoic2NlbmUifQo=(/figmeta)-->" style="line-height: 19.6px;"></span><span style="line-height: 19.6px;">Ahoj,</span></p>'
++ '    '
++ '<p style="line-height: 140%;">Â </p>'
++ `<p style="line-height: 140%;"><span style="line-height: 19.6px;">${subtitle}</span></p>`
++ ''
++ '<p style="line-height: 140%;">Â </p>'
++ `<p style="line-height: 140%;"><span style="line-height: 19.6px;"><b>${message}</b	></span></p>`
++ ''
++ '  </div>'
++ ''
++ '      </td>'
++ '    </tr>'
++ '  </tbody>'
++ '</table>'
++ ''
++ '  <!--[if (!mso)&(!IE)]><!--></div><!--<![endif]-->'
++ '  </div>'
++ '</div>'
++ '<!--[if (mso)|(IE)]></td><![endif]-->'
++ '      <!--[if (mso)|(IE)]></tr></table></td></tr></table><![endif]-->'
++ '    </div>'
++ '  </div>'
++ '  </div>'
++ '  '
++ '<div class="u-row-container" style="padding: 0px;background-color: transparent">'
++ '  <div class="u-row" style="margin: 0 auto;min-width: 320px;max-width: 600px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: transparent;">'
++ '    <div style="border-collapse: collapse;display: table;width: 100%;height: 100%;background-color: transparent;">'
++ '      <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding: 0px;background-color: transparent;" align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:600px;"><tr style="background-color: transparent;"><![endif]-->'
++ '      '
++ '<!--[if (mso)|(IE)]><td align="center" width="500" class="v-col-border" style="background-color: #f8f8fc;width: 500px;padding: 0px;border-top: 0px solid transparent;border-left: 50px solid #ffffff;border-right: 50px solid #ffffff;border-bottom: 30px solid #ffffff;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;" valign="top"><![endif]-->'
++ '<div id="u_column_4" class="u-col u-col-100" style="max-width: 320px;min-width: 600px;display: table-cell;vertical-align: top;">'
++ '  <div style="background-color: #f8f8fc;height: 100%;width: 100% !important;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;">'
++ '  <!--[if (!mso)&(!IE)]><!--><div class="v-col-border" style="box-sizing: border-box; height: 100%; padding: 0px;border-top: 0px solid transparent;border-left: 50px solid #ffffff;border-right: 50px solid #ffffff;border-bottom: 30px solid #ffffff;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;"><!--<![endif]-->'
++ '  '
++ '<table id="u_content_text_3" style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">'
++ '  <tbody>'
++ '    <tr>'
++ '      <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:30px 65px 10px 30px;font-family:arial,helvetica,sans-serif;" align="left">'
++ '        '
++ '  <div class="v-text-align v-font-size" style="font-size: 15px; font-weight: 700; line-height: 140%; text-align: left; word-wrap: break-word;">'
++ '    <p style="line-height: 140%;"><span data-metadata="<!--(figmeta)eyJmaWxlS2V5IjoialozYzlVTnFJVjFOaDJvYXYxcXFUQyIsInBhc3RlSUQiOjExMTM0NTIxNDUsImRhdGFUeXBlIjoic2NlbmUifQo=(/figmeta)-->" style="line-height: 21px;"></span>SHRNUTÃ REZERVACE</p>'
++ '  </div>'
++ ''
++ '      </td>'
++ '    </tr>'
++ '  </tbody>'
++ '</table>'
++ ''
++ '<table id="u_content_divider_2" style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">'
++ '  <tbody>'
++ '    <tr>'
++ '      <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:0px 10px 30px;font-family:arial,helvetica,sans-serif;" align="left">'
++ '        '
++ '  <table height="0px" align="center" border="0" cellpadding="0" cellspacing="0" width="93%" style="border-collapse: collapse;table-layout: fixed;border-spacing: 0;mso-table-lspace: 0pt;mso-table-rspace: 0pt;vertical-align: top;border-top: 1px solid #e6e6e6;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%">'
++ '    <tbody>'
++ '      <tr style="vertical-align: top">'
++ '        <td style="word-break: break-word;border-collapse: collapse !important;vertical-align: top;font-size: 0px;line-height: 0px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%">'
++ '          <span> </span>'
++ '        </td>'
++ '      </tr>'
++ '    </tbody>'
++ '  </table>'
++ ''
++ '      </td>'
++ '    </tr>'
++ '  </tbody>'
++ '</table>'
++ ''
++ '<table id="u_content_text_4" style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">'
++ '  <tbody>'
++ '    <tr>'
++ '      <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:0px 65px 0px 30px;font-family:arial,helvetica,sans-serif;" align="left">'
++ '        '
++ '  <div class="v-text-align v-font-size" style="font-size: 13px; line-height: 140%; text-align: left; word-wrap: break-word;">'
++ `    <p style="line-height: 140%;"><span data-metadata="<!--(figmeta)eyJmaWxlS2V5IjoialozYzlVTnFJVjFOaDJvYXYxcXFUQyIsInBhc3RlSUQiOjExMTM0NTIxNDUsImRhdGFUeXBlIjoic2NlbmUifQo=(/figmeta)-->" style="line-height: 18.2px;"></span><span data-metadata="<!--(figmeta)eyJmaWxlS2V5IjoialozYzlVTnFJVjFOaDJvYXYxcXFUQyIsInBhc3RlSUQiOjkwMzQ5NjU3MiwiZGF0YVR5cGUiOiJzY2VuZSJ9Cg==(/figmeta)-->" style="line-height: 18.2px;"></span><span style="line-height: 18.2px;">JmÃ©no: ${userName} </span> Â </p>`
++ '  </div>'
++ ''
++ '      </td>'
++ '    </tr>'
++ '  </tbody>'
++ '</table>'
++ ''
++ '<table id="u_content_divider_3" style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">'
++ '  <tbody>'
++ '    <tr>'
++ '      <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:arial,helvetica,sans-serif;" align="left">'
++ '        '
++ '  <table height="0px" align="center" border="0" cellpadding="0" cellspacing="0" width="93%" style="border-collapse: collapse;table-layout: fixed;border-spacing: 0;mso-table-lspace: 0pt;mso-table-rspace: 0pt;vertical-align: top;border-top: 1px solid #e6e6e6;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%">'
++ '    <tbody>'
++ '      <tr style="vertical-align: top">'
++ '        <td style="word-break: break-word;border-collapse: collapse !important;vertical-align: top;font-size: 0px;line-height: 0px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%">'
++ '          <span> </span>'
++ '        </td>'
++ '      </tr>'
++ '    </tbody>'
++ '  </table>'
++ ''
++ '      </td>'
++ '    </tr>'
++ '  </tbody>'
++ '</table>'
++ ''
++ '<table id="u_content_text_2" style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">'
++ '  <tbody>'
++ '    <tr>'
++ '      <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:0px 65px 0px 30px;font-family:arial,helvetica,sans-serif;" align="left">'
++ '        '
++ '  <div class="v-text-align v-font-size" style="font-size: 13px; line-height: 140%; text-align: left; word-wrap: break-word;">'
++ `    <p style="line-height: 140%;"><span data-metadata="<!--(figmeta)eyJmaWxlS2V5IjoialozYzlVTnFJVjFOaDJvYXYxcXFUQyIsInBhc3RlSUQiOjExMTM0NTIxNDUsImRhdGFUeXBlIjoic2NlbmUifQo=(/figmeta)-->" style="line-height: 18.2px;"></span><span data-metadata="<!--(figmeta)eyJmaWxlS2V5IjoialozYzlVTnFJVjFOaDJvYXYxcXFUQyIsInBhc3RlSUQiOjMyNzc3NjM4LCJkYXRhVHlwZSI6InNjZW5lIn0K(/figmeta)-->" style="line-height: 18.2px;"></span><span style="line-height: 18.2px;">E-mail: ${userEmail}</span>Â </p>`
++ '  </div>'
++ ''
++ '      </td>'
++ '    </tr>'
++ '  </tbody>'
++ '</table>'
++ ''
++ '<table id="u_content_divider_3" style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">'
++ '  <tbody>'
++ '    <tr>'
++ '      <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:arial,helvetica,sans-serif;" align="left">'
++ '        '
++ '  <table height="0px" align="center" border="0" cellpadding="0" cellspacing="0" width="93%" style="border-collapse: collapse;table-layout: fixed;border-spacing: 0;mso-table-lspace: 0pt;mso-table-rspace: 0pt;vertical-align: top;border-top: 1px solid #e6e6e6;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%">'
++ '    <tbody>'
++ '      <tr style="vertical-align: top">'
++ '        <td style="word-break: break-word;border-collapse: collapse !important;vertical-align: top;font-size: 0px;line-height: 0px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%">'
++ '          <span> </span>'
++ '        </td>'
++ '      </tr>'
++ '    </tbody>'
++ '  </table>'
++ ''
++ '      </td>'
++ '    </tr>'
++ '  </tbody>'
++ '</table>'
++ ''
++ '<table id="u_content_text_2" style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">'
++ '  <tbody>'
++ '    <tr>'
++ '      <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:0px 65px 0px 30px;font-family:arial,helvetica,sans-serif;" align="left">'
++ '        '
++ '  <div class="v-text-align v-font-size" style="font-size: 13px; line-height: 140%; text-align: left; word-wrap: break-word;">'
++ `    <p style="line-height: 140%;"><span data-metadata="<!--(figmeta)eyJmaWxlS2V5IjoialozYzlVTnFJVjFOaDJvYXYxcXFUQyIsInBhc3RlSUQiOjExMTM0NTIxNDUsImRhdGFUeXBlIjoic2NlbmUifQo=(/figmeta)-->" style="line-height: 18.2px;"></span><span data-metadata="<!--(figmeta)eyJmaWxlS2V5IjoialozYzlVTnFJVjFOaDJvYXYxcXFUQyIsInBhc3RlSUQiOjMyNzc3NjM4LCJkYXRhVHlwZSI6InNjZW5lIn0K(/figmeta)-->" style="line-height: 18.2px;"></span><span style="line-height: 18.2px;">ZprÃ¡va od hrÃ¡Äe: ${userMessage}</span>Â </p>`
++ '  </div>'
++ ''
++ '      </td>'
++ '    </tr>'
++ '  </tbody>'
++ '</table>'
++ ''
++ '<table id="u_content_divider_1" style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">'
++ '  <tbody>'
++ '    <tr>'
++ '      <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:arial,helvetica,sans-serif;" align="left">'
++ '        '
++ '  <table height="0px" align="center" border="0" cellpadding="0" cellspacing="0" width="93%" style="border-collapse: collapse;table-layout: fixed;border-spacing: 0;mso-table-lspace: 0pt;mso-table-rspace: 0pt;vertical-align: top;border-top: 1px solid #e6e6e6;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%">'
++ '    <tbody>'
++ '      <tr style="vertical-align: top">'
++ '        <td style="word-break: break-word;border-collapse: collapse !important;vertical-align: top;font-size: 0px;line-height: 0px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%">'
++ '          <span> </span>'
++ '        </td>'
++ '      </tr>'
++ '    </tbody>'
++ '  </table>'
++ ''
++ '      </td>'
++ '    </tr>'
++ '  </tbody>'
++ '</table>'
++ ''
++ '<table id="u_content_text_2" style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">'
++ '  <tbody>'
++ '    <tr>'
++ '      <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:0px 65px 0px 30px;font-family:arial,helvetica,sans-serif;" align="left">'
++ '        '
++ '  <div class="v-text-align v-font-size" style="font-size: 13px; line-height: 140%; text-align: left; word-wrap: break-word;">'
++ '    <p style="line-height: 140%;"><span data-metadata="<!--(figmeta)eyJmaWxlS2V5IjoialozYzlVTnFJVjFOaDJvYXYxcXFUQyIsInBhc3RlSUQiOjExMTM0NTIxNDUsImRhdGFUeXBlIjoic2NlbmUifQo=(/figmeta)-->" style="line-height: 18.2px;"></span><span data-metadata="<!--(figmeta)eyJmaWxlS2V5IjoialozYzlVTnFJVjFOaDJvYXYxcXFUQyIsInBhc3RlSUQiOjMyNzc3NjM4LCJkYXRhVHlwZSI6InNjZW5lIn0K(/figmeta)-->" style="line-height: 18.2px;"></span><span style="line-height: 18.2px;">Seznam rezervovanÃ½ch her: </span>Â </p>'
++ '  </div>'
++ ''
++ '      </td>'
++ '      '
++ '    </tr>'
++ '  </tbody>'
++ '</table>'
++ ''
++ ''
++ `${gameItemsArray}`
++ ''
++ '  <!--[if (!mso)&(!IE)]><!--></div><!--<![endif]-->'
++ '  </div>'
++ '</div>'
++ '<!--[if (mso)|(IE)]></td><![endif]-->'
++ '      <!--[if (mso)|(IE)]></tr></table></td></tr></table><![endif]-->'
++ '    </div>'
++ '  </div>'
++ '  </div>'
++ '  '
++ '<div class="u-row-container" style="padding: 0px;background-color: transparent">'
++ '  <div class="u-row" style="margin: 0 auto;min-width: 320px;max-width: 600px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: transparent;">'
++ '    <div style="border-collapse: collapse;display: table;width: 100%;height: 100%;background-color: transparent;">'
++ '      <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding: 0px;background-color: transparent;" align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:600px;"><tr style="background-color: transparent;"><![endif]-->'
++ ''
++ '<div class="u-row-container" style="padding: 0px;background-color: transparent">'
++ '  <div class="u-row" style="margin: 0 auto;min-width: 320px;max-width: 600px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: transparent;">'
++ '    <div style="border-collapse: collapse;display: table;width: 100%;height: 100%;background-color: transparent;">'
++ '      <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding: 0px;background-color: transparent;" align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:600px;"><tr style="background-color: transparent;"><![endif]-->'
++ '      '
++ '<!--[if (mso)|(IE)]><td align="center" width="600" class="v-col-border" style="background-color: #232323;width: 600px;padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;" valign="top"><![endif]-->'
++ '<div class="u-col u-col-100" style="max-width: 320px;min-width: 600px;display: table-cell;vertical-align: top;">'
++ '  <div style="background-color: #232323;height: 100%;width: 100% !important;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;">'
++ '  <!--[if (!mso)&(!IE)]><!--><div class="v-col-border" style="box-sizing: border-box; height: 100%; padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;"><!--<![endif]-->'
++ '  '
++ '<table id="u_content_text_15" style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">'
++ '  <tbody>'
++ '    <tr>'
++ '      <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:20px 10px 20px 40px;font-family:arial,helvetica,sans-serif;" align="left">'
++ '        '
++ '  <div class="v-text-align v-font-size" style="font-size: 13px; color: #ffffff; line-height: 140%; text-align: left; word-wrap: break-word;">'
++ '    <p style="line-height: 140%;"> <a href="https://udkh.cz/#/events" style="font-size: 13px; color: #ffffff;" > UNSUBSCRIBE </a> Â  | Â  <a href="https://udkh.cz/static/media/vypujcni-rad.f1b12b5c.pdf" style="font-size: 13px; color: #ffffff;" > PRIVACY POLICY </a>Â  | Â  <a href="https://udkh.cz/#/home" style="font-size: 13px; color: #ffffff;"> WEB </a></p>'
++ '  </div>'
++ ''
++ '      </td>'
++ '    </tr>'
++ '  </tbody>'
++ '</table>'
++ ''
++ '  <!--[if (!mso)&(!IE)]><!--></div><!--<![endif]-->'
++ '  </div>'
++ '</div>'
++ '<!--[if (mso)|(IE)]></td><![endif]-->'
++ '      <!--[if (mso)|(IE)]></tr></table></td></tr></table><![endif]-->'
++ '    </div>'
++ '  </div>'
++ '  </div>'
++ '  '
++ ''
++ ''
++ '    <!--[if (mso)|(IE)]></td></tr></table><![endif]-->'
++ '    </td>'
++ '  </tr>'
++ '  </tbody>'
++ '  </table>'
++ '  <!--[if mso]></div><![endif]-->'
++ '  <!--[if IE]></div><![endif]-->'
++ '</body>'
++ ''
++ '</html>';
 
 
-export const newReservationEmailTemplate = (mainTitle, subtitle, userName, userEmail, message, gameItemsArray, footerMessage) =>  '' + 
-'<!DOCTYPE html>' + 
-'' + 
-'<html lang="en" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:v="urn:schemas-microsoft-com:vml">' + 
-'<head>' + 
-'<title></title>' + 
-'<meta charset="utf-8"/>' + 
-'<meta content="width=device-width, initial-scale=1.0" name="viewport"/>' + 
-'<!--[if mso]><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch><o:AllowPNG/></o:OfficeDocumentSettings></xml><![endif]-->' + 
-'<!--[if !mso]><!-->' + 
-'<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css"/>' + 
-'<!--<![endif]-->' + 
-'<style>' + 
-'		* {' + 
-'			box-sizing: border-box;' + 
-'		}' + 
-'' + 
-'		body {' + 
-'			margin: 0;' + 
-'			padding: 0;' + 
-'		}' + 
-'' + 
-'		/*th.column{' + 
-'	padding:0' + 
-'}*/' + 
-'' + 
-'		a[x-apple-data-detectors] {' + 
-'			color: inherit !important;' + 
-'			text-decoration: inherit !important;' + 
-'		}' + 
-'' + 
-'		#MessageViewBody a {' + 
-'			color: inherit;' + 
-'			text-decoration: none;' + 
-'		}' + 
-'' + 
-'		p {' + 
-'			line-height: inherit' + 
-'		}' + 
-'' + 
-'		@media (max-width:700px) {' + 
-'			.icons-inner {' + 
-'				text-align: center;' + 
-'			}' + 
-'' + 
-'			.icons-inner td {' + 
-'				margin: 0 auto;' + 
-'			}' + 
-'' + 
-'			.fullMobileWidth,' + 
-'			.row-content {' + 
-'				width: 100% !important;' + 
-'			}' + 
-'' + 
-'			.image_block img.big {' + 
-'				width: auto !important;' + 
-'			}' + 
-'' + 
-'			.mobile_hide {' + 
-'				display: none;' + 
-'			}' + 
-'' + 
-'			.stack .column {' + 
-'				width: 100%;' + 
-'				display: block;' + 
-'			}' + 
-'' + 
-'			.mobile_hide {' + 
-'				min-height: 0;' + 
-'				max-height: 0;' + 
-'				max-width: 0;' + 
-'				overflow: hidden;' + 
-'				font-size: 0px;' + 
-'			}' + 
-'		}' + 
-'	</style>' + 
-'</head>' + 
-'<body style="margin: 0; background-color: #ffffff; padding: 0; -webkit-text-size-adjust: none; text-size-adjust: none;">' + 
-'<table border="0" cellpadding="0" cellspacing="0" class="nl-container" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #ffffff;" width="100%">' + 
-'<tbody>' + 
-'<tr>' + 
-'<td>' + 
-'<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #89d5a0;" width="100%">' + 
-'<tbody>' + 
-'<tr>' + 
-'<td>' + 
-'<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #000000;" width="900">' + 
-'<tbody>' + 
-'<tr>' + 
-'<td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; padding-top: 5px; padding-bottom: 5px; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">' + 
-'<table border="0" cellpadding="0" cellspacing="0" class="image_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">' + 
-'<tr>' + 
-'<td style="width:100%;padding-right:0px;padding-left:0px;padding-top:25px;">' + 
-'<div align="center" style="line-height:10px"><a href="https://udkh.cz/#/games/admin2" style="outline:none" tabindex="-1" target="_blank"><img alt="ÚDKH při VŠCHT Praha" src="https://game-booking-backend.herokuapp.com/public/images/cart.png" style="display: block; height: auto; border: 0; width: 210px; max-width: 100%;" title="Cool Burger Walking" width="210"/></a></div>' + 
-'</td>' + 
-'</tr>' + 
-'</table>' + 
-'<table border="0" cellpadding="0" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">' + 
-'<tr>' + 
-'<td style="padding-bottom:15px;padding-left:10px;padding-right:10px;padding-top:30px;">' + 
-'<div style="font-family: sans-serif">' + 
-'<div style="font-size: 14px; mso-line-height-alt: 16.8px; color: #0e1309; line-height: 1.2; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;">' + 
-`<p style="margin: 0; font-size: 14px; text-align: center;"><strong><span style="font-size:38px;">${mainTitle}<br/></span></strong></p>` + 
-'</div>' + 
-'</div>' + 
-'</td>' + 
-'</tr>' + 
-'</table>' + 
-'<table class="-wm-text_block" style="mso-table-lspace:0pt;mso-table-rspace:0pt;word-break:break-word" width="100%" cellspacing="0" cellpadding="0" border="0">'+
-'<tbody>'+
-'<tr>'+
-'<td style="padding-bottom:20px;padding-left:60px;padding-right:60px;padding-top:10px">'+
-'<div style="font-family:sans-serif">'+
-'<div style="font-size:12px;font-family:Montserrat,Trebuchet MS,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Tahoma,sans-serif;mso-line-height-alt:21.6px;color:#0e1309;line-height:1.8">'+
-`<p style="margin:0;font-size:14px;text-align:center;mso-line-height-alt:32.4px"><span style="font-size:18px">${subtitle}</span></p>`+
-'</div>'+
-'</div>'+
-'</td>'+
-'</tr>'+
-'</tbody>'+
-'</table>'+
-'<table border="0" cellpadding="10" cellspacing="0" class="button_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">' + 
-'<tr>' + 
-'<td>' + 
-'<div align="center">' + 
-'<!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://udkh.cz/#/games/admin2" style="height:43px;width:220px;v-text-anchor:middle;" arcsize="10%" stroke="false" fillcolor="#ffffff"><w:anchorlock/><v:textbox inset="0px,0px,0px,0px"><center style="color:#33563c; font-family:Tahoma, sans-serif; font-size:16px"><![endif]--><a href="https://udkh.cz/#/games/admin2" style="text-decoration:none;display:inline-block;color:#33563c;background-color:#ffffff;border-radius:4px;width:auto;border-top:0px solid #8a3b8f;border-right:0px solid #8a3b8f;border-bottom:0px solid #8a3b8f;border-left:0px solid #8a3b8f;padding-top:5px;padding-bottom:5px;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;text-align:center;mso-border-alt:none;word-break:keep-all;" target="_blank"><span style="padding-left:40px;padding-right:40px;font-size:16px;display:inline-block;letter-spacing:normal;"><span style="font-size: 16px; line-height: 2; word-break: break-word; mso-line-height-alt: 32px;"><strong>Vstup do aplikace<br/></strong></span></span></a>' + 
-'<!--[if mso]></center></v:textbox></v:roundrect><![endif]-->' + 
-'</div>' + 
-'</td>' + 
-'</tr>' + 
-'</table>' + 
-'</td>' + 
-'</tr>' + 
-'</tbody>' + 
-'</table>' + 
-'</td>' + 
-'</tr>' + 
-'</tbody>' + 
-'</table>' + 
-'<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-2" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">' + 
-'<tbody>' + 
-'<tr>' + 
-'<td>' + 
-'<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #000000;" width="680">' + 
-'<tbody>' + 
-'<tr>' + 
-'<td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="50%">' + 
-'<table border="0" cellpadding="0" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">' + 
-'<tr>' + 
-'<td style="padding-bottom:5px;padding-left:30px;padding-right:30px;padding-top:15px;">' + 
-'<div style="font-family: sans-serif">' + 
-'<div style="font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21.6px; color: #33563c; line-height: 1.8;">' + 
-'<p style="margin: 0; font-size: 14px; text-align: left;"><strong><span style="font-size:16px;">Jméno hráče:</span></strong></p>' + 
-'</div>' + 
-'</div>' + 
-'</td>' + 
-'</tr>' + 
-'</table>' + 
-'<table border="0" cellpadding="0" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">' + 
-'<tr>' + 
-'<td style="padding-bottom:10px;padding-left:30px;padding-right:30px;padding-top:10px;">' + 
-'<div style="font-family: sans-serif">' + 
-'<div style="font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21.6px; color: #33563c; line-height: 1.8;">' + 
-'<p style="margin: 0; font-size: 14px; text-align: left; mso-line-height-alt: 28.8px;"><span style="font-size:16px;"><strong><span style="">E-mail hráče</span></strong></span></p>' + 
-'</div>' + 
-'</div>' + 
-'</td>' + 
-'</tr>' + 
-'</table>' + 
-'<table border="0" cellpadding="0" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">' + 
-'<tr>' + 
-'<td style="padding-bottom:15px;padding-left:30px;padding-right:30px;padding-top:10px;">' + 
-'<div style="font-family: sans-serif">' + 
-'<div style="font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21.6px; color: #33563c; line-height: 1.8;">' + 
-'<p style="margin: 0; font-size: 14px; text-align: left; mso-line-height-alt: 28.8px;"><span style="font-size:16px;"><strong><span style="">Zpráva od hráče:<br/></span></strong></span></p>' + 
-'</div>' + 
-'</div>' + 
-'</td>' + 
-'</tr>' + 
-'</table>' + 
-'</td>' + 
-'<td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="50%">' + 
-'<table border="0" cellpadding="0" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">' + 
-'<tr>' + 
-'<td style="padding-bottom:5px;padding-left:30px;padding-right:30px;padding-top:15px;">' + 
-'<div style="font-family: sans-serif">' + 
-'<div style="font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21.6px; color: #33563c; line-height: 1.8;">' + 
-`<p style="margin: 0; font-size: 14px; text-align: left;"><strong><span style="font-size:16px;">${userName}</span></strong></p>` + 
-'</div>' + 
-'</div>' + 
-'</td>' + 
-'</tr>' + 
-'</table>' + 
-'<table border="0" cellpadding="0" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">' + 
-'<tr>' + 
-'<td style="padding-bottom:5px;padding-left:30px;padding-right:30px;padding-top:10px;">' + 
-'<div style="font-family: sans-serif">' + 
-'<div style="font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21.6px; color: #33563c; line-height: 1.8;">' + 
-`<p style="margin: 0; font-size: 14px; text-align: left;"><strong><span style="font-size:16px;">${userEmail}</span></strong></p>` + 
-'</div>' + 
-'</div>' + 
-'</td>' + 
-'</tr>' + 
-'</table>' + 
-'<table border="0" cellpadding="0" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">' + 
-'<tr>' + 
-'<td style="padding-bottom:10px;padding-left:30px;padding-right:30px;padding-top:10px;">' + 
-'<div style="font-family: sans-serif">' + 
-'<div style="font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21.6px; color: #33563c; line-height: 1.8;">' + 
-`<p style="margin: 0; font-size: 14px; text-align: left;"><strong><span style="font-size:16px;">${message}</span></strong></p>` + 
-'</div>' + 
-'</div>' + 
-'</td>' + 
-'</tr>' + 
-'</table>' + 
-'</td>' + 
-'</tr>' + 
-'</tbody>' + 
-'</table>' + 
-'</td>' + 
-'</tr>' + 
-'</tbody>' + 
-'</table>' + 
-'<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-3" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">' + 
-'<tbody>' + 
-'<tr>' + 
-'<td>' + 
-'<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #000000;" width="680">' + 
-'<tbody>' + 
-'<tr>' + 
-'<td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; padding-top: 5px; padding-bottom: 5px; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">' + 
-'<table border="0" cellpadding="10" cellspacing="0" class="divider_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">' + 
-'<tr>' + 
-'<td>' + 
-'<div align="center">' + 
-'<table border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">' + 
-'<tr>' + 
-'<td class="divider_inner" style="font-size: 1px; line-height: 1px; border-top: 1px solid #BBBBBB;"><span> </span></td>' + 
-'</tr>' + 
-'</table>' + 
-'</div>' + 
-'</td>' + 
-'</tr>' + 
-'</table>' + 
-'</td>' + 
-'</tr>' + 
-'</tbody>' + 
-'</table>' + 
-'</td>' + 
-'</tr>' + 
-'</tbody>' + 
-'</table>' + 
-'<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-4" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">' + 
-'<tbody>' + 
-'<tr>' + 
-'<td>' + 
-'<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #000000;" width="680">' + 
-'<tbody>' + 
-'<tr>' + 
-'<td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; padding-top: 5px; padding-bottom: 5px; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">' + 
-'<table border="0" cellpadding="0" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">' + 
-'<tr>' + 
-'<td style="padding-bottom:5px;padding-left:30px;padding-right:30px;padding-top:10px;">' + 
-'<div style="font-family: sans-serif">' + 
-'<div style="font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21.6px; color: #33563c; line-height: 1.8;">' + 
-'<p style="margin: 0; font-size: 14px; text-align: left;"><strong><span style="font-size:16px;">Seznam rezervovaných her:</span></strong></p>' + 
-'</div>' + 
-'</div>' + 
-'</td>' + 
-'</tr>' + 
-'</table>' + 
-'</td>' + 
-'</tr>' + 
-'</tbody>' + 
-'</table>' + 
-'</td>' + 
-'</tr>' + 
-'</tbody>' + 
-`${gameItemsArray}` +
-'</table>' + 
-'<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-8" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">' + 
-'<tbody>' + 
-'<tr>' + 
-'<td>' + 
-'<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #000000;" width="680">' + 
-'<tbody>' + 
-'<tr>' + 
-'<td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; padding-top: 5px; padding-bottom: 5px; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">' + 
-'<table border="0" cellpadding="10" cellspacing="0" class="divider_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">' + 
-'<tr>' + 
-'<td>' + 
-'<div align="center">' + 
-'<table border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">' + 
-'<tr>' + 
-'<td class="divider_inner" style="font-size: 1px; line-height: 1px; border-top: 1px solid #BBBBBB;"><span> </span></td>' + 
-'</tr>' + 
-'</table>' + 
-'</div>' + 
-'</td>' + 
-'</tr>' + 
-'</table>' + 
-'</td>' + 
-'</tr>' + 
-'</tbody>' + 
-'</table>' + 
+export const gameItemTemplate = (imageUrl, gameSource, gameName, gameNote, gameAppLink, thirdColumn) => '</table>'
+	+ '<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-5" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">'
+	+ '<tbody>'
+	+ '<tr>'
+	+ '<td>'
+	+ '<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #ffffff; color: #000000;" width="680">'
+	+ '<tbody>'
+	+ '<tr>'
+	+ '<td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; padding-left: 10px; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="25%">'
+	+ '<table border="0" cellpadding="0" cellspacing="0" class="image_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">'
+	+ '<tr>'
+	+ '<td style="padding-bottom:25px;padding-left:20px;padding-right:20px;padding-top:25px;width:100%;">'
+	+ `<div align="center" style="line-height:10px"><a href="${gameAppLink}" style="outline:none" tabindex="-1" target="_blank"><img alt="Gamge logo" class="fullMobileWidth big" src="${imageUrl}" style="display: block; height: auto; border: 0; width: 120px; max-width: 100%;" title="${gameName}" width="120"/></a></div>`
+	+ '</td>'
+	+ '</tr>'
+	+ '</table>'
+	+ '</td>'
+	+ '<td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="50%">'
+	+ '<table border="0" cellpadding="0" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">'
+	+ '<tr>'
+	+ '<td style="padding-bottom:10px;padding-left:30px;padding-right:10px;padding-top:40px;">'
+	+ '<div style="font-family: sans-serif">'
+	+ '<div style="font-size: 12px; mso-line-height-alt: 14.399999999999999px; color: #232323; line-height: 1.2; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;">'
+	+ `<p style="margin: 0; font-size: 14px;"><span style="font-size:17px;"><b><a href="${gameSource}" style="outline:none" tabindex="-1" target="_blank">${gameName}</a></b></span></p>`
+	+ '</div>'
+	+ '</div>'
+	+ '</td>'
+	+ '</tr>'
+	+ '</table>'
+	+ '<table border="0" cellpadding="0" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">'
+	+ '<tr>'
+	+ '<td style="padding-left:30px;padding-right:10px;padding-top:10px;padding-bottom:5px;">'
+	+ '<div style="font-family: sans-serif">'
+	+ '<div style="font-size: 12px; mso-line-height-alt: 18px; color: #848484; line-height: 1.5; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;">'
+	+ `<p style="margin: 0; font-size: 14px; mso-line-height-alt: 21px;"><span style="font-size:14px;">${gameNote}</span></p>`
+	+ '</div>'
+	+ '</div>'
+	+ '</td>'
+	+ '</tr>'
+	+ '</table>'
+	+ '</td>'
+	+ '<td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="25%">'
+	+ '<div class="spacer_block" style="height:5px;line-height:5px;font-size:1px;"> </div>'
+	+ '<div class="spacer_block mobile_hide" style="height:30px;line-height:30px;font-size:1px;"> </div>'
+	+ '<table border="0" cellpadding="0" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">'
+	+ '<tr>'
+	+ '<td style="padding-bottom:15px;padding-left:30px;padding-right:10px;padding-top:10px;">'
+	+ '<div style="font-family: sans-serif">'
+	+ '<div style="font-size: 12px; mso-line-height-alt: 14.399999999999999px; color: #555555; line-height: 1.2; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;">'
+	+ `<p style="margin: 0; font-size: 14px;">${thirdColumn}</p>`
+	+ '</div>'
+	+ '</div>'
+	+ '</td>'
+	+ '</tr>'
+	+ '</table>'
+	+ '</td>'
+	+ '</tr>'
+	+ '</tbody>'
+	+ '</table>'
+	+ '</td>'
+	+ '</tr>'
+	+ '</tbody>';
+
+export const newReservationEmailTemplate = (mainTitle, subtitle, userName, userEmail, message, gameItemsArray, footerMessage) => ''
++ '<!DOCTYPE html>'
++ ''
++ '<html lang="en" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:v="urn:schemas-microsoft-com:vml">'
++ '<head>'
++ '<title></title>'
++ '<meta charset="utf-8"/>'
++ '<meta content="width=device-width, initial-scale=1.0" name="viewport"/>'
++ '<!--[if mso]><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch><o:AllowPNG/></o:OfficeDocumentSettings></xml><![endif]-->'
++ '<!--[if !mso]><!-->'
++ '<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css"/>'
++ '<!--<![endif]-->'
++ '<style>'
++ '		* {'
++ '			box-sizing: border-box;'
++ '		}'
++ ''
++ '		body {'
++ '			margin: 0;'
++ '			padding: 0;'
++ '		}'
++ ''
++ '		/*th.column{'
++ '	padding:0'
++ '}*/'
++ ''
++ '		a[x-apple-data-detectors] {'
++ '			color: inherit !important;'
++ '			text-decoration: inherit !important;'
++ '		}'
++ ''
++ '		#MessageViewBody a {'
++ '			color: inherit;'
++ '			text-decoration: none;'
++ '		}'
++ ''
++ '		p {'
++ '			line-height: inherit'
++ '		}'
++ ''
++ '		@media (max-width:700px) {'
++ '			.icons-inner {'
++ '				text-align: center;'
++ '			}'
++ ''
++ '			.icons-inner td {'
++ '				margin: 0 auto;'
++ '			}'
++ ''
++ '			.fullMobileWidth,'
++ '			.row-content {'
++ '				width: 100% !important;'
++ '			}'
++ ''
++ '			.image_block img.big {'
++ '				width: auto !important;'
++ '			}'
++ ''
++ '			.mobile_hide {'
++ '				display: none;'
++ '			}'
++ ''
++ '			.stack .column {'
++ '				width: 100%;'
++ '				display: block;'
++ '			}'
++ ''
++ '			.mobile_hide {'
++ '				min-height: 0;'
++ '				max-height: 0;'
++ '				max-width: 0;'
++ '				overflow: hidden;'
++ '				font-size: 0px;'
++ '			}'
++ '		}'
++ '	</style>'
++ '</head>'
++ '<body style="margin: 0; background-color: #ffffff; padding: 0; -webkit-text-size-adjust: none; text-size-adjust: none;">'
++ '<table border="0" cellpadding="0" cellspacing="0" class="nl-container" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #ffffff;" width="100%">'
++ '<tbody>'
++ '<tr>'
++ '<td>'
++ '<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #89d5a0;" width="100%">'
++ '<tbody>'
++ '<tr>'
++ '<td>'
++ '<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #000000;" width="900">'
++ '<tbody>'
++ '<tr>'
++ '<td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; padding-top: 5px; padding-bottom: 5px; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">'
++ '<table border="0" cellpadding="0" cellspacing="0" class="image_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">'
++ '<tr>'
++ '<td style="width:100%;padding-right:0px;padding-left:0px;padding-top:25px;">'
++ '<div align="center" style="line-height:10px"><a href="https://udkh.cz/#/games/admin2" style="outline:none" tabindex="-1" target="_blank"><img alt="ÚDKH při VŠCHT Praha" src="https://game-booking-backend.herokuapp.com/public/images/cart.png" style="display: block; height: auto; border: 0; width: 210px; max-width: 100%;" title="Cool Burger Walking" width="210"/></a></div>'
++ '</td>'
++ '</tr>'
++ '</table>'
++ '<table border="0" cellpadding="0" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">'
++ '<tr>'
++ '<td style="padding-bottom:15px;padding-left:10px;padding-right:10px;padding-top:30px;">'
++ '<div style="font-family: sans-serif">'
++ '<div style="font-size: 14px; mso-line-height-alt: 16.8px; color: #0e1309; line-height: 1.2; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;">'
++ `<p style="margin: 0; font-size: 14px; text-align: center;"><strong><span style="font-size:38px;">${mainTitle}<br/></span></strong></p>`
++ '</div>'
++ '</div>'
++ '</td>'
++ '</tr>'
++ '</table>'
++ '<table class="-wm-text_block" style="mso-table-lspace:0pt;mso-table-rspace:0pt;word-break:break-word" width="100%" cellspacing="0" cellpadding="0" border="0">'
++ '<tbody>'
++ '<tr>'
++ '<td style="padding-bottom:20px;padding-left:60px;padding-right:60px;padding-top:10px">'
++ '<div style="font-family:sans-serif">'
++ '<div style="font-size:12px;font-family:Montserrat,Trebuchet MS,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Tahoma,sans-serif;mso-line-height-alt:21.6px;color:#0e1309;line-height:1.8">'
++ `<p style="margin:0;font-size:14px;text-align:center;mso-line-height-alt:32.4px"><span style="font-size:18px">${subtitle}</span></p>`
++ '</div>'
++ '</div>'
++ '</td>'
++ '</tr>'
++ '</tbody>'
++ '</table>'
++ '<table border="0" cellpadding="10" cellspacing="0" class="button_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">'
++ '<tr>'
++ '<td>'
++ '<div align="center">'
++ '<!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://udkh.cz/#/games/admin2" style="height:43px;width:220px;v-text-anchor:middle;" arcsize="10%" stroke="false" fillcolor="#ffffff"><w:anchorlock/><v:textbox inset="0px,0px,0px,0px"><center style="color:#33563c; font-family:Tahoma, sans-serif; font-size:16px"><![endif]--><a href="https://udkh.cz/#/games/admin2" style="text-decoration:none;display:inline-block;color:#33563c;background-color:#ffffff;border-radius:4px;width:auto;border-top:0px solid #8a3b8f;border-right:0px solid #8a3b8f;border-bottom:0px solid #8a3b8f;border-left:0px solid #8a3b8f;padding-top:5px;padding-bottom:5px;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;text-align:center;mso-border-alt:none;word-break:keep-all;" target="_blank"><span style="padding-left:40px;padding-right:40px;font-size:16px;display:inline-block;letter-spacing:normal;"><span style="font-size: 16px; line-height: 2; word-break: break-word; mso-line-height-alt: 32px;"><strong>Vstup do aplikace<br/></strong></span></span></a>'
++ '<!--[if mso]></center></v:textbox></v:roundrect><![endif]-->'
++ '</div>'
++ '</td>'
++ '</tr>'
++ '</table>'
++ '</td>'
++ '</tr>'
++ '</tbody>'
++ '</table>'
++ '</td>'
++ '</tr>'
++ '</tbody>'
++ '</table>'
++ '<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-2" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">'
++ '<tbody>'
++ '<tr>'
++ '<td>'
++ '<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #000000;" width="680">'
++ '<tbody>'
++ '<tr>'
++ '<td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="50%">'
++ '<table border="0" cellpadding="0" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">'
++ '<tr>'
++ '<td style="padding-bottom:5px;padding-left:30px;padding-right:30px;padding-top:15px;">'
++ '<div style="font-family: sans-serif">'
++ '<div style="font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21.6px; color: #33563c; line-height: 1.8;">'
++ '<p style="margin: 0; font-size: 14px; text-align: left;"><strong><span style="font-size:16px;">Jméno hráče:</span></strong></p>'
++ '</div>'
++ '</div>'
++ '</td>'
++ '</tr>'
++ '</table>'
++ '<table border="0" cellpadding="0" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">'
++ '<tr>'
++ '<td style="padding-bottom:10px;padding-left:30px;padding-right:30px;padding-top:10px;">'
++ '<div style="font-family: sans-serif">'
++ '<div style="font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21.6px; color: #33563c; line-height: 1.8;">'
++ '<p style="margin: 0; font-size: 14px; text-align: left; mso-line-height-alt: 28.8px;"><span style="font-size:16px;"><strong><span style="">E-mail hráče</span></strong></span></p>'
++ '</div>'
++ '</div>'
++ '</td>'
++ '</tr>'
++ '</table>'
++ '<table border="0" cellpadding="0" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">'
++ '<tr>'
++ '<td style="padding-bottom:15px;padding-left:30px;padding-right:30px;padding-top:10px;">'
++ '<div style="font-family: sans-serif">'
++ '<div style="font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21.6px; color: #33563c; line-height: 1.8;">'
++ '<p style="margin: 0; font-size: 14px; text-align: left; mso-line-height-alt: 28.8px;"><span style="font-size:16px;"><strong><span style="">Zpráva od hráče:<br/></span></strong></span></p>'
++ '</div>'
++ '</div>'
++ '</td>'
++ '</tr>'
++ '</table>'
++ '</td>'
++ '<td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="50%">'
++ '<table border="0" cellpadding="0" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">'
++ '<tr>'
++ '<td style="padding-bottom:5px;padding-left:30px;padding-right:30px;padding-top:15px;">'
++ '<div style="font-family: sans-serif">'
++ '<div style="font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21.6px; color: #33563c; line-height: 1.8;">'
++ `<p style="margin: 0; font-size: 14px; text-align: left;"><strong><span style="font-size:16px;">${userName}</span></strong></p>`
++ '</div>'
++ '</div>'
++ '</td>'
++ '</tr>'
++ '</table>'
++ '<table border="0" cellpadding="0" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">'
++ '<tr>'
++ '<td style="padding-bottom:5px;padding-left:30px;padding-right:30px;padding-top:10px;">'
++ '<div style="font-family: sans-serif">'
++ '<div style="font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21.6px; color: #33563c; line-height: 1.8;">'
++ `<p style="margin: 0; font-size: 14px; text-align: left;"><strong><span style="font-size:16px;">${userEmail}</span></strong></p>`
++ '</div>'
++ '</div>'
++ '</td>'
++ '</tr>'
++ '</table>'
++ '<table border="0" cellpadding="0" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">'
++ '<tr>'
++ '<td style="padding-bottom:10px;padding-left:30px;padding-right:30px;padding-top:10px;">'
++ '<div style="font-family: sans-serif">'
++ '<div style="font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21.6px; color: #33563c; line-height: 1.8;">'
++ `<p style="margin: 0; font-size: 14px; text-align: left;"><strong><span style="font-size:16px;">${message}</span></strong></p>`
++ '</div>'
++ '</div>'
++ '</td>'
++ '</tr>'
++ '</table>'
++ '</td>'
++ '</tr>'
++ '</tbody>'
++ '</table>'
++ '</td>'
++ '</tr>'
++ '</tbody>'
++ '</table>'
++ '<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-3" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">'
++ '<tbody>'
++ '<tr>'
++ '<td>'
++ '<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #000000;" width="680">'
++ '<tbody>'
++ '<tr>'
++ '<td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; padding-top: 5px; padding-bottom: 5px; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">'
++ '<table border="0" cellpadding="10" cellspacing="0" class="divider_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">'
++ '<tr>'
++ '<td>'
++ '<div align="center">'
++ '<table border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">'
++ '<tr>'
++ '<td class="divider_inner" style="font-size: 1px; line-height: 1px; border-top: 1px solid #BBBBBB;"><span> </span></td>'
++ '</tr>'
++ '</table>'
++ '</div>'
++ '</td>'
++ '</tr>'
++ '</table>'
++ '</td>'
++ '</tr>'
++ '</tbody>'
++ '</table>'
++ '</td>'
++ '</tr>'
++ '</tbody>'
++ '</table>'
++ '<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-4" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">'
++ '<tbody>'
++ '<tr>'
++ '<td>'
++ '<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #000000;" width="680">'
++ '<tbody>'
++ '<tr>'
++ '<td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; padding-top: 5px; padding-bottom: 5px; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">'
++ '<table border="0" cellpadding="0" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">'
++ '<tr>'
++ '<td style="padding-bottom:5px;padding-left:30px;padding-right:30px;padding-top:10px;">'
++ '<div style="font-family: sans-serif">'
++ '<div style="font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21.6px; color: #33563c; line-height: 1.8;">'
++ '<p style="margin: 0; font-size: 14px; text-align: left;"><strong><span style="font-size:16px;">Seznam rezervovaných her:</span></strong></p>'
++ '</div>'
++ '</div>'
++ '</td>'
++ '</tr>'
++ '</table>'
++ '</td>'
++ '</tr>'
++ '</tbody>'
++ '</table>'
++ '</td>'
++ '</tr>'
++ '</tbody>'
++ `${gameItemsArray}`
++ '</table>'
++ '<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-8" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">'
++ '<tbody>'
++ '<tr>'
++ '<td>'
++ '<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #000000;" width="680">'
++ '<tbody>'
++ '<tr>'
++ '<td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; padding-top: 5px; padding-bottom: 5px; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">'
++ '<table border="0" cellpadding="10" cellspacing="0" class="divider_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">'
++ '<tr>'
++ '<td>'
++ '<div align="center">'
++ '<table border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">'
++ '<tr>'
++ '<td class="divider_inner" style="font-size: 1px; line-height: 1px; border-top: 1px solid #BBBBBB;"><span> </span></td>'
++ '</tr>'
++ '</table>'
++ '</div>'
++ '</td>'
++ '</tr>'
++ '</table>'
++ '</td>'
++ '</tr>'
++ '</tbody>'
++ '</table>'
 
 
++ '<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-2" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">'
++ '<tbody>'
++ '<tr>'
++ '<td>'
++ '<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #000000;" width="680">'
++ '<tbody>'
++ '<tr>'
++ '<td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="50%">'
++ '<table border="0" cellpadding="0" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">'
++ '<tr>'
++ '<td style="padding-bottom:10px;padding-left:30px;padding-right:30px;padding-top:10px;">'
++ '<div style="font-family: sans-serif">'
++ '<div style="font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21.6px; color: #33563c; line-height: 1.8;">'
++ `<p style="margin: 0; font-size: 14px; text-align: left;"><strong><span style="font-size:16px;">${footerMessage}</span></strong></p>`
++ '</div>'
++ '</div>'
++ '</td>'
++ '</tr>'
++ '</table>'
++ '</td>'
++ '</tr>'
++ '</tbody>'
++ '</table>'
++ '</td>'
++ '</tr>'
++ '</tbody>'
++ '</table>'
 
 
-
-'<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-2" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">' + 
-'<tbody>' + 
-'<tr>' + 
-'<td>' + 
-'<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #000000;" width="680">' + 
-'<tbody>' + 
-'<tr>' + 
-'<td class="column" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="50%">' + 
-'<table border="0" cellpadding="0" cellspacing="0" class="text_block" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">' + 
-'<tr>' + 
-'<td style="padding-bottom:10px;padding-left:30px;padding-right:30px;padding-top:10px;">' + 
-'<div style="font-family: sans-serif">' + 
-'<div style="font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 21.6px; color: #33563c; line-height: 1.8;">' + 
-`<p style="margin: 0; font-size: 14px; text-align: left;"><strong><span style="font-size:16px;">${footerMessage}</span></strong></p>` + 
-'</div>' + 
-'</div>' + 
-'</td>' + 
-'</tr>' + 
-'</table>' + 
-'</td>' + 
-'</tr>' + 
-'</tbody>' + 
-'</table>' + 
-'</td>' + 
-'</tr>' + 
-'</tbody>' + 
-'</table>' + 
-
-
-
-
-
-'</td>' + 
-'</tr>' + 
-'</tbody>' + 
-'</body>' + 
-'</html>';
++ '</td>'
++ '</tr>'
++ '</tbody>'
++ '</body>'
++ '</html>';

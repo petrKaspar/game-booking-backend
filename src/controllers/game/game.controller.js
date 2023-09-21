@@ -5,7 +5,7 @@ import {
   User, Game, Tag, TagGame, Changelog
 } from '../../models';
 import { successResponse, errorResponse, uniqueId } from '../../helpers';
-import { newReservationEmailTemplate, gameItemsArray, gameItemTemplate } from '../../templates/email-newResrevation';
+import { newReservationEmailTemplate, gameItemsArray, gameItemTemplate, gameItemTemplate2, newReservationEmailTemplate2 } from '../../templates/email-newResrevation';
 // import * as nodemailer from 'nodemailer';
 const env = process.env.NODE_ENV || 'development';
 import * as c from '../../config/config.js';
@@ -296,20 +296,27 @@ export const reserveGame = async (req, res) => {
     if (game.price) {
       priceTotal = priceTotal + Math.ceil(game.price * 4 / 100);
     }
-    gameItemsArray.push(gameItemTemplate(
-      game.image ? game.image : 'https://udkh.cz/static/media/logo.29f0ed59.png', 
-      game.sourceLink ? game.sourceLink : '',
-      game.name,
-      game.note,
-      `https://udkh.cz/#/games/${game.id}`,
-      game.price ? Math.ceil(game.price * 4 / 100) + ' Kč' : ''
-      ));
-}
-    let htmlPage = newReservationEmailTemplate('Nová rezervace!', '', req.body.userName, req.body.userEmail, req.body.message, gameItemsArray.join(''), `Doporučená výše dobrovolného daru za toto vypůjčení činí ${priceTotal} Kč. Děkujeme :-)`);
+    // gameItemsArray.push(gameItemTemplate(
+    //   game.image ? game.image : 'https://udkh.cz/static/media/logo.29f0ed59.png', 
+    //   game.sourceLink ? game.sourceLink : '',
+    //   game.name,
+    //   game.note,
+    //   `https://udkh.cz/#/games/${game.id}`,
+    //   game.price ? Math.ceil(game.price * 4 / 100) + ' Kč' : ''
+    //   ));
 
-    await sendEmailMailjet('pkaspar1@seznam.cz', req.body.userName, config.emailOptions.to, `Nová rezervace`, htmlPage);
+    gameItemsArray.push(gameItemTemplate2(game.name));
+
+
+  }
+    // let htmlPage = newReservationEmailTemplate('Nová rezervace!', '', req.body.userName, req.body.userEmail, req.body.message, gameItemsArray.join(''), `Doporučená výše dobrovolného daru za toto vypůjčení činí ${priceTotal} Kč. Děkujeme :-)`);
+    const subtitle = 'Potvrzujeme rezervaci Vámi vybraných her. Správce o ní bude informován. Vyzvednutí her bude možné v respiriu budovy B, VŠCHT Praha dle dohody během úterních volných hraní (16:00-18:00) či deskoherních seminářů.';
+    const message = `Doporučená výše dobrovolného daru za toto vypůjčení činí ${priceTotal} Kč. Děkujeme :-)`;
+    const htmlPage = newReservationEmailTemplate2('Nová rezervace!', subtitle, message, req.body.userName, req.body.userEmail, req.body.message, gameItemsArray.join(''));
+  
+    await sendEmailMailjet('pkaspar1@seznam.cz', req.body.userName, 'petr1kaspar@gmail.com', 'Nová rezervace', htmlPage); // config.emailOptions.to
     if (emailRegexp.test(req.body.userEmail)) {
-      await sendEmailMailjet('pkaspar1@seznam.cz', req.body.userName, req.body.userEmail, `Nová rezervace`, htmlPage);
+      await sendEmailMailjet('pkaspar1@seznam.cz', req.body.userName, 'petr1kaspar@gmail.com', 'Nová rezervace', htmlPage); // req.body.userEmail
     }
     return successResponse(req, res);
   } catch (error) {
@@ -534,17 +541,19 @@ export const sendEmailCronAdmin = async (req, res) => {
       if (game.price) {
         priceTotal = priceTotal + Math.ceil(game.price * 4 / 100);
       }
-      gameItemsArray.push(gameItemTemplate(
-        game.image ? game.image : 'https://udkh.cz/static/media/logo.29f0ed59.png', 
-        game.sourceLink ? game.sourceLink : '',
-        game.name,
-        game.note,
-        `https://udkh.cz/#/games/${game.id}`,
-        game.price ? Math.ceil(game.price * 4 / 100) + ' Kč' : ''
-        ));
+      // gameItemsArray.push(gameItemTemplate(
+      //   game.image ? game.image : 'https://udkh.cz/static/media/logo.29f0ed59.png', 
+      //   game.sourceLink ? game.sourceLink : '',
+      //   game.name,
+      //   game.note,
+      //   `https://udkh.cz/#/games/${game.id}`,
+      //   game.price ? Math.ceil(game.price * 4 / 100) + ' Kč' : ''
+      //   ));
+      gameItemsArray.push(gameItemTemplate(game.name));
       });
 
-    let htmlPage = newReservationEmailTemplate('Výpůjční doba je u konce!', 'Dovolujeme si Vás upozornit, že výpůjční doba her uvedených níže již dosáhla dvoutýdenní lhůty. Prosíme Vás tedy o jejich navrácení v následujících dnech během provozní doby půjčovny. Případně napište na udkh.vscht@gmail.com žádost o prodloužení výpůjční doby (žádosti nemusí být kvůli potřebám ÚDKH vyhověno).', borrowedGamesByEmail[0].userName, borrowedGamesByEmail[0].userEmail, '', gameItemsArray.join(''), `Doporučená výše dobrovolného daru za toto vypůjčení činí ${priceTotal} Kč. Děkujeme :-)`);
+    // let htmlPage = newReservationEmailTemplate('Výpůjční doba je u konce!', 'Dovolujeme si Vás upozornit, že výpůjční doba her uvedených níže již dosáhla dvoutýdenní lhůty. Prosíme Vás tedy o jejich navrácení v následujících dnech během provozní doby půjčovny. Případně napište na udkh.vscht@gmail.com žádost o prodloužení výpůjční doby (žádosti nemusí být kvůli potřebám ÚDKH vyhověno).', borrowedGamesByEmail[0].userName, borrowedGamesByEmail[0].userEmail, '', gameItemsArray.join(''), `Doporučená výše dobrovolného daru za toto vypůjčení činí ${priceTotal} Kč. Děkujeme :-)`);
+    const htmlPage = newReservationEmailTemplate2('Výpůjční doba je u konce!', 'Dovolujeme si Vás upozornit, že výpůjční doba her uvedených níže již dosáhla dvoutýdenní lhůty. Prosíme Vás tedy o jejich navrácení v následujících dnech během provozní doby půjčovny. Případně napište na udkh.vscht@gmail.com žádost o prodloužení výpůjční doby (žádosti nemusí být kvůli potřebám ÚDKH vyhověno).', `Doporučená výše dobrovolného daru za toto vypůjčení činí ${priceTotal} Kč. Děkujeme :-)`, borrowedGamesByEmail[0].userName, borrowedGamesByEmail[0].userEmail, '', gameItemsArray.join(''));
       sendEmailMailjet('pkaspar1@seznam.cz', 'ÚDKH', borrowedGamesByEmail[0].userEmail, `Upomínka`, htmlPage);
     });
 
@@ -724,7 +733,7 @@ export const sendEmail = async (from, to, subject, message, htmlBody) => {
 */
 export const sendEmailMailjet = async (fromEmail, fromName, toEmail, subject, htmlBody) => {
   const mailjet = require ('node-mailjet')
-  .connect('0400db937b8809b126932f1afc5620a3', '44d069825c14441636611927ce3c42fc')
+  .connect('a632a84646d945bf662fc966a9ced998', '53a085c6742621c568c4fef54e463e59')
   const request = mailjet
   .post("send", {'version': 'v3.1'})
   .request({

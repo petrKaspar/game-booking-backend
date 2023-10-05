@@ -314,9 +314,9 @@ export const reserveGame = async (req, res) => {
     const message = `Doporučená výše dobrovolného daru za toto vypůjčení činí ${priceTotal} Kč. Děkujeme :-)`;
     const htmlPage = newReservationEmailTemplate2('Nová rezervace!', subtitle, message, req.body.userName, req.body.userEmail, req.body.message, gameItemsArray.join(''));
   console.log('SENDING EMAIL @@@@@@@@@@@@@@@@@@@@@@@@');
-    await sendEmailMailjet('dlouhanfrankie@seznam.cz', req.body.userName, 'petr1kaspar@gmail.com', 'Nová rezervace', htmlPage); // 'pkaspar1@seznam.cz' config.emailOptions.to
+    await sendEmailMailjet('dlouhanfrankie2@seznam.cz', req.body.userName, 'petr1kaspar@gmail.com', 'Nová rezervace', htmlPage); // 'pkaspar1@seznam.cz' config.emailOptions.to
     if (emailRegexp.test(req.body.userEmail)) {
-      await sendEmailMailjet('dlouhanfrankie@seznam.cz', req.body.userName, 'petr1kaspar@gmail.com', 'Nová rezervace', htmlPage); // 'pkaspar1@seznam.cz' req.body.userEmail
+      await sendEmailMailjet('dlouhanfrankie2@seznam.cz', req.body.userName, 'petr1kaspar@gmail.com', 'Nová rezervace', htmlPage); // 'pkaspar1@seznam.cz' req.body.userEmail
     }
     return successResponse(req, res);
   } catch (error) {
@@ -554,7 +554,7 @@ export const sendEmailCronAdmin = async (req, res) => {
 
     // let htmlPage = newReservationEmailTemplate('Výpůjční doba je u konce!', 'Dovolujeme si Vás upozornit, že výpůjční doba her uvedených níže již dosáhla dvoutýdenní lhůty. Prosíme Vás tedy o jejich navrácení v následujících dnech během provozní doby půjčovny. Případně napište na udkh.vscht@gmail.com žádost o prodloužení výpůjční doby (žádosti nemusí být kvůli potřebám ÚDKH vyhověno).', borrowedGamesByEmail[0].userName, borrowedGamesByEmail[0].userEmail, '', gameItemsArray.join(''), `Doporučená výše dobrovolného daru za toto vypůjčení činí ${priceTotal} Kč. Děkujeme :-)`);
     const htmlPage = newReservationEmailTemplate2('Výpůjční doba je u konce!', 'Dovolujeme si Vás upozornit, že výpůjční doba her uvedených níže již dosáhla dvoutýdenní lhůty. Prosíme Vás tedy o jejich navrácení v následujících dnech během provozní doby půjčovny. Případně napište na udkh.vscht@gmail.com žádost o prodloužení výpůjční doby (žádosti nemusí být kvůli potřebám ÚDKH vyhověno).', `Doporučená výše dobrovolného daru za toto vypůjčení činí ${priceTotal} Kč. Děkujeme :-)`, borrowedGamesByEmail[0].userName, borrowedGamesByEmail[0].userEmail, '', gameItemsArray.join(''));
-      sendEmailMailjet('pkaspar1@seznam.cz', 'ÚDKH', borrowedGamesByEmail[0].userEmail, `Upomínka`, htmlPage);
+      sendEmailMailjet('dlouhanfrankie2@seznam.cz', 'ÚDKH', borrowedGamesByEmail[0].userEmail, `Upomínka`, htmlPage);
     });
 
     return successResponse(req, res, uniqueEmails);
@@ -732,8 +732,11 @@ export const sendEmail = async (from, to, subject, message, htmlBody) => {
 }
 */
 export const sendEmailMailjet = async (fromEmail, fromName, toEmail, subject, htmlBody) => {
-  const mailjet = require ('node-mailjet')
-  .connect('a632a84646d945bf662fc966a9ced998', '53a085c6742621c568c4fef54e463e59')
+  const Mailjet = require ('node-mailjet');
+  const mailjet = Mailjet.apiConnect(
+'b281c100f86adcae4fbed6feb76597a5',
+  '50e246f448e0cd9e2bf02e7393f20f83'
+  );
   const request = mailjet
   .post("send", {'version': 'v3.1'})
   .request({

@@ -4,7 +4,7 @@ export const gameItemTemplate2 = gameName => '<table id="u_content_text_2" style
 	+ '    <tr>'
 	+ '      <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:0px 65px 0px 30px;font-family:arial,helvetica,sans-serif;" align="left">'
 	+ '  <div class="v-text-align v-font-size" style="font-size: 13px; line-height: 140%; text-align: left; word-wrap: break-word;">'
-	+ `    <p style="line-height: 140%;"><span style="line-height: 18.2px;"><b>â€¢ ${gameName}</b></span>Â </p>`
+	+ `    <p style="line-height: 140%;"><span style="line-height: 18.2px;"><b>- ${gameName}</b></span></p>`
 	+ '  </div>'
 	+ '      </td>'
 	+ '    </tr>'
@@ -178,11 +178,11 @@ export const newReservationEmailTemplate2 = (mainTitle, subtitle, message, userN
 + '  <div class="v-text-align v-font-size" style="font-size: 14px; line-height: 140%; text-align: left; word-wrap: break-word;">'
 + '    <p style="line-height: 140%;"><span data-metadata="<!--(figmeta)eyJmaWxlS2V5IjoialozYzlVTnFJVjFOaDJvYXYxcXFUQyIsInBhc3RlSUQiOjExMTM0NTIxNDUsImRhdGFUeXBlIjoic2NlbmUifQo=(/figmeta)-->" style="line-height: 19.6px;"></span><span style="line-height: 19.6px;">Ahoj,</span></p>'
 + '    '
-+ '<p style="line-height: 140%;">Â </p>'
++ '<p style="line-height: 140%;"></p>'
 + `<p style="line-height: 140%;"><span style="line-height: 19.6px;">${subtitle}</span></p>`
 + ''
-+ '<p style="line-height: 140%;">Â </p>'
-+ `<p style="line-height: 140%;"><span style="line-height: 19.6px;"><b>${message}</b	></span></p>`
++ '<p style="line-height: 140%;"></p>'
++ `<p style="line-height: 140%;"><span style="line-height: 19.6px;"><b>${message}</b></span></p>`
 + ''
 + '  </div>'
 + ''
@@ -216,7 +216,7 @@ export const newReservationEmailTemplate2 = (mainTitle, subtitle, message, userN
 + '      <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:30px 65px 10px 30px;font-family:arial,helvetica,sans-serif;" align="left">'
 + '        '
 + '  <div class="v-text-align v-font-size" style="font-size: 15px; font-weight: 700; line-height: 140%; text-align: left; word-wrap: break-word;">'
-+ '    <p style="line-height: 140%;"><span data-metadata="<!--(figmeta)eyJmaWxlS2V5IjoialozYzlVTnFJVjFOaDJvYXYxcXFUQyIsInBhc3RlSUQiOjExMTM0NTIxNDUsImRhdGFUeXBlIjoic2NlbmUifQo=(/figmeta)-->" style="line-height: 21px;"></span>SHRNUTÃ REZERVACE</p>'
++ '    <p style="line-height: 140%;"><span data-metadata="<!--(figmeta)eyJmaWxlS2V5IjoialozYzlVTnFJVjFOaDJvYXYxcXFUQyIsInBhc3RlSUQiOjExMTM0NTIxNDUsImRhdGFUeXBlIjoic2NlbmUifQo=(/figmeta)-->" style="line-height: 21px;"></span>SHRNUTÁ REZERVACE</p>'
 + '  </div>'
 + ''
 + '      </td>'
@@ -250,7 +250,7 @@ export const newReservationEmailTemplate2 = (mainTitle, subtitle, message, userN
 + '      <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:0px 65px 0px 30px;font-family:arial,helvetica,sans-serif;" align="left">'
 + '        '
 + '  <div class="v-text-align v-font-size" style="font-size: 13px; line-height: 140%; text-align: left; word-wrap: break-word;">'
-+ `    <p style="line-height: 140%;"><span data-metadata="<!--(figmeta)eyJmaWxlS2V5IjoialozYzlVTnFJVjFOaDJvYXYxcXFUQyIsInBhc3RlSUQiOjExMTM0NTIxNDUsImRhdGFUeXBlIjoic2NlbmUifQo=(/figmeta)-->" style="line-height: 18.2px;"></span><span data-metadata="<!--(figmeta)eyJmaWxlS2V5IjoialozYzlVTnFJVjFOaDJvYXYxcXFUQyIsInBhc3RlSUQiOjkwMzQ5NjU3MiwiZGF0YVR5cGUiOiJzY2VuZSJ9Cg==(/figmeta)-->" style="line-height: 18.2px;"></span><span style="line-height: 18.2px;">JmÃ©no: ${userName} </span> Â </p>`
++ `    <p style="line-height: 140%;"><span data-metadata="<!--(figmeta)eyJmaWxlS2V5IjoialozYzlVTnFJVjFOaDJvYXYxcXFUQyIsInBhc3RlSUQiOjExMTM0NTIxNDUsImRhdGFUeXBlIjoic2NlbmUifQo=(/figmeta)-->" style="line-height: 18.2px;"></span><span data-metadata="<!--(figmeta)eyJmaWxlS2V5IjoialozYzlVTnFJVjFOaDJvYXYxcXFUQyIsInBhc3RlSUQiOjkwMzQ5NjU3MiwiZGF0YVR5cGUiOiJzY2VuZSJ9Cg==(/figmeta)-->" style="line-height: 18.2px;"></span><span style="line-height: 18.2px;">Jméno: ${userName} </span></p>`
 + '  </div>'
 + ''
 + '      </td>'
@@ -284,7 +284,7 @@ export const newReservationEmailTemplate2 = (mainTitle, subtitle, message, userN
 + '      <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:0px 65px 0px 30px;font-family:arial,helvetica,sans-serif;" align="left">'
 + '        '
 + '  <div class="v-text-align v-font-size" style="font-size: 13px; line-height: 140%; text-align: left; word-wrap: break-word;">'
-+ `    <p style="line-height: 140%;"><span data-metadata="<!--(figmeta)eyJmaWxlS2V5IjoialozYzlVTnFJVjFOaDJvYXYxcXFUQyIsInBhc3RlSUQiOjExMTM0NTIxNDUsImRhdGFUeXBlIjoic2NlbmUifQo=(/figmeta)-->" style="line-height: 18.2px;"></span><span data-metadata="<!--(figmeta)eyJmaWxlS2V5IjoialozYzlVTnFJVjFOaDJvYXYxcXFUQyIsInBhc3RlSUQiOjMyNzc3NjM4LCJkYXRhVHlwZSI6InNjZW5lIn0K(/figmeta)-->" style="line-height: 18.2px;"></span><span style="line-height: 18.2px;">E-mail: ${userEmail}</span>Â </p>`
++ `    <p style="line-height: 140%;"><span data-metadata="<!--(figmeta)eyJmaWxlS2V5IjoialozYzlVTnFJVjFOaDJvYXYxcXFUQyIsInBhc3RlSUQiOjExMTM0NTIxNDUsImRhdGFUeXBlIjoic2NlbmUifQo=(/figmeta)-->" style="line-height: 18.2px;"></span><span data-metadata="<!--(figmeta)eyJmaWxlS2V5IjoialozYzlVTnFJVjFOaDJvYXYxcXFUQyIsInBhc3RlSUQiOjMyNzc3NjM4LCJkYXRhVHlwZSI6InNjZW5lIn0K(/figmeta)-->" style="line-height: 18.2px;"></span><span style="line-height: 18.2px;">E-mail: ${userEmail}</span></p>`
 + '  </div>'
 + ''
 + '      </td>'
@@ -318,7 +318,7 @@ export const newReservationEmailTemplate2 = (mainTitle, subtitle, message, userN
 + '      <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:0px 65px 0px 30px;font-family:arial,helvetica,sans-serif;" align="left">'
 + '        '
 + '  <div class="v-text-align v-font-size" style="font-size: 13px; line-height: 140%; text-align: left; word-wrap: break-word;">'
-+ `    <p style="line-height: 140%;"><span data-metadata="<!--(figmeta)eyJmaWxlS2V5IjoialozYzlVTnFJVjFOaDJvYXYxcXFUQyIsInBhc3RlSUQiOjExMTM0NTIxNDUsImRhdGFUeXBlIjoic2NlbmUifQo=(/figmeta)-->" style="line-height: 18.2px;"></span><span data-metadata="<!--(figmeta)eyJmaWxlS2V5IjoialozYzlVTnFJVjFOaDJvYXYxcXFUQyIsInBhc3RlSUQiOjMyNzc3NjM4LCJkYXRhVHlwZSI6InNjZW5lIn0K(/figmeta)-->" style="line-height: 18.2px;"></span><span style="line-height: 18.2px;">ZprÃ¡va od hrÃ¡Äe: ${userMessage}</span>Â </p>`
++ `    <p style="line-height: 140%;"><span data-metadata="<!--(figmeta)eyJmaWxlS2V5IjoialozYzlVTnFJVjFOaDJvYXYxcXFUQyIsInBhc3RlSUQiOjExMTM0NTIxNDUsImRhdGFUeXBlIjoic2NlbmUifQo=(/figmeta)-->" style="line-height: 18.2px;"></span><span data-metadata="<!--(figmeta)eyJmaWxlS2V5IjoialozYzlVTnFJVjFOaDJvYXYxcXFUQyIsInBhc3RlSUQiOjMyNzc3NjM4LCJkYXRhVHlwZSI6InNjZW5lIn0K(/figmeta)-->" style="line-height: 18.2px;"></span><span style="line-height: 18.2px;">Zpráva od hráče: ${userMessage}</span></p>`
 + '  </div>'
 + ''
 + '      </td>'
@@ -352,7 +352,7 @@ export const newReservationEmailTemplate2 = (mainTitle, subtitle, message, userN
 + '      <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:0px 65px 0px 30px;font-family:arial,helvetica,sans-serif;" align="left">'
 + '        '
 + '  <div class="v-text-align v-font-size" style="font-size: 13px; line-height: 140%; text-align: left; word-wrap: break-word;">'
-+ '    <p style="line-height: 140%;"><span data-metadata="<!--(figmeta)eyJmaWxlS2V5IjoialozYzlVTnFJVjFOaDJvYXYxcXFUQyIsInBhc3RlSUQiOjExMTM0NTIxNDUsImRhdGFUeXBlIjoic2NlbmUifQo=(/figmeta)-->" style="line-height: 18.2px;"></span><span data-metadata="<!--(figmeta)eyJmaWxlS2V5IjoialozYzlVTnFJVjFOaDJvYXYxcXFUQyIsInBhc3RlSUQiOjMyNzc3NjM4LCJkYXRhVHlwZSI6InNjZW5lIn0K(/figmeta)-->" style="line-height: 18.2px;"></span><span style="line-height: 18.2px;">Seznam rezervovanÃ½ch her: </span>Â </p>'
++ '    <p style="line-height: 140%;"><span data-metadata="<!--(figmeta)eyJmaWxlS2V5IjoialozYzlVTnFJVjFOaDJvYXYxcXFUQyIsInBhc3RlSUQiOjExMTM0NTIxNDUsImRhdGFUeXBlIjoic2NlbmUifQo=(/figmeta)-->" style="line-height: 18.2px;"></span><span data-metadata="<!--(figmeta)eyJmaWxlS2V5IjoialozYzlVTnFJVjFOaDJvYXYxcXFUQyIsInBhc3RlSUQiOjMyNzc3NjM4LCJkYXRhVHlwZSI6InNjZW5lIn0K(/figmeta)-->" style="line-height: 18.2px;"></span><span style="line-height: 18.2px;">Seznam rezervovaných her: </span></p>'
 + '  </div>'
 + ''
 + '      </td>'
@@ -394,7 +394,7 @@ export const newReservationEmailTemplate2 = (mainTitle, subtitle, message, userN
 + '      <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:20px 10px 20px 40px;font-family:arial,helvetica,sans-serif;" align="left">'
 + '        '
 + '  <div class="v-text-align v-font-size" style="font-size: 13px; color: #ffffff; line-height: 140%; text-align: left; word-wrap: break-word;">'
-+ '    <p style="line-height: 140%;"> <a href="https://udkh.cz/#/events" style="font-size: 13px; color: #ffffff;" > UNSUBSCRIBE </a> Â  | Â  <a href="https://udkh.cz/static/media/vypujcni-rad.f1b12b5c.pdf" style="font-size: 13px; color: #ffffff;" > PRIVACY POLICY </a>Â  | Â  <a href="https://udkh.cz/#/home" style="font-size: 13px; color: #ffffff;"> WEB </a></p>'
++ '    <p style="line-height: 140%;"> <a href="https://udkh.cz/#/events" style="font-size: 13px; color: #ffffff;" > UNSUBSCRIBE </a><a href="https://udkh.cz/static/media/vypujcni-rad.f1b12b5c.pdf" style="font-size: 13px; color: #ffffff;" > PRIVACY POLICY </a><a href="https://udkh.cz/#/home" style="font-size: 13px; color: #ffffff;"> WEB </a></p>'
 + '  </div>'
 + ''
 + '      </td>'

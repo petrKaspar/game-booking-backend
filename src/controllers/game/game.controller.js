@@ -779,7 +779,7 @@ export const sendEmailEmailLabs = async (fromEmail, fromName, toEmail, subject, 
     form: {
       smtp_account: smtp,
       to: {
-        toEmail,
+        [toEmail]: '',
         'dlouhanfrankie@seznam.cz': '',
       },
       subject: subject,

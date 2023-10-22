@@ -314,9 +314,9 @@ export const reserveGame = async (req, res) => {
     const message = `Doporučená výše dobrovolného daru za toto vypůjčení činí ${priceTotal} Kč. Děkujeme :-)`;
     const htmlPage = newReservationEmailTemplate2('Nová rezervace!', subtitle, message, req.body.userName, req.body.userEmail, req.body.message, gameItemsArray.join(''));
   console.log('SENDING EMAIL @@@@@@@@@@@@@@@@@@@@@@@@');
-    await sendEmailMailjet('dlouhanfrankie2@seznam.cz', req.body.userName, 'petr1kaspar@gmail.com', 'Nová rezervace', htmlPage); // 'pkaspar1@seznam.cz' config.emailOptions.to
+    await sendEmailEmailLabs('dlouhanfrankie2@seznam.cz', req.body.userName, 'petr1kaspar@gmail.com', 'Nová rezervace', htmlPage); // 'pkaspar1@seznam.cz' config.emailOptions.to
     if (emailRegexp.test(req.body.userEmail)) {
-      await sendEmailMailjet('dlouhanfrankie2@seznam.cz', req.body.userName, 'petr1kaspar@gmail.com', 'Nová rezervace', htmlPage); // 'pkaspar1@seznam.cz' req.body.userEmail
+      await sendEmailEmailLabs('dlouhanfrankie2@seznam.cz', req.body.userName, 'petr1kaspar@gmail.com', 'Nová rezervace', htmlPage); // 'pkaspar1@seznam.cz' req.body.userEmail
     }
     return successResponse(req, res);
   } catch (error) {
@@ -554,7 +554,7 @@ export const sendEmailCronAdmin = async (req, res) => {
 
     // let htmlPage = newReservationEmailTemplate('Výpůjční doba je u konce!', 'Dovolujeme si Vás upozornit, že výpůjční doba her uvedených níže již dosáhla dvoutýdenní lhůty. Prosíme Vás tedy o jejich navrácení v následujících dnech během provozní doby půjčovny. Případně napište na udkh.vscht@gmail.com žádost o prodloužení výpůjční doby (žádosti nemusí být kvůli potřebám ÚDKH vyhověno).', borrowedGamesByEmail[0].userName, borrowedGamesByEmail[0].userEmail, '', gameItemsArray.join(''), `Doporučená výše dobrovolného daru za toto vypůjčení činí ${priceTotal} Kč. Děkujeme :-)`);
     const htmlPage = newReservationEmailTemplate2('Výpůjční doba je u konce!', 'Dovolujeme si Vás upozornit, že výpůjční doba her uvedených níže již dosáhla dvoutýdenní lhůty. Prosíme Vás tedy o jejich navrácení v následujících dnech během provozní doby půjčovny. Případně napište na udkh.vscht@gmail.com žádost o prodloužení výpůjční doby (žádosti nemusí být kvůli potřebám ÚDKH vyhověno).', `Doporučená výše dobrovolného daru za toto vypůjčení činí ${priceTotal} Kč. Děkujeme :-)`, borrowedGamesByEmail[0].userName, borrowedGamesByEmail[0].userEmail, '', gameItemsArray.join(''));
-      sendEmailMailjet('dlouhanfrankie2@seznam.cz', 'ÚDKH', borrowedGamesByEmail[0].userEmail, `Upomínka`, htmlPage);
+    sendEmailEmailLabs('dlouhanfrankie2@seznam.cz', 'ÚDKH', borrowedGamesByEmail[0].userEmail, `Upomínka`, htmlPage);
     });
 
     return successResponse(req, res, uniqueEmails);
@@ -765,6 +765,37 @@ export const sendEmailMailjet = async (fromEmail, fromName, toEmail, subject, ht
     .catch((err) => {
       console.log(err.statusCode)
   })
+}
+
+export const sendEmailEmailLabs = async (fromEmail, fromName, toEmail, subject, htmlBody) => {
+  const request = require('request');
+  const smtp = c.production.emailOptions.emailLabsSmtp;
+  const appkey = c.production.emailOptions.emailLabsAppkey;
+  const secret = c.production.emailOptions.emailLabsSecret;
+  
+  const options = {
+    method: 'POST',
+    url: 'https://api.emaillabs.net.pl/api/new_sendmail',
+    form: {
+      smtp_account: smtp,
+      to: {
+        toEmail,
+        'dlouhanfrankie@seznam.cz': '',
+      },
+      subject: subject,
+      html: htmlBody,
+      from: 'pkaspar1@seznam.cz',
+      from_name: 'Ústav deskovýh a karetních her'
+    },
+    headers: {
+      'content-type' : 'application/x-www-form-urlencoded',
+      'Authorization': 'Basic '+ new Buffer.from(appkey + ":" + secret).toString("base64")
+    }
+  }
+  
+  request.post(options, function (error, response, body) {
+    console.log(body)
+  });
 }
 
 export const getStatusName = (statusNumber) => {

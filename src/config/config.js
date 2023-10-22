@@ -15,6 +15,8 @@ const x = {
       user: process.env.EMAIL_USER || 'petr2kaspar@gmail.com',
       pass: process.env.EMAIL_PASS,
       to: process.env.EMAIL_TO || 'pkaspar1@seznam.cz',
+      emailLabsAppkey: process.env.EMAILLABS_APPKEY || 'MISSING EMAILLABS_APPKEY',
+      emailLabsSecret: process.env.EMAILLABS_SECRET || 'MISSING EMAILLABS_SECRET',
     },
   },
   test: {
@@ -43,6 +45,9 @@ const x = {
       user: process.env.EMAIL_USER || 'petr2kaspar@gmail.com',
       pass: process.env.EMAIL_PASS,
       to: process.env.EMAIL_TO || 'pkaspar1@seznam.cz',
+      emailLabsAppkey: process.env.EMAILLABS_APPKEY || 'MISSING EMAILLABS_APPKEY',
+      emailLabsSecret: process.env.EMAILLABS_SECRET || 'MISSING EMAILLABS_SECRET',
+      emailLabsSmtp: process.env.EMAILLABS_SMTP || 'MISSING EMAILLABS_SMTP',
     },
   },
 };

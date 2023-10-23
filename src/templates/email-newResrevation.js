@@ -394,7 +394,7 @@ export const newReservationEmailTemplate2 = (mainTitle, subtitle, message, userN
 + '      <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:20px 10px 20px 40px;font-family:arial,helvetica,sans-serif;" align="left">'
 + '        '
 + '  <div class="v-text-align v-font-size" style="font-size: 13px; color: #ffffff; line-height: 140%; text-align: left; word-wrap: break-word;">'
-+ '    <p style="line-height: 140%;"> <a href="https://udkh.cz/#/events" style="font-size: 13px; color: #ffffff;" > UNSUBSCRIBE </a><a href="https://udkh.cz/static/media/vypujcni-rad.f1b12b5c.pdf" style="font-size: 13px; color: #ffffff;" > PRIVACY POLICY </a><a href="https://udkh.cz/#/home" style="font-size: 13px; color: #ffffff;"> WEB </a></p>'
++ '    <p style="line-height: 140%;"> <a href="https://udkh.cz/#/events" style="font-size: 13px; color: #ffffff;" > UNSUBSCRIBE | </a><a href="https://udkh.cz/static/media/vypujcni-rad.f1b12b5c.pdf" style="font-size: 13px; color: #ffffff;" > PRIVACY POLICY | </a><a href="https://udkh.cz/#/home" style="font-size: 13px; color: #ffffff;"> WEB </a></p>'
 + '  </div>'
 + ''
 + '      </td>'

@@ -541,6 +541,7 @@ export const sendEmailCronAdmin = async (req, res) => {
       if (game.price) {
         priceTotal = priceTotal + Math.ceil(game.price * 4 / 100);
       }
+      console.log('pricePPPPPPPPPPPPPPPPPPPPPPPPP', priceTotal, game.price);
       // gameItemsArray.push(gameItemTemplate(
       //   game.image ? game.image : 'https://udkh.cz/static/media/logo.29f0ed59.png', 
       //   game.sourceLink ? game.sourceLink : '',
@@ -551,10 +552,11 @@ export const sendEmailCronAdmin = async (req, res) => {
       //   ));
       gameItemsArray.push(gameItemTemplate2(game.name));
       });
+      console.log('pricePPPPPPPPPPPPPPPPPPPPPPPPP', priceTotal);
 
     // let htmlPage = newReservationEmailTemplate('Výpůjční doba je u konce!', 'Dovolujeme si Vás upozornit, že výpůjční doba her uvedených níže již dosáhla dvoutýdenní lhůty. Prosíme Vás tedy o jejich navrácení v následujících dnech během provozní doby půjčovny. Případně napište na udkh.vscht@gmail.com žádost o prodloužení výpůjční doby (žádosti nemusí být kvůli potřebám ÚDKH vyhověno).', borrowedGamesByEmail[0].userName, borrowedGamesByEmail[0].userEmail, '', gameItemsArray.join(''), `Doporučená výše dobrovolného daru za toto vypůjčení činí ${priceTotal} Kč. Děkujeme :-)`);
     const htmlPage = newReservationEmailTemplate2('Výpůjční doba je u konce!', 'Dovolujeme si Vás upozornit, že výpůjční doba her uvedených níže již dosáhla dvoutýdenní lhůty. Prosíme Vás tedy o jejich navrácení v následujících dnech během provozní doby půjčovny. Případně napište na udkh.vscht@gmail.com žádost o prodloužení výpůjční doby (žádosti nemusí být kvůli potřebám ÚDKH vyhověno).', `Doporučená výše dobrovolného daru za toto vypůjčení činí ${priceTotal} Kč. Děkujeme :-)`, borrowedGamesByEmail[0].userName, borrowedGamesByEmail[0].userEmail, '', gameItemsArray.join(''));
-    sendEmailEmailLabs('dlouhanfrankie2@seznam.cz', 'ÚDKH', borrowedGamesByEmail[0].userEmail, `Upomínka`, htmlPage);
+    sendEmailEmailLabs('', '', borrowedGamesByEmail[0].userEmail, `Upomínka`, htmlPage);
     });
 
     return successResponse(req, res, uniqueEmails);
@@ -767,24 +769,25 @@ export const sendEmailMailjet = async (fromEmail, fromName, toEmail, subject, ht
   })
 }
 
+//'udkh.vscht@gmail.com': '',
 export const sendEmailEmailLabs = async (fromEmail, fromName, toEmail, subject, htmlBody) => {
   const request = require('request');
   const smtp = c.production.emailOptions.emailLabsSmtp;
   const appkey = c.production.emailOptions.emailLabsAppkey;
   const secret = c.production.emailOptions.emailLabsSecret;
-  
+  console.log('toEmailTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTt', toEmail);
   const options = {
     method: 'POST',
     url: 'https://api.emaillabs.net.pl/api/new_sendmail',
     form: {
       smtp_account: smtp,
       to: {
-        [toEmail]: '',
+        [toEmail]: toEmail,
         'dlouhanfrankie@seznam.cz': '',
       },
       subject: subject,
       html: htmlBody,
-      from: 'pkaspar1@seznam.cz',
+      from: 'udkh.vscht@gmail.com',
       from_name: 'Ústav deskovýh a karetních her'
     },
     headers: {
@@ -792,6 +795,7 @@ export const sendEmailEmailLabs = async (fromEmail, fromName, toEmail, subject, 
       'Authorization': 'Basic '+ new Buffer.from(appkey + ":" + secret).toString("base64")
     }
   }
+  console.log(options)
   
   request.post(options, function (error, response, body) {
     console.log(body)

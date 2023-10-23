@@ -216,7 +216,7 @@ export const newReservationEmailTemplate2 = (mainTitle, subtitle, message, userN
 + '      <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:30px 65px 10px 30px;font-family:arial,helvetica,sans-serif;" align="left">'
 + '        '
 + '  <div class="v-text-align v-font-size" style="font-size: 15px; font-weight: 700; line-height: 140%; text-align: left; word-wrap: break-word;">'
-+ '    <p style="line-height: 140%;"><span data-metadata="<!--(figmeta)eyJmaWxlS2V5IjoialozYzlVTnFJVjFOaDJvYXYxcXFUQyIsInBhc3RlSUQiOjExMTM0NTIxNDUsImRhdGFUeXBlIjoic2NlbmUifQo=(/figmeta)-->" style="line-height: 21px;"></span>SHRNUTÁ REZERVACE</p>'
++ '    <p style="line-height: 140%;"><span data-metadata="<!--(figmeta)eyJmaWxlS2V5IjoialozYzlVTnFJVjFOaDJvYXYxcXFUQyIsInBhc3RlSUQiOjExMTM0NTIxNDUsImRhdGFUeXBlIjoic2NlbmUifQo=(/figmeta)-->" style="line-height: 21px;"></span>SHRNUTÍ REZERVACE</p>'
 + '  </div>'
 + ''
 + '      </td>'

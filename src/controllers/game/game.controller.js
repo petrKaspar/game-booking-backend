@@ -292,7 +292,6 @@ export const reserveGame = async (req, res) => {
     // obsolite sending emails using Gooooooogle
     // await sendEmail(req.body.userName, config.emailOptions.to, `nová rezervace - ${game.name}`, `Byl vystaven požadevek na rezrvaci hry ${game.name}`, htmlBody);
     
-    console.log('game.pricePPPPPPPPPPPPPPPPPPPPPPPPPPPPP', game.price);
     if (game.price) {
       priceTotal = priceTotal + Math.ceil(game.price * 4 / 100);
     }
@@ -308,8 +307,8 @@ export const reserveGame = async (req, res) => {
     gameItemsArray.push(gameItemTemplate2(game.name));
 
   }
-  console.log('priceTotalTTTTTTTTTTTTTTTTTTTTTTTTTTT', priceTotal);
-    // let htmlPage = newReservationEmailTemplate('Nová rezervace!', '', req.body.userName, req.body.userEmail, req.body.message, gameItemsArray.join(''), `Doporučená výše dobrovolného daru za toto vypůjčení činí ${priceTotal} Kč. Děkujeme :-)`);
+
+  // let htmlPage = newReservationEmailTemplate('Nová rezervace!', '', req.body.userName, req.body.userEmail, req.body.message, gameItemsArray.join(''), `Doporučená výše dobrovolného daru za toto vypůjčení činí ${priceTotal} Kč. Děkujeme :-)`);
     const subtitle = 'Potvrzujeme rezervaci Vámi vybraných her. Správce o ní bude informován. Vyzvednutí her bude možné v respiriu budovy B, VŠCHT Praha dle dohody během úterních volných hraní (16:00-18:00) či deskoherních seminářů.';
     const message = `Doporučená výše dobrovolného daru za toto vypůjčení činí ${priceTotal} Kč. Děkujeme :-)`;
     const htmlPage = newReservationEmailTemplate2('Nová rezervace!', subtitle, message, req.body.userName, req.body.userEmail, req.body.message, gameItemsArray.join(''));
@@ -772,7 +771,6 @@ export const sendEmailEmailLabs = async (fromEmail, fromName, toEmail, subject, 
   const smtp = c.production.emailOptions.emailLabsSmtp;
   const appkey = c.production.emailOptions.emailLabsAppkey;
   const secret = c.production.emailOptions.emailLabsSecret;
-  console.log('toEmailTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTt', toEmail);
   const options = {
     method: 'POST',
     url: 'https://api.emaillabs.net.pl/api/new_sendmail',
@@ -791,7 +789,6 @@ export const sendEmailEmailLabs = async (fromEmail, fromName, toEmail, subject, 
       'Authorization': 'Basic '+ new Buffer.from(appkey + ":" + secret).toString("base64")
     }
   }
-  console.log(options)
   
   request.post(options, function (error, response, body) {
     console.log(body)

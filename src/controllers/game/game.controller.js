@@ -269,6 +269,8 @@ export const reserveGame = async (req, res) => {
         {
             userName: req.body.userName,
             userEmail: req.body.userEmail,
+            location: req.body.location,
+            message: req.body.message,
             status: 3,
         },
         {
@@ -286,6 +288,8 @@ export const reserveGame = async (req, res) => {
             note: `Hra rezervována uživatelem. ${req.body.message}`,
             userName: req.body.userName,
             userEmail: req.body.userEmail,
+            location: req.body.location,
+            message: req.body.message,
         },
         );
     
@@ -313,7 +317,7 @@ export const reserveGame = async (req, res) => {
     const message = `Doporučená výše dobrovolného daru za toto vypůjčení činí ${priceTotal} Kč. Děkujeme :-)`;
     const htmlPage = newReservationEmailTemplate2('Nová rezervace!', subtitle, message, req.body.userName, req.body.userEmail, req.body.message, gameItemsArray.join(''));
   console.log('SENDING EMAIL @@@@@@@@@@@@@@@@@@@@@@@@');
-    await sendEmailEmailLabs('dlouhanfrankie2@seznam.cz-nepouzito', req.body.userName, 'udkh.vscht@gmail.com', 'Nová rezervace', htmlPage); // 'pkaspar1@seznam.cz' config.emailOptions.to
+    await sendEmailEmailLabs('dlouhanfrankie2@seznam.cz-nepouzito', req.body.userName, 'pujcovna@udkh.cz', 'Nová rezervace', htmlPage); // 'pkaspar1@seznam.cz' config.emailOptions.to
     if (emailRegexp.test(req.body.userEmail)) {
       await sendEmailEmailLabs('dlouhanfrankie2@seznam.cz-nepouzito', req.body.userName, req.body.userEmail, 'Nová rezervace', htmlPage); // 'pkaspar1@seznam.cz' req.body.userEmail
     }
@@ -551,8 +555,8 @@ export const sendEmailCronAdmin = async (req, res) => {
       gameItemsArray.push(gameItemTemplate2(game.name));
       });
 
-    // let htmlPage = newReservationEmailTemplate('Výpůjční doba je u konce!', 'Dovolujeme si Vás upozornit, že výpůjční doba her uvedených níže již dosáhla dvoutýdenní lhůty. Prosíme Vás tedy o jejich navrácení v následujících dnech během provozní doby půjčovny. Případně napište na udkh.vscht@gmail.com žádost o prodloužení výpůjční doby (žádosti nemusí být kvůli potřebám ÚDKH vyhověno).', borrowedGamesByEmail[0].userName, borrowedGamesByEmail[0].userEmail, '', gameItemsArray.join(''), `Doporučená výše dobrovolného daru za toto vypůjčení činí ${priceTotal} Kč. Děkujeme :-)`);
-    const htmlPage = newReservationEmailTemplate2('Výpůjční doba je u konce!', 'Dovolujeme si Vás upozornit, že výpůjční doba her uvedených níže již dosáhla dvoutýdenní lhůty. Prosíme Vás tedy o jejich navrácení v následujících dnech během provozní doby půjčovny. Případně napište na udkh.vscht@gmail.com žádost o prodloužení výpůjční doby (žádosti nemusí být kvůli potřebám ÚDKH vyhověno).', `Doporučená výše dobrovolného daru za toto vypůjčení činí ${priceTotal} Kč. Děkujeme :-)`, borrowedGamesByEmail[0].userName, borrowedGamesByEmail[0].userEmail, '', gameItemsArray.join(''));
+    // let htmlPage = newReservationEmailTemplate('Výpůjční doba je u konce!', 'Dovolujeme si Vás upozornit, že výpůjční doba her uvedených níže již dosáhla dvoutýdenní lhůty. Prosíme Vás tedy o jejich navrácení v následujících dnech během provozní doby půjčovny. Případně napište na pujcovna@udkh.cz žádost o prodloužení výpůjční doby (žádosti nemusí být kvůli potřebám ÚDKH vyhověno).', borrowedGamesByEmail[0].userName, borrowedGamesByEmail[0].userEmail, '', gameItemsArray.join(''), `Doporučená výše dobrovolného daru za toto vypůjčení činí ${priceTotal} Kč. Děkujeme :-)`);
+    const htmlPage = newReservationEmailTemplate2('Výpůjční doba je u konce!', 'Dovolujeme si Vás upozornit, že výpůjční doba her uvedených níže již dosáhla dvoutýdenní lhůty. Prosíme Vás tedy o jejich navrácení v následujících dnech během provozní doby půjčovny. Případně napište na pujcovna@udkh.cz žádost o prodloužení výpůjční doby (žádosti nemusí být kvůli potřebám ÚDKH vyhověno).', `Doporučená výše dobrovolného daru za toto vypůjčení činí ${priceTotal} Kč. Děkujeme :-)`, borrowedGamesByEmail[0].userName, borrowedGamesByEmail[0].userEmail, '', gameItemsArray.join(''));
     sendEmailEmailLabs('', '', borrowedGamesByEmail[0].userEmail, `Upomínka`, htmlPage);
     });
 
@@ -781,7 +785,7 @@ export const sendEmailEmailLabs = async (fromEmail, fromName, toEmail, subject, 
       },
       subject: subject,
       html: htmlBody,
-      from: 'udkh.vscht@gmail.com',
+      from: 'pujcovna@udkh.cz',
       from_name: 'Ústav deskovýh a karetních her'
     },
     headers: {

@@ -401,13 +401,13 @@ export const getStatisticsAdmin = async (req, res) => {
         }
       });
     }
-// TODO: vypujcky delsi nez 2 tydny
+    // TODO: vypujcky delsi nez 2 tydny
     const result = {
       gamesTotalCount: games.rows.length,
       gamesStatusCount: statusCount,
       borrowedGamesThreshold: borrowThreshold,
       borrowedGames: borrowedGames,
-    }
+    };
     return successResponse(req, res, result);
   } catch (error) {
     return errorResponse(req, res, error.message);

@@ -21,6 +21,8 @@ module.exports = (sequelize, DataTypes) => {
     note: DataTypes.STRING,
     userName: DataTypes.STRING,
     userEmail: DataTypes.STRING,
+    location: DataTypes.STRING,
+    message: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Changelog',

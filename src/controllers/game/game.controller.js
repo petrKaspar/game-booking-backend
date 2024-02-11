@@ -245,7 +245,6 @@ export const bulkUpdateGames = async (req, res) => {
 
 // function for public usage
 export const reserveGame = async (req, res) => {
-  console.log('reserveGame reqRRRRRRRRRRRRRRRR: ', req.body);
   try {
       let gameItemsArray = [];
       const ids = req.params.id.split(',');
@@ -271,7 +270,7 @@ export const reserveGame = async (req, res) => {
             userName: req.body.userName,
             userEmail: req.body.userEmail,
             location: req.body.location,
-            message: req.body.message,
+            message: req.body.userMessage,
             status: 3,
         },
         {
@@ -286,11 +285,11 @@ export const reserveGame = async (req, res) => {
             GameId: gameId,
             statusOld: game.status,
             statusNew: 3,
-            note: `Hra rezervována uživatelem. ${req.body.message}`,
+            note: `Hra rezervována uživatelem. ${req.body.userMessage}`,
             userName: req.body.userName,
             userEmail: req.body.userEmail,
             location: req.body.location,
-            message: req.body.message,
+            message: req.body.userMessage,
         },
         );
     
@@ -316,7 +315,7 @@ export const reserveGame = async (req, res) => {
   // let htmlPage = newReservationEmailTemplate('Nová rezervace!', '', req.body.userName, req.body.userEmail, req.body.message, gameItemsArray.join(''), `Doporučená výše dobrovolného daru za toto vypůjčení činí ${priceTotal} Kč. Děkujeme :-)`);
     const subtitle = 'Potvrzujeme rezervaci Vámi vybraných her. Správce o ní bude informován. Vyzvednutí her bude možné v respiriu budovy B, VŠCHT Praha dle dohody během úterních volných hraní (16:00-18:00) či deskoherních seminářů.';
     const message = `Doporučená výše dobrovolného daru za toto vypůjčení činí ${priceTotal} Kč. Děkujeme :-)`;
-    const htmlPage = newReservationEmailTemplate2('Nová rezervace!', subtitle, message, req.body.userName, req.body.userEmail, req.body.message, gameItemsArray.join(''));
+    const htmlPage = newReservationEmailTemplate2('Nová rezervace!', subtitle, message, req.body.userName, req.body.userEmail, req.body.userMessage, gameItemsArray.join(''));
   console.log('SENDING EMAIL @@@@@@@@@@@@@@@@@@@@@@@@');
     await sendEmailEmailLabs('dlouhanfrankie2@seznam.cz-nepouzito', req.body.userName, 'udkh.vscht@gmail.com', 'Nová rezervace', htmlPage); // 'pkaspar1@seznam.cz' config.emailOptions.to
     if (emailRegexp.test(req.body.userEmail)) {

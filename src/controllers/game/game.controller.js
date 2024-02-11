@@ -245,6 +245,7 @@ export const bulkUpdateGames = async (req, res) => {
 
 // function for public usage
 export const reserveGame = async (req, res) => {
+  console.log('reserveGame reqRRRRRRRRRRRRRRRR: ', req.body);
   try {
       let gameItemsArray = [];
       const ids = req.params.id.split(',');

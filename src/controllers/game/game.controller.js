@@ -827,6 +827,8 @@ export const getStatusName = (statusNumber) => {
          return 'ztraceno';
        case 5:
          return 'naDotaz';
+       case 6:
+         return 'alexandria';
        default:
          return 'dostupne';
      }

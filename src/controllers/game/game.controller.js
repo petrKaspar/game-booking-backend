@@ -244,6 +244,8 @@ export const bulkUpdateGames = async (req, res) => {
         gameItemsArray.push(gameItemTemplate2(game.name));
       }
 
+      // pokud se status zmeni na "vypujceno", poslat email
+      if (newStatus === 2) {
       const subtitle = 'Hry jsou dostupne v bufetu.........';
       const message = `Doporučená výše dobrovolného daru za toto vypůjčení bude ${priceTotal} Kč. Děkujeme :-)`;
       const htmlPage = newReservationEmailTemplate2('Dostupne k vyzvednuti!', subtitle, message, req.body.userName, req.body.userEmail, req.body.userMessage, 'Bufet', gameItemsArray.join(''));
@@ -252,6 +254,7 @@ export const bulkUpdateGames = async (req, res) => {
       if (emailRegexp.test(req.body.userEmail)) {
         await sendEmailEmailLabs('dlouhanfrankie2@seznam.cz-nepouzito', req.body.userName, req.body.userEmail, 'Dostupne k vyzvednuti!', htmlPage); // 'pkaspar1@seznam.cz' req.body.userEmail
       }
+    }
 
     return successResponse(req, res);
   } catch (error) {

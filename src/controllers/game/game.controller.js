@@ -186,7 +186,7 @@ export const updateGame = async (req, res) => {
     if (req.body.status !== game.status && Number(req.body.status) === 2) {
       const subtitle = 'Hry jsou dostupne v bufetu.........';
       const message = `Doporučená výše dobrovolného daru za toto vypůjčení bude ${game.price} Kč. Děkujeme :-)`;
-      const htmlPage = newReservationEmailTemplate2('Dostupne k vyzvednuti!', subtitle, message, req.body.userName, req.body.userEmail, req.body.userMessage, 'Bufet', gameItemsArray.join(''));
+      const htmlPage = newReservationEmailTemplate2('Dostupne k vyzvednuti!', subtitle, message, req.body.userName, req.body.userEmail, req.body.userMessage, 'Bufet', gameItemTemplate2(game.name));
     console.log('SENDING EMAIL @@@@@@@@@@@@@@@@@@@@@@@@ Dostupne k vyzvednuti! @@@@@@@@@@@@@@@@@@@@@@@@');
       await sendEmailEmailLabs('dlouhanfrankie2@seznam.cz-nepouzito', req.body.userName, 'udkh.vscht@gmail.com', 'Nová Dostupne k vyzvednuti!', htmlPage); // 'pkaspar1@seznam.cz' config.emailOptions.to
       if (emailRegexp.test(req.body.userEmail)) {
@@ -257,7 +257,7 @@ export const bulkUpdateGames = async (req, res) => {
       }
 
       // pokud se status zmeni na "vypujceno", poslat email
-      if (newStatus === 2) {
+      if (Number(newStatus) === 2) {
       const subtitle = 'Hry jsou dostupne v bufetu.........';
       const message = `Doporučená výše dobrovolného daru za toto vypůjčení bude ${priceTotal} Kč. Děkujeme :-)`;
       const htmlPage = newReservationEmailTemplate2('Dostupne k vyzvednuti!', subtitle, message, req.body.userName, req.body.userEmail, req.body.userMessage, 'Bufet', gameItemsArray.join(''));

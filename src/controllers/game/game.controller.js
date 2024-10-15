@@ -181,6 +181,19 @@ export const updateGame = async (req, res) => {
         },
       );
     }
+
+    // pokud se status zmeni na "vypujceno", poslat email
+    if (req.body.status !== game.status && Number(req.body.status) === 2) {
+      const subtitle = 'Hry jsou dostupne v bufetu.........';
+      const message = `Doporučená výše dobrovolného daru za toto vypůjčení bude ${game.price} Kč. Děkujeme :-)`;
+      const htmlPage = newReservationEmailTemplate2('Dostupne k vyzvednuti!', subtitle, message, req.body.userName, req.body.userEmail, req.body.userMessage, 'Bufet', gameItemsArray.join(''));
+    console.log('SENDING EMAIL @@@@@@@@@@@@@@@@@@@@@@@@ Dostupne k vyzvednuti! @@@@@@@@@@@@@@@@@@@@@@@@');
+      await sendEmailEmailLabs('dlouhanfrankie2@seznam.cz-nepouzito', req.body.userName, 'udkh.vscht@gmail.com', 'Nová Dostupne k vyzvednuti!', htmlPage); // 'pkaspar1@seznam.cz' config.emailOptions.to
+      if (emailRegexp.test(req.body.userEmail)) {
+        await sendEmailEmailLabs('dlouhanfrankie2@seznam.cz-nepouzito', req.body.userName, req.body.userEmail, 'Dostupne k vyzvednuti!', htmlPage); // 'pkaspar1@seznam.cz' req.body.userEmail
+      }
+    }
+    
     return successResponse(req, res);
   } catch (error) {
     return errorResponse(req, res, error.message);
@@ -192,6 +205,7 @@ export const bulkUpdateGames = async (req, res) => {
   try {
     let gameItemsArray = [];
     let priceTotal = 0;
+    let newStatus = req.body.status;
     const ids = req.params.ids.split(',');
         for (const gameId of ids) {
         const game = await Game.findOne({
@@ -203,8 +217,6 @@ export const bulkUpdateGames = async (req, res) => {
         throw new Error('Game not found! id=' + gameId);
         }
         
-        let newStatus = req.body.status;
-
         if (newStatus === 1) {
           switch (game.inventoryNumber) {
             case 'k':

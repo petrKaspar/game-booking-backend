@@ -818,7 +818,7 @@ export const sendEmailEmailLabs = async (fromEmail, fromName, toEmail, subject, 
       },
       subject: subject,
       html: htmlBody,
-      from: 'pujcovna@udkh.cz',
+      from: 'udkh.vscht@gmail.com',
       from_name: 'Ústav deskovýh a karetních her'
     },
     headers: {

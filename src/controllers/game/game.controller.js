@@ -253,7 +253,7 @@ export const bulkUpdateGames = async (req, res) => {
         );
 
         if (game.price) {
-          priceTotal = priceTotal + Math.ceil(game.price * 4 / 100);
+          priceTotal = priceTotal + Math.ceil(game.price * 6 / 100);
         }
         gameItemsArray.push(gameItemTemplate2(game.name));
       }
@@ -330,7 +330,7 @@ export const reserveGame = async (req, res) => {
     // await sendEmail(req.body.userName, config.emailOptions.to, `nová rezervace - ${game.name}`, `Byl vystaven požadevek na rezrvaci hry ${game.name}`, htmlBody);
     
     if (game.price) {
-      priceTotal = priceTotal + Math.ceil(game.price * 4 / 100);
+      priceTotal = priceTotal + Math.ceil(game.price * 6 / 100);
     }
     // gameItemsArray.push(gameItemTemplate(
     //   game.image ? game.image : 'https://udkh.cz/static/media/logo.29f0ed59.png', 
@@ -338,7 +338,7 @@ export const reserveGame = async (req, res) => {
     //   game.name,
     //   game.note,
     //   `https://udkh.cz/#/games/${game.id}`,
-    //   game.price ? Math.ceil(game.price * 4 / 100) + ' Kč' : ''
+    //   game.price ? Math.ceil(game.price * 6 / 100) + ' Kč' : ''
     //   ));
 
     gameItemsArray.push(gameItemTemplate2(game.name));
@@ -575,7 +575,7 @@ export const sendEmailCronAdmin = async (req, res) => {
       let priceTotal = 0;
       borrowedGamesByEmail.forEach((game) => {
       if (game.price) {
-        priceTotal = priceTotal + Math.ceil(game.price * 4 / 100);
+        priceTotal = priceTotal + Math.ceil(game.price * 6 / 100);
       }
       // gameItemsArray.push(gameItemTemplate(
       //   game.image ? game.image : 'https://udkh.cz/static/media/logo.29f0ed59.png', 
@@ -583,7 +583,7 @@ export const sendEmailCronAdmin = async (req, res) => {
       //   game.name,
       //   game.note,
       //   `https://udkh.cz/#/games/${game.id}`,
-      //   game.price ? Math.ceil(game.price * 4 / 100) + ' Kč' : ''
+      //   game.price ? Math.ceil(game.price * 6 / 100) + ' Kč' : ''
       //   ));
       gameItemsArray.push(gameItemTemplate2(game.name));
       });

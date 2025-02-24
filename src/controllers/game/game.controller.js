@@ -291,7 +291,7 @@ export const reserveGame = async (req, res) => {
         if (!game) {
         throw new Error('Game not found!');
         }
-        if (game.status !== 1 && game.status !== 5 || !game.public) {
+        if (game.status !== 1 && game.status !== 5 && game.status !== 6 || !game.public) {
         throw new Error('Game is not available now!');
         }
         if (!req.body.userName || !req.body.userEmail) {
@@ -832,6 +832,7 @@ export const sendEmailEmailLabs = async (fromEmail, fromName, toEmail, subject, 
   });
 }
 
+// game.status ENUM
 export const getStatusName = (statusNumber) => {
   switch (statusNumber) {
        case 1:

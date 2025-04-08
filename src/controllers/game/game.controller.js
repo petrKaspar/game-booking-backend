@@ -184,9 +184,9 @@ export const updateGame = async (req, res) => {
 
     // pokud se status zmeni na "vypujceno", poslat email
     if (req.body.status !== game.status && Number(req.body.status) === 2) {
-      const subtitle = 'Hry jsou dostupne v bufetu.........';
+      const subtitle = 'Hry jsou dostupne v Carbonu.........';
       const message = `Doporučená výše dobrovolného daru za toto vypůjčení bude ${game.price} Kč. Děkujeme :-)`;
-      const htmlPage = newReservationEmailTemplate2('Dostupne k vyzvednuti!', subtitle, message, req.body.userName, req.body.userEmail, req.body.userMessage, 'Bufet', gameItemTemplate2(game.name));
+      const htmlPage = newReservationEmailTemplate2('Dostupne k vyzvednuti!', subtitle, message, req.body.userName, req.body.userEmail, req.body.userMessage, 'Carbon café', gameItemTemplate2(game.name));
     console.log('SENDING EMAIL @@@@@@@@@@@@@@@@@@@@@@@@ Dostupne k vyzvednuti! @@@@@@@@@@@@@@@@@@@@@@@@');
       await sendEmailEmailLabs('dlouhanfrankie2@seznam.cz-nepouzito', req.body.userName, 'udkh.vscht@gmail.com', 'Nová Dostupne k vyzvednuti!', htmlPage); // 'pkaspar1@seznam.cz' config.emailOptions.to
       if (emailRegexp.test(req.body.userEmail)) {
@@ -259,10 +259,10 @@ export const bulkUpdateGames = async (req, res) => {
       }
 
       // pokud se status zmeni na "vypujceno", poslat email
-      if (Number(newStatus) === 2 && gameForEmail.location === 'Bufet') {
-      const subtitle = 'Hry jsou připravené v bufetu. Budou zde čekat na vyzvednutí po dobu jednoho týdne.';
+      if (Number(newStatus) === 2 && gameForEmail.location === 'Carbon café') {
+      const subtitle = 'Hry jsou připravené v Carbonu. Budou zde čekat na vyzvednutí po dobu jednoho týdne.';
       const message = `Doporučená výše dobrovolného daru za toto vypůjčení bude ${priceTotal} Kč. Děkujeme :-)`;
-      const htmlPage = newReservationEmailTemplate2('Dostupne k vyzvednuti!', subtitle, message, gameForEmail.userName ? gameForEmail.userName : '', gameForEmail.userEmail ? gameForEmail.userEmail : '', gameForEmail.userMessage ? gameForEmail.userMessage : '', 'Bufet', gameItemsArray.join(''));
+      const htmlPage = newReservationEmailTemplate2('Dostupne k vyzvednuti!', subtitle, message, gameForEmail.userName ? gameForEmail.userName : '', gameForEmail.userEmail ? gameForEmail.userEmail : '', gameForEmail.userMessage ? gameForEmail.userMessage : '', 'Carbon café', gameItemsArray.join(''));
     console.log('SENDING EMAIL @@@@@@@@@@@@@@@@@@@@@@@@ Dostupne k vyzvednuti! @@@@@@@@@@@@@@@@@@@@@@@@');
       await sendEmailEmailLabs('dlouhanfrankie2@seznam.cz-nepouzito', req.body.userName, 'udkh.vscht@gmail.com', 'Nová Dostupne k vyzvednuti!', htmlPage); // 'pkaspar1@seznam.cz' config.emailOptions.to
       if (emailRegexp.test(req.body.userEmail)) {
@@ -346,7 +346,7 @@ export const reserveGame = async (req, res) => {
   }
 
   // let htmlPage = newReservationEmailTemplate('Nová rezervace!', '', req.body.userName, req.body.userEmail, req.body.message, gameItemsArray.join(''), `Doporučená výše dobrovolného daru za toto vypůjčení činí ${priceTotal} Kč. Děkujeme :-)`);
-    const subtitle = 'Potvrzujeme rezervaci Vámi vybraných her. Správce o ní bude informován. Vyzvednutí her bude možné v respiriu budovy B, VŠCHT Praha dle dohody během úterních volných hraní (16:00-18:00) či deskoherních seminářů v případě vyzvednutí na Bufetu B, budou hry k dispozici v době 7:30-15:00 od následující středy.';
+    const subtitle = 'Potvrzujeme rezervaci Vámi vybraných her. Správce o ní bude informován. Vyzvednutí her bude možné v respiriu budovy B, VŠCHT Praha dle dohody během úterních volných hraní (16:00-18:00) či deskoherních seminářů v případě vyzvednutí v Carbonu, budou hry k dispozici v době 7:30-15:00 od následující středy.';
     const message = `Doporučená výše dobrovolného daru za toto vypůjčení činí ${priceTotal} Kč. Děkujeme :-)`;
     const htmlPage = newReservationEmailTemplate2('Nová rezervace!', subtitle, message, req.body.userName, req.body.userEmail, req.body.userMessage, req.body.location, gameItemsArray.join(''));
   console.log('SENDING EMAIL @@@@@@@@@@@@@@@@@@@@@@@@ Nová rezervace! @@@@@@@@@@@@@@@@@@@@@@@@ ');

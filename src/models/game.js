@@ -36,10 +36,11 @@ module.exports = (sequelize, DataTypes) => {
     userEmail: DataTypes.STRING,
     publisher: DataTypes.STRING,
     extension: DataTypes.STRING,
-    price: Sequelize.NUMBER,
-    purchasePrice: Sequelize.NUMBER,
+    price: Sequelize.NUMBER,  // porizovaci cena hry
+    purchasePrice: Sequelize.NUMBER, // cena za kterou se hra pujcuje
     location: DataTypes.STRING,
-    message: DataTypes.STRING
+    message: DataTypes.STRING,
+    sellingPrice: Sequelize.NUMBER, // cena za kterou se hra ma prodat v bazaru
   }, {
     sequelize,
     modelName: 'Game',

@@ -384,7 +384,8 @@ export const createGame = async (req, res) => {
       publisher: req.body.publisher,
       extension: req.body.extension,
       price: req.body.price,
-      purchasePrice: req.body.purchasePrice
+      purchasePrice: req.body.purchasePrice,
+      sellingPrice: req.body.sellingPrice,
     });
 
     if (Array.isArray(req.body.tags)) {

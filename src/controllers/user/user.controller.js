@@ -10,6 +10,7 @@ export const createUser = async (req, res) => {
     const user = await User.scope('withSecretColumns').findOne({
       where: { email },
     });
+    console.log('userrrrrrrrrrrrrrrrrrrrr', user);
     if (user) {
       throw new Error('User already exists with same email');
     }
@@ -18,8 +19,9 @@ export const createUser = async (req, res) => {
       firstName,
       profilePic,
     };
-
-    await User.create(payload);
+    console.log('payload', payload);
+    const allUsers = await User.create(payload);
+    console.log('allUsers', allUsers);
     return successResponse(req, res, {});
   } catch (error) {
     return errorResponse(req, res, error.message);

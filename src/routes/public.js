@@ -44,4 +44,8 @@ router.post(
   '/tags',
   tagController.createTag,
 );
+router.post(
+  '/users',
+  userController.createUser,
+);
 module.exports = router;

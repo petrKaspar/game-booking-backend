@@ -4,6 +4,29 @@ import axios from 'axios';
 import { User } from '../../models';
 import { successResponse, errorResponse, uniqueId } from '../../helpers';
 
+export const createUser = async (req, res) => {
+  try {
+    const { email, firstName, profilePic } = req.body;
+    const user = await User.scope('withSecretColumns').findOne({
+      where: { email },
+    });
+    if (user) {
+      throw new Error('User already exists with same email');
+    }
+    const payload = {
+      email,
+      firstName,
+      profilePic,
+    };
+
+    await User.create(payload);
+    return successResponse(req, res, {});
+  } catch (error) {
+    return errorResponse(req, res, error.message);
+  }
+};
+
+// nepouzivo
 export const allUsers = async (req, res) => {
   try {
     const page = req.params.page || 1;
@@ -18,7 +41,7 @@ export const allUsers = async (req, res) => {
     return errorResponse(req, res, error.message);
   }
 };
-
+// nepouzivo
 export const register = async (req, res) => {
   try {
     const {
@@ -71,7 +94,7 @@ export const register = async (req, res) => {
     return errorResponse(req, res, error.message);
   }
 };
-
+// nepouzivo
 export const login = async (req, res) => {
   try {
     const user = await User.scope('withSecretColumns').findOne({
@@ -103,7 +126,7 @@ export const login = async (req, res) => {
     return errorResponse(req, res, error.message);
   }
 };
-
+// nepouzivo
 export const profile = async (req, res) => {
   try {
     const { userId } = req.user;
@@ -113,7 +136,7 @@ export const profile = async (req, res) => {
     return errorResponse(req, res, error.message);
   }
 };
-
+// nepouzivo
 export const changePassword = async (req, res) => {
   try {
     const { userId } = req.user;

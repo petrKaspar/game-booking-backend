@@ -188,7 +188,7 @@ export const updateGame = async (req, res) => {
       const message = `Doporučená výše dobrovolného daru za toto vypůjčení bude ${game.price} Kč. Děkujeme :-)`;
       const htmlPage = newReservationEmailTemplate2('Dostupne k vyzvednuti!', subtitle, message, req.body.userName, req.body.userEmail, req.body.userMessage, 'Carbon café', gameItemTemplate2(game.name));
     console.log('SENDING EMAIL @@@@@@@@@@@@@@@@@@@@@@@@ Dostupne k vyzvednuti! @@@@@@@@@@@@@@@@@@@@@@@@');
-      await sendEmailEmailLabs('dlouhanfrankie2@seznam.cz-nepouzito', req.body.userName, 'udkh.vscht@gmail.com', 'Nová Dostupne k vyzvednuti!', htmlPage); // 'pkaspar1@seznam.cz' config.emailOptions.to
+      await sendEmailEmailLabs('dlouhanfrankie2@seznam.cz-nepouzito', req.body.userName, 'pujcovna@udkh.cz', 'Nová Dostupne k vyzvednuti!', htmlPage); // 'pkaspar1@seznam.cz' config.emailOptions.to
       if (emailRegexp.test(req.body.userEmail)) {
         await sendEmailEmailLabs('dlouhanfrankie2@seznam.cz-nepouzito', req.body.userName, req.body.userEmail, 'Dostupne k vyzvednuti!', htmlPage); // 'pkaspar1@seznam.cz' req.body.userEmail
       }

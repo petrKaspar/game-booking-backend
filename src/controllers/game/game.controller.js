@@ -269,7 +269,7 @@ export const bulkUpdateGames = async (req, res) => {
               const message = `Cena za tuto objednávku bazarových her bude ${priceTotal} Kč. Děkujeme :-)`;
               const htmlPage = newReservationEmailTemplate2('Dostupne k vyzvednuti!', subtitle, message, gameForEmail.userName ? gameForEmail.userName : '', gameForEmail.userEmail ? gameForEmail.userEmail : '', gameForEmail.userMessage ? gameForEmail.userMessage : '', 'Carbon café', gameItemsArray.join(''));
             console.log('SENDING EMAIL @@@@@@@@@@@@@@@@@@@@@@@@ Dostupne k vyzvednuti! @@@@@@@@@@@@@@@@@@@@@@@@');
-              await sendEmailEmailLabs('dlouhanfrankie2@seznam.cz-nepouzito', req.body.userName, 'pkaspar1@seznam.cz', 'Nová Dostupne k vyzvednuti!', htmlPage); // 'pkaspar1@seznam.cz' config.emailOptions.to
+              await sendEmailEmailLabs('dlouhanfrankie2@seznam.cz-nepouzito', req.body.userName, 'pujcovna@udkh.cz', 'Nová Dostupne k vyzvednuti!', htmlPage); // 'pkaspar1@seznam.cz' config.emailOptions.to
               if (emailRegexp.test(req.body.userEmail)) {
                 await sendEmailEmailLabs('dlouhanfrankie2@seznam.cz-nepouzito', req.body.userName, req.body.userEmail, 'Dostupne k vyzvednuti!', htmlPage); // 'pkaspar1@seznam.cz' req.body.userEmail
               }
@@ -282,7 +282,7 @@ export const bulkUpdateGames = async (req, res) => {
               const message = `Doporučená výše dobrovolného daru za toto vypůjčení bude ${priceTotal} Kč. Děkujeme :-)`;
               const htmlPage = newReservationEmailTemplate2('Dostupne k vyzvednuti!', subtitle, message, gameForEmail.userName ? gameForEmail.userName : '', gameForEmail.userEmail ? gameForEmail.userEmail : '', gameForEmail.userMessage ? gameForEmail.userMessage : '', 'Carbon café', gameItemsArray.join(''));
              console.log('SENDING EMAIL @@@@@@@@@@@@@@@@@@@@@@@@ Dostupne k vyzvednuti! @@@@@@@@@@@@@@@@@@@@@@@@');
-              await sendEmailEmailLabs('dlouhanfrankie2@seznam.cz-nepouzito', req.body.userName, 'pkaspar1@seznam.cz', 'Nová Dostupne k vyzvednuti!', htmlPage); // 'pkaspar1@seznam.cz' config.emailOptions.to
+              await sendEmailEmailLabs('dlouhanfrankie2@seznam.cz-nepouzito', req.body.userName, 'pujcovna@udkh.cz', 'Nová Dostupne k vyzvednuti!', htmlPage); // 'pkaspar1@seznam.cz' config.emailOptions.to
               if (emailRegexp.test(req.body.userEmail)) {
                 await sendEmailEmailLabs('dlouhanfrankie2@seznam.cz-nepouzito', req.body.userName, req.body.userEmail, 'Dostupne k vyzvednuti!', htmlPage); // 'pkaspar1@seznam.cz' req.body.userEmail
               }
@@ -376,7 +376,7 @@ export const reserveGame = async (req, res) => {
         const message = `Výše objednávky činí ${priceTotal} Kč. Děkujeme :-)`;
         const htmlPage = newReservationEmailTemplate2('Nová rezervace!', subtitle, message, req.body.userName, req.body.userEmail, req.body.userMessage, req.body.location, gameItemsArray.join(''));
         console.log('SENDING EMAIL KKKKKKKKKKKKKKKKKKK Novy nakup! KKKKKKKKKKKKKKKKKKKKKKKKKKKK ');
-        await sendEmailEmailLabs('dlouhanfrankie2@seznam.cz-nepouzito', req.body.userName, 'pkaspar1@seznam.cz', 'Nová rezervace', htmlPage); // 'pkaspar1@seznam.cz' config.emailOptions.to
+        await sendEmailEmailLabs('dlouhanfrankie2@seznam.cz-nepouzito', req.body.userName, 'pujcovna@udkh.cz', 'Nová rezervace', htmlPage); // 'pkaspar1@seznam.cz' config.emailOptions.to
       if (emailRegexp.test(req.body.userEmail)) {
         await sendEmailEmailLabs('dlouhanfrankie2@seznam.cz-nepouzito', req.body.userName, req.body.userEmail, 'Nová rezervace', htmlPage); // 'pkaspar1@seznam.cz' req.body.userEmail
       }
@@ -387,7 +387,7 @@ export const reserveGame = async (req, res) => {
       const message = `Doporučená výše dobrovolného daru za toto vypůjčení činí ${priceTotal} Kč. Děkujeme :-)`;
       const htmlPage = newReservationEmailTemplate2('Nová rezervace!', subtitle, message, req.body.userName, req.body.userEmail, req.body.userMessage, req.body.location, gameItemsArray.join(''));
       console.log('SENDING EMAIL @@@@@@@@@@@@@@@@@@@@@@@@ Nová rezervace! @@@@@@@@@@@@@@@@@@@@@@@@ ');
-      await sendEmailEmailLabs('dlouhanfrankie2@seznam.cz-nepouzito', req.body.userName, 'pkaspar1@seznam.cz', 'Nová rezervace', htmlPage); // 'pkaspar1@seznam.cz' config.emailOptions.to
+      await sendEmailEmailLabs('dlouhanfrankie2@seznam.cz-nepouzito', req.body.userName, 'pujcovna@udkh.cz', 'Nová rezervace', htmlPage); // 'pkaspar1@seznam.cz' config.emailOptions.to
       if (emailRegexp.test(req.body.userEmail)) {
         await sendEmailEmailLabs('dlouhanfrankie2@seznam.cz-nepouzito', req.body.userName, req.body.userEmail, 'Nová rezervace', htmlPage); // 'pkaspar1@seznam.cz' req.body.userEmail
       }

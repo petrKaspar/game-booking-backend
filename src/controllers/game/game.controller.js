@@ -21,38 +21,38 @@ export const getGames = async (req, res) => {
       },
       order: [['createdAt', 'DESC']],
     }
-  );
+    );
 
-  gtu.forEach(async asdf => {
-    if (asdf.dataValues.price != null && asdf.dataValues.price > 0) {
-      if (asdf.publisher == 'MINDOK' || asdf.publisher == 'Blackfire') {
-        await Game.update(
-          {
+    gtu.forEach(async asdf => {
+      if (asdf.dataValues.price != null && asdf.dataValues.price > 0) {
+        if (asdf.publisher == 'MINDOK' || asdf.publisher == 'Blackfire') {
+          await Game.update(
+            {
               purchasePrice: Math.round(asdf.price * 60 / 100)
-          },
-          {
+            },
+            {
               where: {
                 id: asdf.id,
               }
-          }
-        );
-      }
+            }
+          );
+        }
 
-      else {
-        await Game.update(
-          {
+        else {
+          await Game.update(
+            {
               purchasePrice: Math.round(asdf.price * 70 / 100)
-          },
-          {
+            },
+            {
               where: {
                 id: asdf.id,
               }
-          }
-        );
+            }
+          );
+        }
       }
-    }
-  });
-  
+    });
+
 
     const games = await Game.findAndCountAll({
       include: Tag,
@@ -90,7 +90,7 @@ export const getGameAdmin = async (req, res) => {
       ],
       order: [['createdAt', 'DESC'], ['name', 'ASC']],
     });
-    return successResponse(req, res, game );
+    return successResponse(req, res, game);
   } catch (error) {
     return errorResponse(req, res, error.message);
   }
@@ -111,19 +111,19 @@ export const deleteGame = async (req, res) => {
 };
 
 export const updateGame = async (req, res) => {
-  try {    
+  try {
     delete req.body['id'];
     delete req.body['createdAt'];
     delete req.body['updatedAt'];
     delete req.body['rating'];
     for (let k in req.body) {
-        if (req.body[k] === '') {
-            req.body[k] = null;
-        }
+      if (req.body[k] === '') {
+        req.body[k] = null;
+      }
     }
     const game = await Game.findOne({
       where: {
-          id: req.params.id,
+        id: req.params.id,
       },
     });
 
@@ -169,15 +169,15 @@ export const updateGame = async (req, res) => {
       req.body.userName !== game.userName ||
       req.body.userEmail !== game.userEmail ||
       req.body.noteChangelog
-    ) { 
+    ) {
       await Changelog.create(
         {
-            GameId: req.params.id,
-            statusOld: game.status,
-            statusNew: req.body['status'] !== null && req.body['status'] !== undefined ?  req.body['status'] : game.status,
-            note: `Hra změněna adminem. ${req.body['noteChangelog'] || ''}`,
-            userName: req.body['userName'] !== null && req.body['userName'] !== undefined ?  req.body['userName'] : game.userName,
-            userEmail: req.body['userEmail'] !== null && req.body['userEmail'] !== undefined ?  req.body['userEmail'] :  game.userEmail,
+          GameId: req.params.id,
+          statusOld: game.status,
+          statusNew: req.body['status'] !== null && req.body['status'] !== undefined ? req.body['status'] : game.status,
+          note: `Hra změněna adminem. ${req.body['noteChangelog'] || ''}`,
+          userName: req.body['userName'] !== null && req.body['userName'] !== undefined ? req.body['userName'] : game.userName,
+          userEmail: req.body['userEmail'] !== null && req.body['userEmail'] !== undefined ? req.body['userEmail'] : game.userEmail,
         },
       );
     }
@@ -187,13 +187,13 @@ export const updateGame = async (req, res) => {
       const subtitle = 'Hry jsou dostupne v Carbonu.........';
       const message = `Doporučená výše dobrovolného daru za toto vypůjčení bude ${game.price} Kč. Děkujeme :-)`;
       const htmlPage = newReservationEmailTemplate2('Dostupne k vyzvednuti!', subtitle, message, req.body.userName, req.body.userEmail, req.body.userMessage, 'Carbon café', gameItemTemplate2(game.name));
-    console.log('SENDING EMAIL @@@@@@@@@@@@@@@@@@@@@@@@ Dostupne k vyzvednuti! @@@@@@@@@@@@@@@@@@@@@@@@');
+      console.log('SENDING EMAIL @@@@@@@@@@@@@@@@@@@@@@@@ Dostupne k vyzvednuti! @@@@@@@@@@@@@@@@@@@@@@@@');
       await sendEmailEmailLabs('dlouhanfrankie2@seznam.cz-nepouzito', req.body.userName, 'pujcovna@udkh.cz', 'Nová Dostupne k vyzvednuti!', htmlPage); // 'pkaspar1@seznam.cz' config.emailOptions.to
       if (emailRegexp.test(req.body.userEmail)) {
         await sendEmailEmailLabs('dlouhanfrankie2@seznam.cz-nepouzito', req.body.userName, req.body.userEmail, 'Dostupne k vyzvednuti!', htmlPage); // 'pkaspar1@seznam.cz' req.body.userEmail
       }
     }
-    
+
     return successResponse(req, res);
   } catch (error) {
     return errorResponse(req, res, error.message);
@@ -208,87 +208,87 @@ export const bulkUpdateGames = async (req, res) => {
     let newStatus = req.body.status;
     let gameForEmail = undefined;
     const ids = req.params.ids.split(',');
-        for (const gameId of ids) {
-        const game = await Game.findOne({
+    for (const gameId of ids) {
+      const game = await Game.findOne({
         where: {
-            id: gameId,
+          id: gameId,
         },
-        });
-        gameForEmail = game;
-        if (!game) {
+      });
+      gameForEmail = game;
+      if (!game) {
         throw new Error('Game not found! id=' + gameId);
-        }
-        
-        if (newStatus === 1) {
-          switch (game.inventoryNumber) {
-            case 'k':
-            case 'n':
-            case 'c':
-            case 'a':
-              newStatus = 5;
-          }
-        }
-        await Game.update(
-        {
-            userName: req.body.userName,
-            userEmail: req.body.userEmail,
-            status: newStatus,
-        },
-        {
-            where: {
-            id: gameId,
-            },
-            returning: true,
-        },
-        );
-        await Changelog.create(
-        {
-            GameId: gameId,
-            statusOld: game.status,
-            statusNew: newStatus,
-            note: `Stav hry změněn adminem. ${req.body.message}`,
-            userName: req.body.userName,
-            userEmail: req.body.userEmail,
-        },
-        );
-
-        if (game.price && !req.body.purchase) {
-          priceTotal = priceTotal + Math.ceil(game.price * 6 / 100);
-        }
-        if (!!req.body.purchase) {
-          priceTotal = priceTotal + game.sellingPrice;
-        }
-        gameItemsArray.push(gameItemTemplate2(game.name));
       }
 
-            if (!!req.body.purchase) {
-                    // pokud se status zmeni na "vypujceno", poslat email
-                    // pro nakup bazarovych her
-             if (Number(newStatus) === 2 && gameForEmail.location === 'Carbon café') {
-              const subtitle = 'Hry jsou připravené v Carbonu. Budou zde čekat na vyzvednutí po dobu jednoho týdne.';
-              const message = `Cena za tuto objednávku bazarových her bude ${priceTotal} Kč. Děkujeme :-)`;
-              const htmlPage = newReservationEmailTemplate2('Dostupne k vyzvednuti!', subtitle, message, gameForEmail.userName ? gameForEmail.userName : '', gameForEmail.userEmail ? gameForEmail.userEmail : '', gameForEmail.userMessage ? gameForEmail.userMessage : '', 'Carbon café', gameItemsArray.join(''));
-            console.log('SENDING EMAIL @@@@@@@@@@@@@@@@@@@@@@@@ Dostupne k vyzvednuti! @@@@@@@@@@@@@@@@@@@@@@@@');
-              await sendEmailEmailLabs('dlouhanfrankie2@seznam.cz-nepouzito', req.body.userName, 'pujcovna@udkh.cz', 'Nová Dostupne k vyzvednuti!', htmlPage); // 'pkaspar1@seznam.cz' config.emailOptions.to
-              if (emailRegexp.test(req.body.userEmail)) {
-                await sendEmailEmailLabs('dlouhanfrankie2@seznam.cz-nepouzito', req.body.userName, req.body.userEmail, 'Dostupne k vyzvednuti!', htmlPage); // 'pkaspar1@seznam.cz' req.body.userEmail
-              }
-            }
+      if (newStatus === 1) {
+        switch (game.inventoryNumber) {
+          case 'k':
+          case 'n':
+          case 'c':
+          case 'a':
+            newStatus = 5;
+        }
+      }
+      await Game.update(
+        {
+          userName: req.body.userName,
+          userEmail: req.body.userEmail,
+          status: newStatus,
+        },
+        {
+          where: {
+            id: gameId,
+          },
+          returning: true,
+        },
+      );
+      await Changelog.create(
+        {
+          GameId: gameId,
+          statusOld: game.status,
+          statusNew: newStatus,
+          note: `Stav hry změněn adminem. ${req.body.message}`,
+          userName: req.body.userName,
+          userEmail: req.body.userEmail,
+        },
+      );
 
-            } else {
-            // pokud se status zmeni na "vypujceno", poslat email
-              if (Number(newStatus) === 2 && gameForEmail.location === 'Carbon café') {
-              const subtitle = 'Hry jsou připravené v Carbonu. Budou zde čekat na vyzvednutí po dobu jednoho týdne.';
-              const message = `Doporučená výše dobrovolného daru za toto vypůjčení bude ${priceTotal} Kč. Děkujeme :-)`;
-              const htmlPage = newReservationEmailTemplate2('Dostupne k vyzvednuti!', subtitle, message, gameForEmail.userName ? gameForEmail.userName : '', gameForEmail.userEmail ? gameForEmail.userEmail : '', gameForEmail.userMessage ? gameForEmail.userMessage : '', 'Carbon café', gameItemsArray.join(''));
-             console.log('SENDING EMAIL @@@@@@@@@@@@@@@@@@@@@@@@ Dostupne k vyzvednuti! @@@@@@@@@@@@@@@@@@@@@@@@');
-              await sendEmailEmailLabs('dlouhanfrankie2@seznam.cz-nepouzito', req.body.userName, 'pujcovna@udkh.cz', 'Nová Dostupne k vyzvednuti!', htmlPage); // 'pkaspar1@seznam.cz' config.emailOptions.to
-              if (emailRegexp.test(req.body.userEmail)) {
-                await sendEmailEmailLabs('dlouhanfrankie2@seznam.cz-nepouzito', req.body.userName, req.body.userEmail, 'Dostupne k vyzvednuti!', htmlPage); // 'pkaspar1@seznam.cz' req.body.userEmail
-              }
-            }
+      if (game.price && !req.body.purchase) {
+        priceTotal = priceTotal + Math.ceil(game.price * 6 / 100);
+      }
+      if (!!req.body.purchase) {
+        priceTotal = priceTotal + game.sellingPrice;
+      }
+      gameItemsArray.push(gameItemTemplate2(game.name));
+    }
 
-            }
+    if (!!req.body.purchase) {
+      // pokud se status zmeni na "vypujceno", poslat email
+      // pro nakup bazarovych her
+      if (Number(newStatus) === 2 && gameForEmail.location === 'Carbon café') {
+        const subtitle = 'Hry jsou připravené v Carbonu. Budou zde čekat na vyzvednutí po dobu jednoho týdne.';
+        const message = `Cena za tuto objednávku bazarových her bude ${priceTotal} Kč. Děkujeme :-)`;
+        const htmlPage = newReservationEmailTemplate2('Dostupne k vyzvednuti!', subtitle, message, gameForEmail.userName ? gameForEmail.userName : '', gameForEmail.userEmail ? gameForEmail.userEmail : '', gameForEmail.userMessage ? gameForEmail.userMessage : '', 'Carbon café', gameItemsArray.join(''));
+        console.log('SENDING EMAIL @@@@@@@@@@@@@@@@@@@@@@@@ Dostupne k vyzvednuti! @@@@@@@@@@@@@@@@@@@@@@@@');
+        await sendEmailEmailLabs('dlouhanfrankie2@seznam.cz-nepouzito', req.body.userName, 'pujcovna@udkh.cz', 'Nová Dostupne k vyzvednuti!', htmlPage); // 'pkaspar1@seznam.cz' config.emailOptions.to
+        if (emailRegexp.test(req.body.userEmail)) {
+          await sendEmailEmailLabs('dlouhanfrankie2@seznam.cz-nepouzito', req.body.userName, req.body.userEmail, 'Dostupne k vyzvednuti!', htmlPage); // 'pkaspar1@seznam.cz' req.body.userEmail
+        }
+      }
+
+    } else {
+      // pokud se status zmeni na "vypujceno", poslat email
+      if (Number(newStatus) === 2 && gameForEmail.location === 'Carbon café') {
+        const subtitle = 'Hry jsou připravené v Carbonu. Budou zde čekat na vyzvednutí po dobu jednoho týdne.';
+        const message = `Doporučená výše dobrovolného daru za toto vypůjčení bude ${priceTotal} Kč. Děkujeme :-)`;
+        const htmlPage = newReservationEmailTemplate2('Dostupne k vyzvednuti!', subtitle, message, gameForEmail.userName ? gameForEmail.userName : '', gameForEmail.userEmail ? gameForEmail.userEmail : '', gameForEmail.userMessage ? gameForEmail.userMessage : '', 'Carbon café', gameItemsArray.join(''));
+        console.log('SENDING EMAIL @@@@@@@@@@@@@@@@@@@@@@@@ Dostupne k vyzvednuti! @@@@@@@@@@@@@@@@@@@@@@@@');
+        await sendEmailEmailLabs('dlouhanfrankie2@seznam.cz-nepouzito', req.body.userName, 'pujcovna@udkh.cz', 'Nová Dostupne k vyzvednuti!', htmlPage); // 'pkaspar1@seznam.cz' config.emailOptions.to
+        if (emailRegexp.test(req.body.userEmail)) {
+          await sendEmailEmailLabs('dlouhanfrankie2@seznam.cz-nepouzito', req.body.userName, req.body.userEmail, 'Dostupne k vyzvednuti!', htmlPage); // 'pkaspar1@seznam.cz' req.body.userEmail
+        }
+      }
+
+    }
 
 
 
@@ -301,89 +301,89 @@ export const bulkUpdateGames = async (req, res) => {
 // function for public usage
 export const reserveGame = async (req, res) => {
   try {
-      let gameItemsArray = [];
-      const ids = req.params.id.split(',');
-      let priceTotal = 0;
-        for (const gameId of ids) {
-        const game = await Game.findOne({
+    let gameItemsArray = [];
+    const ids = req.params.id.split(',');
+    let priceTotal = 0;
+    for (const gameId of ids) {
+      const game = await Game.findOne({
         where: {
-            id: gameId,
+          id: gameId,
         },
-        });
-        if (!game) {
+      });
+      if (!game) {
         throw new Error('Game not found!');
-        }
-        if (game.status !== 1 && game.status !== 5 && game.status !== 6 || !game.public) {
+      }
+      if (game.status !== 1 && game.status !== 5 && game.status !== 6 || !game.public) {
         throw new Error('Game is not available now!');
-        }
-        if (!req.body.userName || !req.body.userEmail) {
-        console.error(req.params.id, req.body);  
+      }
+      if (!req.body.userName || !req.body.userEmail) {
+        console.error(req.params.id, req.body);
         throw new Error('Invalid request');
-        }
-        await Game.update(
+      }
+      await Game.update(
         {
-            userName: req.body.userName,
-            userEmail: req.body.userEmail,
-            location: req.body.location,
-            message: req.body.userMessage,
-            status: 3,
+          userName: req.body.userName,
+          userEmail: req.body.userEmail,
+          location: req.body.location,
+          message: req.body.userMessage,
+          status: 3,
         },
         {
-            where: {
+          where: {
             id: gameId,
-            },
-            returning: true,
+          },
+          returning: true,
         },
-        );
-        await Changelog.create(
+      );
+      await Changelog.create(
         {
-            GameId: gameId,
-            statusOld: game.status,
-            statusNew: 3,
-            note: `Hra rezervována uživatelem. ${req.body.userMessage}`,
-            userName: req.body.userName,
-            userEmail: req.body.userEmail,
-            location: req.body.location,
-            message: req.body.userMessage,
+          GameId: gameId,
+          statusOld: game.status,
+          statusNew: 3,
+          note: `Hra rezervována uživatelem. ${req.body.userMessage}`,
+          userName: req.body.userName,
+          userEmail: req.body.userEmail,
+          location: req.body.location,
+          message: req.body.userMessage,
         },
-        );
-    
-    // obsolite sending emails using Gooooooogle
-    // await sendEmail(req.body.userName, config.emailOptions.to, `nová rezervace - ${game.name}`, `Byl vystaven požadevek na rezrvaci hry ${game.name}`, htmlBody);
-    
-    if (game.price && !req.body.purchase) {
-      priceTotal = priceTotal + Math.ceil(game.price * 6 / 100);
-    }
-    if (!!req.body.purchase) {
-      priceTotal = priceTotal + game.sellingPrice;
-    }
-    // gameItemsArray.push(gameItemTemplate(
-    //   game.image ? game.image : 'https://udkh.cz/static/media/logo.29f0ed59.png', 
-    //   game.sourceLink ? game.sourceLink : '',
-    //   game.name,
-    //   game.note,
-    //   `https://udkh.cz/#/games/${game.id}`,
-    //   game.price ? Math.ceil(game.price * 6 / 100) + ' Kč' : ''
-    //   ));
+      );
 
-    gameItemsArray.push(gameItemTemplate2(game.name));
+      // obsolite sending emails using Gooooooogle
+      // await sendEmail(req.body.userName, config.emailOptions.to, `nová rezervace - ${game.name}`, `Byl vystaven požadevek na rezrvaci hry ${game.name}`, htmlBody);
 
-  }
-
+      if (game.price && !req.body.purchase) {
+        priceTotal = priceTotal + Math.ceil(game.price * 6 / 100);
+      }
       if (!!req.body.purchase) {
-        // pro nakup bazarovych her
-        const subtitle = 'Potvrzujeme rezervaci Vámi vybraných bazarových her k nákupu. Správce o ní bude informován. Vyzvednutí her bude možné v respiriu budovy B, VŠCHT Praha dle dohody během úterních volných hraní (16:00-18:00) či deskoherních seminářů v případě vyzvednutí v Carbonu, budou hry k dispozici v době 7:30-15:00 od následující středy.';
-        const message = `Výše objednávky činí ${priceTotal} Kč. Děkujeme :-)`;
-        const htmlPage = newReservationEmailTemplate2('Nová rezervace!', subtitle, message, req.body.userName, req.body.userEmail, req.body.userMessage, req.body.location, gameItemsArray.join(''));
-        console.log('SENDING EMAIL KKKKKKKKKKKKKKKKKKK Novy nakup! KKKKKKKKKKKKKKKKKKKKKKKKKKKK ');
-        await sendEmailEmailLabs('dlouhanfrankie2@seznam.cz-nepouzito', req.body.userName, 'pujcovna@udkh.cz', 'Nová rezervace', htmlPage); // 'pkaspar1@seznam.cz' config.emailOptions.to
+        priceTotal = priceTotal + game.sellingPrice;
+      }
+      // gameItemsArray.push(gameItemTemplate(
+      //   game.image ? game.image : 'https://udkh.cz/static/media/logo.29f0ed59.png', 
+      //   game.sourceLink ? game.sourceLink : '',
+      //   game.name,
+      //   game.note,
+      //   `https://udkh.cz/#/games/${game.id}`,
+      //   game.price ? Math.ceil(game.price * 6 / 100) + ' Kč' : ''
+      //   ));
+
+      gameItemsArray.push(gameItemTemplate2(game.name));
+
+    }
+
+    if (!!req.body.purchase) {
+      // pro nakup bazarovych her
+      const subtitle = 'Potvrzujeme rezervaci Vámi vybraných bazarových her k nákupu. Správce o ní bude informován. Vyzvednutí her bude možné v respiriu budovy B, VŠCHT Praha dle dohody během úterních volných hraní (16:00-18:00) či deskoherních seminářů v případě vyzvednutí v Carbonu, budou hry k dispozici v době 7:30-15:00 od následující středy.';
+      const message = `Výše objednávky činí ${priceTotal} Kč. Děkujeme :-)`;
+      const htmlPage = newReservationEmailTemplate2('Nová rezervace!', subtitle, message, req.body.userName, req.body.userEmail, req.body.userMessage, req.body.location, gameItemsArray.join(''));
+      console.log('SENDING EMAIL KKKKKKKKKKKKKKKKKKK Novy nakup! KKKKKKKKKKKKKKKKKKKKKKKKKKKK ');
+      await sendEmailEmailLabs('dlouhanfrankie2@seznam.cz-nepouzito', req.body.userName, 'pujcovna@udkh.cz', 'Nová rezervace', htmlPage); // 'pkaspar1@seznam.cz' config.emailOptions.to
       if (emailRegexp.test(req.body.userEmail)) {
         await sendEmailEmailLabs('dlouhanfrankie2@seznam.cz-nepouzito', req.body.userName, req.body.userEmail, 'Nová rezervace', htmlPage); // 'pkaspar1@seznam.cz' req.body.userEmail
       }
       return successResponse(req, res);
 
     } else {
-         const subtitle = 'Potvrzujeme rezervaci Vámi vybraných her. Správce o ní bude informován. Vyzvednutí her bude možné v respiriu budovy B, VŠCHT Praha dle dohody během úterních volných hraní (16:00-18:00) či deskoherních seminářů v případě vyzvednutí v Carbonu, budou hry k dispozici v době 7:30-15:00 od následující středy.';
+      const subtitle = 'Potvrzujeme rezervaci Vámi vybraných her. Správce o ní bude informován. Vyzvednutí her bude možné v respiriu budovy B, VŠCHT Praha dle dohody během úterních volných hraní (16:00-18:00) či deskoherních seminářů v případě vyzvednutí v Carbonu, budou hry k dispozici v době 7:30-15:00 od následující středy.';
       const message = `Doporučená výše dobrovolného daru za toto vypůjčení činí ${priceTotal} Kč. Děkujeme :-)`;
       const htmlPage = newReservationEmailTemplate2('Nová rezervace!', subtitle, message, req.body.userName, req.body.userEmail, req.body.userMessage, req.body.location, gameItemsArray.join(''));
       console.log('SENDING EMAIL @@@@@@@@@@@@@@@@@@@@@@@@ Nová rezervace! @@@@@@@@@@@@@@@@@@@@@@@@ ');
@@ -457,7 +457,7 @@ export const getStatisticsAdmin = async (req, res) => {
       order: [['updatedAt', 'DESC'], ['name', 'ASC']],
     });
 
-    let statusCount = [] 
+    let statusCount = []
     let borrowedGames = []
     const borrowThreshold = 14; // hodnota pro oddeleni hrisniku od kratkych vypujcek
     let d = new Date();
@@ -465,7 +465,7 @@ export const getStatisticsAdmin = async (req, res) => {
 
     if (Array.isArray(games.rows)) {
       games.rows.forEach((game) => {
-        statusCount[game.status] = !statusCount[game.status] ? 1 : statusCount[game.status]+1;
+        statusCount[game.status] = !statusCount[game.status] ? 1 : statusCount[game.status] + 1;
         if (game.status === 2) {
           const oldBorrow = returnOldBorrow(game);
           if (oldBorrow) {
@@ -496,17 +496,17 @@ export const getTotalBorrowsAdmin = async (req, res) => {
 
     let result = [];
     //let allBorrows = [];
-    let statusCount = []; 
+    let statusCount = [];
     let borrowedGames = [];
 
     if (Array.isArray(games.rows)) {
       games.rows.forEach((game) => {
 
         let allBorrows = game.Changelogs.filter((item) =>
-           item.statusNew === 2 && item.statusOld !== item.statusNew
+          item.statusNew === 2 && item.statusOld !== item.statusNew
         );
-        
-        result.push({...game.dataValues, allBorrows: allBorrows})
+
+        result.push({ ...game.dataValues, allBorrows: allBorrows })
 
       });
     }
@@ -525,37 +525,37 @@ const returnOldBorrow = (game) => {
   if (game.Changelogs && Array.isArray(game.Changelogs) && game.Changelogs.length > 0) {
     // filtrovani zmeny stavy na status==2
     let allBorrow = game.Changelogs.filter((item) =>
-       item.statusNew === 2 && item.statusOld !== item.statusNew
+      item.statusNew === 2 && item.statusOld !== item.statusNew
     );
 
     // pokud se nasly zmeny stavu, vybere se ta nejnovejsi
     if (allBorrow.length) {
       let mostRecentChangelog = allBorrow.reduce((mostRecent, item) =>
-         new Date(item.createdAt) > new Date(mostRecent.createdAt)
-         ? item
-         : mostRecent
+        new Date(item.createdAt) > new Date(mostRecent.createdAt)
+          ? item
+          : mostRecent
       );
 
       // kontola data nejnovejsi zmeny stavu na status 2
-    if (new Date(mostRecentChangelog.createdAt) < d) {
-      return {
-        id: game.id,
-        name: game.name,
-        status: game.status,
-        borrowedAt: mostRecentChangelog.createdAt,
-        userName: game.userName,
-        userEmail: game.userEmail,
-        note: mostRecentChangelog.note,
-        image: game.image,
-      };              
-    }
+      if (new Date(mostRecentChangelog.createdAt) < d) {
+        return {
+          id: game.id,
+          name: game.name,
+          status: game.status,
+          borrowedAt: mostRecentChangelog.createdAt,
+          userName: game.userName,
+          userEmail: game.userEmail,
+          note: mostRecentChangelog.note,
+          image: game.image,
+        };
+      }
 
-    // pokud neni v changelogu zmena stavu na 2, ale je stav old a new stejny, tak se vybere posledni
+      // pokud neni v changelogu zmena stavu na 2, ale je stav old a new stejny, tak se vybere posledni
     } else {
       let mostRecentChangelog = game.Changelogs.reduce((mostRecent, item) =>
-         new Date(item.createdAt) > new Date(mostRecent.createdAt) && item.statusNew === 2
-         ? item
-         : mostRecent
+        new Date(item.createdAt) > new Date(mostRecent.createdAt) && item.statusNew === 2
+          ? item
+          : mostRecent
       );
       return {
         id: game.id,
@@ -569,7 +569,7 @@ const returnOldBorrow = (game) => {
       };
     }
 
-  // muze se stat, ze neni zaznam v changelogu, ale presto ma status 2 a posledni updaty byl pred thresholdem
+    // muze se stat, ze neni zaznam v changelogu, ale presto ma status 2 a posledni updaty byl pred thresholdem
   } else if (new Date(game.createdAt) < d) {
     return {
       id: game.id,
@@ -592,12 +592,12 @@ export const sendEmailCronAdmin = async (req, res) => {
       order: [['updatedAt', 'DESC'], ['name', 'ASC']],
     });
 
-    let statusCount = [] 
+    let statusCount = []
     let borrowedGames = []
 
     if (Array.isArray(games.rows)) {
       games.rows.forEach((game) => {
-        statusCount[game.status] = !statusCount[game.status] ? 1 : statusCount[game.status]+1;
+        statusCount[game.status] = !statusCount[game.status] ? 1 : statusCount[game.status] + 1;
         if (game.status === 2 && emailRegexp.test(game.userEmail)) {
           const oldBorrow = returnOldBorrow(game);
           if (oldBorrow) {
@@ -614,23 +614,23 @@ export const sendEmailCronAdmin = async (req, res) => {
       let gameItemsArray = [];
       let priceTotal = 0;
       borrowedGamesByEmail.forEach((game) => {
-      if (game.price) {
-        priceTotal = priceTotal + Math.ceil(game.price * 6 / 100);
-      }
-      // gameItemsArray.push(gameItemTemplate(
-      //   game.image ? game.image : 'https://udkh.cz/static/media/logo.29f0ed59.png', 
-      //   game.sourceLink ? game.sourceLink : '',
-      //   game.name,
-      //   game.note,
-      //   `https://udkh.cz/#/games/${game.id}`,
-      //   game.price ? Math.ceil(game.price * 6 / 100) + ' Kč' : ''
-      //   ));
-      gameItemsArray.push(gameItemTemplate2(game.name));
+        if (game.price) {
+          priceTotal = priceTotal + Math.ceil(game.price * 6 / 100);
+        }
+        // gameItemsArray.push(gameItemTemplate(
+        //   game.image ? game.image : 'https://udkh.cz/static/media/logo.29f0ed59.png', 
+        //   game.sourceLink ? game.sourceLink : '',
+        //   game.name,
+        //   game.note,
+        //   `https://udkh.cz/#/games/${game.id}`,
+        //   game.price ? Math.ceil(game.price * 6 / 100) + ' Kč' : ''
+        //   ));
+        gameItemsArray.push(gameItemTemplate2(game.name));
       });
 
-    // let htmlPage = newReservationEmailTemplate('Výpůjční doba je u konce!', 'Dovolujeme si Vás upozornit, že výpůjční doba her uvedených níže již dosáhla dvoutýdenní lhůty. Prosíme Vás tedy o jejich navrácení v následujících dnech během provozní doby půjčovny. Případně napište na udkh.vscht@gmail.com žádost o prodloužení výpůjční doby (žádosti nemusí být kvůli potřebám ÚDKH vyhověno).', borrowedGamesByEmail[0].userName, borrowedGamesByEmail[0].userEmail, '', gameItemsArray.join(''), `Doporučená výše dobrovolného daru za toto vypůjčení činí ${priceTotal} Kč. Děkujeme :-)`);
-    const htmlPage = newReservationEmailTemplate2('Výpůjční doba je u konce!', 'Dovolujeme si Vás upozornit, že výpůjční doba her uvedených níže již dosáhla dvoutýdenní lhůty. Prosíme Vás tedy o jejich navrácení v následujících dnech během provozní doby půjčovny. Případně napište na udkh.vscht@gmail.com žádost o prodloužení výpůjční doby (žádosti nemusí být kvůli potřebám ÚDKH vyhověno).', `Doporučená výše dobrovolného daru za toto vypůjčení činí ${priceTotal} Kč. Děkujeme :-)`, borrowedGamesByEmail[0].userName, borrowedGamesByEmail[0].userEmail, '', gameItemsArray.join(''));
-    sendEmailEmailLabs('', '', borrowedGamesByEmail[0].userEmail, `Upomínka`, htmlPage);
+      // let htmlPage = newReservationEmailTemplate('Výpůjční doba je u konce!', 'Dovolujeme si Vás upozornit, že výpůjční doba her uvedených níže již dosáhla dvoutýdenní lhůty. Prosíme Vás tedy o jejich navrácení v následujících dnech během provozní doby půjčovny. Případně napište na udkh.vscht@gmail.com žádost o prodloužení výpůjční doby (žádosti nemusí být kvůli potřebám ÚDKH vyhověno).', borrowedGamesByEmail[0].userName, borrowedGamesByEmail[0].userEmail, '', gameItemsArray.join(''), `Doporučená výše dobrovolného daru za toto vypůjčení činí ${priceTotal} Kč. Děkujeme :-)`);
+      const htmlPage = newReservationEmailTemplate2('Výpůjční doba je u konce!', 'Dovolujeme si Vás upozornit, že výpůjční doba her uvedených níže již dosáhla dvoutýdenní lhůty. Prosíme Vás tedy o jejich navrácení v následujících dnech během provozní doby půjčovny. Případně napište na udkh.vscht@gmail.com žádost o prodloužení výpůjční doby (žádosti nemusí být kvůli potřebám ÚDKH vyhověno).', `Doporučená výše dobrovolného daru za toto vypůjčení činí ${priceTotal} Kč. Děkujeme :-)`, borrowedGamesByEmail[0].userName, borrowedGamesByEmail[0].userEmail, '', gameItemsArray.join(''));
+      sendEmailEmailLabs('', '', borrowedGamesByEmail[0].userEmail, `Upomínka`, htmlPage);
     });
 
     return successResponse(req, res, uniqueEmails);
@@ -808,39 +808,39 @@ export const sendEmail = async (from, to, subject, message, htmlBody) => {
 }
 */
 export const sendEmailMailjet = async (fromEmail, fromName, toEmail, subject, htmlBody) => {
-  const Mailjet = require ('node-mailjet');
+  const Mailjet = require('node-mailjet');
   const mailjet = Mailjet.apiConnect(
-'b281c100f86adcae4fbed6feb76597a5',
-  '50e246f448e0cd9e2bf02e7393f20f83'
+    'b281c100f86adcae4fbed6feb76597a5',
+    '50e246f448e0cd9e2bf02e7393f20f83'
   );
   const request = mailjet
-  .post("send", {'version': 'v3.1'})
-  .request({
-    "Messages":[
-      {
-        "From": {
-          "Email": fromEmail,
-          "Name": fromName
-        },
-        "To": [
-          {
-            "Email": toEmail,
-            "Name": toEmail
-          }
-        ],
-        "Subject": subject,
-        "HTMLPart": htmlBody,
-        "CustomID": "AppGettingStartedTest"
-      }
-    ]
-  })
+    .post("send", { 'version': 'v3.1' })
+    .request({
+      "Messages": [
+        {
+          "From": {
+            "Email": fromEmail,
+            "Name": fromName
+          },
+          "To": [
+            {
+              "Email": toEmail,
+              "Name": toEmail
+            }
+          ],
+          "Subject": subject,
+          "HTMLPart": htmlBody,
+          "CustomID": "AppGettingStartedTest"
+        }
+      ]
+    })
   request
     .then((result) => {
       console.log(result.body)
     })
     .catch((err) => {
       console.log(err.statusCode)
-  })
+    })
 }
 
 export const sendEmailEmailLabs = async (fromEmail, fromName, toEmail, subject, htmlBody) => {
@@ -862,11 +862,11 @@ export const sendEmailEmailLabs = async (fromEmail, fromName, toEmail, subject, 
       from_name: 'Ústav deskovýh a karetních her'
     },
     headers: {
-      'content-type' : 'application/x-www-form-urlencoded',
-      'Authorization': 'Basic '+ new Buffer.from(appkey + ":" + secret).toString("base64")
+      'content-type': 'application/x-www-form-urlencoded',
+      'Authorization': 'Basic ' + new Buffer.from(appkey + ":" + secret).toString("base64")
     }
   }
-  
+
   request.post(options, function (error, response, body) {
     console.log(body)
   });
@@ -875,19 +875,21 @@ export const sendEmailEmailLabs = async (fromEmail, fromName, toEmail, subject, 
 // game.status ENUM
 export const getStatusName = (statusNumber) => {
   switch (statusNumber) {
-       case 1:
-         return 'dostupne';
-       case 2:
-         return 'vypujceno';
-       case 3:
-         return 'rezervovano';
-       case 4:
-         return 'ztraceno';
-       case 5:
-         return 'naDotaz';
-       case 6:
-         return 'alexandria';
-       default:
-         return 'dostupne';
-     }
+    case 1:
+      return 'dostupne';
+    case 2:
+      return 'vypujceno';
+    case 3:
+      return 'rezervovano';
+    case 4:
+      return 'ztraceno';
+    case 5:
+      return 'naDotaz';
+    case 6:
+      return 'alexandria';
+    case 7:
+      return 'poptano';
+    default:
+      return 'dostupne';
+  }
 }

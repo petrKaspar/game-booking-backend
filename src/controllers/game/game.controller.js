@@ -372,7 +372,7 @@ export const reserveGame = async (req, res) => {
 
     if (!!req.body.purchase) {
       // pro nakup bazarovych her
-      const subtitle = 'Potvrzujeme rezervaci Vámi vybraných bazarových her k nákupu. Správce o ní bude informován. Vyzvednutí her bude možné v respiriu budovy B, VŠCHT Praha dle dohody během úterních volných hraní (16:00-18:00) či deskoherních seminářů v případě vyzvednutí v Carbonu, budou hry k dispozici v době 7:30-15:00 od následující středy.';
+       const subtitle = 'Potvrzujeme rezervaci Vámi vybraných bazarových her k nákupu. Správce o ní bude informován. Vyzvednutí her bude možné v Alexandrii (Cafe Prostoru_, Národní technická knihovna) během čtvrtečních deskoherních seminářů (17:00-23:00).';
       const message = `Výše objednávky činí ${priceTotal} Kč. Děkujeme :-)`;
       const htmlPage = newReservationEmailTemplate2('Nová rezervace!', subtitle, message, req.body.userName, req.body.userEmail, req.body.userMessage, req.body.location, gameItemsArray.join(''));
       console.log('SENDING EMAIL KKKKKKKKKKKKKKKKKKK Novy nakup! KKKKKKKKKKKKKKKKKKKKKKKKKKKK ');
@@ -383,7 +383,7 @@ export const reserveGame = async (req, res) => {
       return successResponse(req, res);
 
     } else {
-      const subtitle = 'Potvrzujeme rezervaci Vámi vybraných her. Správce o ní bude informován. Vyzvednutí her bude možné v respiriu budovy B, VŠCHT Praha dle dohody během úterních volných hraní (16:00-18:00) či deskoherních seminářů v případě vyzvednutí v Carbonu, budou hry k dispozici v době 7:30-15:00 od následující středy.';
+      const subtitle = 'Potvrzujeme rezervaci Vámi vybraných her. Správce o ní bude informován. Vyzvednutí her bude možné v Alexandrii (Cafe Prostoru_, Národní technická knihovna) během čtvrtečních deskoherních seminářů (17:00-23:00).';
       const message = `Doporučená výše dobrovolného daru za toto vypůjčení činí ${priceTotal} Kč. Děkujeme :-)`;
       const htmlPage = newReservationEmailTemplate2('Nová rezervace!', subtitle, message, req.body.userName, req.body.userEmail, req.body.userMessage, req.body.location, gameItemsArray.join(''));
       console.log('SENDING EMAIL @@@@@@@@@@@@@@@@@@@@@@@@ Nová rezervace! @@@@@@@@@@@@@@@@@@@@@@@@ ');

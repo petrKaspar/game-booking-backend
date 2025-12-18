@@ -320,13 +320,14 @@ export const reserveGame = async (req, res) => {
         console.error(req.params.id, req.body);
         throw new Error('Invalid request');
       }
+      const newStatus = !!req.body.purchase ? 7 : 3;
       await Game.update(
         {
           userName: req.body.userName,
           userEmail: req.body.userEmail,
           location: req.body.location,
           message: req.body.userMessage,
-          status: 3,
+          status: newStatus,
         },
         {
           where: {
@@ -335,12 +336,15 @@ export const reserveGame = async (req, res) => {
           returning: true,
         },
       );
+      const changelogNote = !!req.body.purchase 
+        ? `Hra poptána uživatelem. ${req.body.userMessage}`
+        : `Hra rezervována uživatelem. ${req.body.userMessage}`;
       await Changelog.create(
         {
           GameId: gameId,
           statusOld: game.status,
-          statusNew: 3,
-          note: `Hra rezervována uživatelem. ${req.body.userMessage}`,
+          statusNew: newStatus,
+          note: changelogNote,
           userName: req.body.userName,
           userEmail: req.body.userEmail,
           location: req.body.location,
@@ -371,11 +375,11 @@ export const reserveGame = async (req, res) => {
     }
 
     if (!!req.body.purchase) {
-      // pro nakup bazarovych her
-       const subtitle = 'Potvrzujeme rezervaci Vámi vybraných bazarových her k nákupu. Správce o ní bude informován. Vyzvednutí her bude možné v Alexandrii (Cafe Prostoru_, Národní technická knihovna) během čtvrtečních deskoherních seminářů (17:00-23:00).';
-      const message = `Výše objednávky činí ${priceTotal} Kč. Děkujeme :-)`;
+      // pro poptavku bazarovych her
+       const subtitle = 'Potvrzujeme Vaši poptávku vybraných bazarových her k nákupu. Správce o ní bude informován a bude Vás kontaktovat ohledně dostupnosti a vyzvednutí her v Alexandrii (Cafe Prostoru_, Národní technická knihovna) během čtvrtečních deskoherních seminářů (17:00-23:00).';
+      const message = `Předpokládaná výše objednávky činí ${priceTotal} Kč. Děkujeme :-)`;
       const htmlPage = newReservationEmailTemplate2('Nová poptávka!', subtitle, message, req.body.userName, req.body.userEmail, req.body.userMessage, req.body.location, gameItemsArray.join(''));
-      console.log('SENDING EMAIL KKKKKKKKKKKKKKKKKKK Novy nakup! KKKKKKKKKKKKKKKKKKKKKKKKKKKK ');
+      console.log('SENDING EMAIL KKKKKKKKKKKKKKKKKKK Nova poptavka! KKKKKKKKKKKKKKKKKKKKKKKKKKKK ');
       await sendEmailEmailLabs('dlouhanfrankie2@seznam.cz-nepouzito', req.body.userName, 'info@udkh.cz', 'Nová poptávka', htmlPage); // 'pkaspar1@seznam.cz' config.emailOptions.to
       if (emailRegexp.test(req.body.userEmail)) {
         await sendEmailEmailLabs('dlouhanfrankie2@seznam.cz-nepouzito', req.body.userName, req.body.userEmail, 'Nová poptávka', htmlPage); // 'pkaspar1@seznam.cz' req.body.userEmail
@@ -889,6 +893,8 @@ export const getStatusName = (statusNumber) => {
       return 'alexandria';
     case 7:
       return 'poptano';
+    case 8:
+      return 'prodano';
     default:
       return 'dostupne';
   }

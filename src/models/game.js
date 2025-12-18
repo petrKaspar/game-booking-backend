@@ -20,7 +20,17 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     count: Sequelize.NUMBER,
     lendingCount: Sequelize.NUMBER,
-    status: Sequelize.NUMBER,
+    status: {
+      type: Sequelize.NUMBER,
+      allowNull: false,
+      defaultValue: 1,
+      validate: {
+        isIn: {
+          args: [[1, 2, 3, 4, 5, 6, 7, 8]],
+          msg: 'Status must be between 1 and 8 (1=dostupne, 2=vypujceno, 3=rezervovano, 4=ztraceno, 5=naDotaz, 6=alexandria, 7=poptano, 8=prodano)'
+        }
+      }
+    },
     language: DataTypes.STRING,
     minPlayers: Sequelize.NUMBER,
     maxPlayers: Sequelize.NUMBER,

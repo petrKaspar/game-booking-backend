@@ -313,9 +313,17 @@ export const reserveGame = async (req, res) => {
       if (!game) {
         throw new Error('Game not found!');
       }
+      
+      // Zamezit rezervaci/poptávku již poptaných (7) nebo prodaných (8) her
+      if (game.status === 7 || game.status === 8) {
+        throw new Error(`Hra "${game.name}" již není k dispozici (status: ${game.status === 7 ? 'poptáno' : 'prodáno'}).`);
+      }
+      
+      // Povolit pouze dostupné hry (1, 5, 6)
       if (game.status !== 1 && game.status !== 5 && game.status !== 6 || !game.public) {
         throw new Error('Game is not available now!');
       }
+      
       if (!req.body.userName || !req.body.userEmail) {
         console.error(req.params.id, req.body);
         throw new Error('Invalid request');
